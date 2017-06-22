@@ -1,13 +1,13 @@
 # Project Name
 
-> Pithy project description
+> Ridesharing for roadtrips.
 
 ## Team
 
-  - teamMember
-  - teamMember
-  - teamMember
-  - teamMember
+  - Dylan Gould
+  - Jun Park
+  - Kirk Rohani
+  - Solomon Tang
 
 ## Table of Contents
 
@@ -26,26 +26,27 @@
 ## Requirements
 
 - Node 6.4.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Express
+- Bluebird
+- MySQL
+- Bookshelf
+- Knex
+- React
+- React-Router
+- Webpack
+- OAuth
+- Semantic UI
 
 ## Development
 
 ### Installing Dependencies
 
 From within the root directory:
-
-```sh
-npm install -g bower
 npm install
-bower install
-```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
+View the project roadmap [here](https://docs.google.com/spreadsheets/d/1qvELqspwBzu_og30xSAj4ViRLPGYnv1LJnIDYHPKNvE/edit#gid=0)
 
 
 ## Contributing
