@@ -8,7 +8,7 @@ dbConfig = {
   client: 'mysql',
   connection: {
     host : '127.0.0.1',
-    user : '',
+    user : 'root',
     password : '',
     database : 'toads'
   }
@@ -29,3 +29,24 @@ module.exports = bookshelf;
   // var Post = bookshelf.Model.extend({
   //    ...
   // });
+
+const Trips = bookshelf.Model.extend({
+  tableName: 'trips',
+  posts: function() {
+    return this.hasMany(Posts);
+  }
+});
+
+const TripsToads = bookshelf.Model.extend({
+  tableName: 'trips_toads',
+  tags: function() {
+    return this.belongsToMany(Tag);
+  }
+});
+
+const Users = bookshelf.Model.extend({
+  tableName: 'users',
+
+
+})
+
