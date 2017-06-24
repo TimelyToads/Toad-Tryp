@@ -24,11 +24,9 @@ const bookshelf = require('bookshelf')(knex);
 module.exports = bookshelf;
 
 // elsewhere, to use the bookshelf client:
-  // var bookshelf = require('./bookshelf');
 
-  // var Post = bookshelf.Model.extend({
-  //    ...
-  // });
+// var bookshelf = require('./bookshelf');
+// * * * TEMPLATE BOOKSHELF TABLE INSTANCES OF OUR DATABASE * * * // 
 
 const Trips = bookshelf.Model.extend({
   tableName: 'trips',
@@ -36,6 +34,7 @@ const Trips = bookshelf.Model.extend({
     return this.hasMany(Users);
   }
 });
+
 
 const TripsToads = bookshelf.Model.extend({
   tableName: 'trips_toads',
