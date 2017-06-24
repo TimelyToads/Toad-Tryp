@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-start": "nodemon ./server/index.js",
-    "react-start": "webpack -d --watch",
-    "db-start": "mongod -dbpath ./database/data/db"
+    "react-start": "webpack -d --watch"
   },
   "repository": {
     "type": "git",
