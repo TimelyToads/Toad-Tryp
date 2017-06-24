@@ -32,21 +32,25 @@ module.exports = bookshelf;
 
 const Trips = bookshelf.Model.extend({
   tableName: 'trips',
-  posts: function() {
-    return this.hasMany(Posts);
+  users: function() {
+    return this.hasMany(Users);
   }
 });
 
 const TripsToads = bookshelf.Model.extend({
   tableName: 'trips_toads',
-  tags: function() {
-    return this.belongsToMany(Tag);
+  trips: function() {
+    return this.belongsToMany(Trips);
+  },
+  users: function() {
+    return this.hasMany(Users);
   }
 });
 
 const Users = bookshelf.Model.extend({
   tableName: 'users',
-
-
+  trips: function() {
+    return this.belongsToMany(Trips);
+  }
 })
 
