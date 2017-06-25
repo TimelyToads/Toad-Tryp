@@ -1,8 +1,7 @@
 import React from 'react';
 
-const SearchResults = ({}) => (
+const SearchResults = ({trips}) => (
   <div>
-    <h1> Search Results! </h1>
   </div>
 );
 

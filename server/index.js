@@ -67,14 +67,13 @@ app.get('/trips', (req, res) => {
   console.log('this is getting to the server', req.query)
 
   // model.where({favorite_color: 'red', shoe_size: 12}).fetch().then(function() { //...
-
-  // .where({
-  //   departure_city: req.query.depart,
-  //   arrival_city: req.query.arrive
-  // })
-  Trips.collection().fetch().then((trips) => {
-    console.log(users)
-    res.status(200).send(trips);
+  Trips.where({
+    departure_city: req.query.depart,
+    arrival_city: req.query.arrive,
+  }).fetch()
+  .then((trips) => {
+    console.log(trips)
+    res.status(200).send(JSON.stringify(trips));
   })
   .catch((err) => {
     res.status(404).send(err);
