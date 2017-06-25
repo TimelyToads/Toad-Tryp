@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import NavBar from './components/NavBar.jsx';
+
 
 class App extends React.Component {
   render () {
     return (
-      <div>Hello React front end</div>
+      <div>
+        <NavBar />
+      </div>
     );
-  }
-}
+  };
+};
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'))
