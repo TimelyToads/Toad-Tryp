@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha",
     "dev-start": "nodemon ./server/index.js",
-    "react-start": "webpack -d --watch"
+    "react-start": "webpack -d --watch",
+    "db-seed": "mysql -u root < database/sql/schema.sql"
   },
   "repository": {
     "type": "git",
