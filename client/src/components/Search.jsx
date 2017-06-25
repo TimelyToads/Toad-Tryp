@@ -15,7 +15,7 @@ class Search extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleSubmit() {
-    
+    //redirect to search page do axios request to server with current state
   }
   handleChange(e) {
     console.log(e.target);
