@@ -11,10 +11,10 @@ import Home from './Home.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import NotFound from './NotFound.jsx';
-// Each logical "route" has two components, one for
-// the sidebar and one for the main area. We want to
-// render both of them in different places when the
-// path matches the current URL.
+
+// Each logical "route" a component. We want to
+// render them when the path matches the current URL.
+
 const routes = [
   { path: '/',
     exact: true,
@@ -42,20 +42,17 @@ const SidebarExample = () => (
           <li><Link to="/signup">Sign Up</Link></li>
         </ul>
       </nav>
-      <div>
-        <Switch>
-          {routes.map((route, index) => (
-            // Render more <Route>s with the same paths as
-            // above, but different components this time.
-            <Route
-              key={index}
-              path={route.path}
-              exact={route.exact}
-              component={route.main}
-            />
-          ))}
-        </Switch>
-      </div>
+      <Switch>
+        {routes.map((route, index) => (
+          // Render more <Route>s with the same paths
+          <Route
+            key={index}
+            path={route.path}
+            exact={route.exact}
+            component={route.main}
+          />
+        ))}
+      </Switch>
     </div>
   </Router>
 )
