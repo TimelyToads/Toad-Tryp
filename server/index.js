@@ -63,6 +63,23 @@ app.post('/trip', (req, res) => {
 
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
+app.get('/trips', (req, res) => {
+  console.log('this is getting to the server', req.query)
+
+  // model.where({favorite_color: 'red', shoe_size: 12}).fetch().then(function() { //...
+
+  // .where({
+  //   departure_city: req.query.depart,
+  //   arrival_city: req.query.arrive
+  // })
+  Trips.collection().fetch().then((trips) => {
+    console.log(users)
+    res.status(200).send(trips);
+  })
+  .catch((err) => {
+    res.status(404).send(err);
+  })
+})
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname + '/../client/dist/index.html'));

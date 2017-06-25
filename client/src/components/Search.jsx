@@ -1,5 +1,6 @@
 import React from 'react';
-import range from 'lodash/range'
+import range from 'lodash/range';
+import axios from 'Axios';
 
 class Search extends React.Component {
   constructor(props) {
@@ -14,17 +15,28 @@ class Search extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  handleSubmit() {
+  handleSubmit(e) {
     //redirect to search page do axios request to server with current state
+    e.preventDefault();
+    this.fetch();
   }
   handleChange(e) {
-    console.log(e.target);
-    this.setState(
-      {
-        [e.target.name]: e.target.value
-      }
-    )
+    this.setState({ [e.target.name]: e.target.value })
   }
+
+  fetch() {
+    console.log('this is fetching the following: ', this.state)
+    axios.get('/trips', { 
+      params: this.state 
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   render() {
     let s = range(1,6);
     return (
