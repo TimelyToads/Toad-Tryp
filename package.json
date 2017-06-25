@@ -4,10 +4,9 @@
   "description": "",
   "main": "server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "dev-start": "nodemon ./server/index.js",
-    "react-start": "webpack -d --watch",
-    "db-start": "mongod -dbpath ./database/data/db"
+    "react-start": "webpack -d --watch"
   },
   "repository": {
     "type": "git",
@@ -27,8 +26,10 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "bookshelf": "^0.10.3",
+    "chai": "^4.0.2",
     "express": "^4.15.3",
     "knex": "^0.12.5",
+    "mocha": "^3.4.2",
     "mysql": "^2.13.0",
     "node": "0.0.0",
     "react": "^15.6.1",
