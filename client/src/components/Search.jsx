@@ -67,7 +67,7 @@ class Search extends React.Component {
         </form>
         {fireRedirect && (
           <Redirect from={'/'} push to={{
-            pathname: '/search',
+            pathname: '/searchresults',
             state: { trips }
           }}/>
         )}

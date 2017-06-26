@@ -24,7 +24,7 @@ const routes = [
     main: Signup
   },
   {
-    path:'/search',
+    path:'/searchresults',
     main: SearchResults
   },
   {
