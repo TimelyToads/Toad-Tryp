@@ -2,6 +2,7 @@ import React from 'react';
 
 const SearchResultsItem = ({trip}) => (
   <div className="search-results-item">
+
     <span><b>Departure:</b> 
     {trip.departure_address_line1 }  
     {trip.departure_city}, {trip.departure_state}   </span> 

@@ -59,13 +59,13 @@ CREATE TABLE IF NOT EXISTS trips_toads (
 
 -- DUMMY DATA -- 
 
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('jun123', 'jun@abc.com', '123456', 'www.agnjfngjc.com', '719-420-7890', 'Jun', 'Babboon');
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('solomon123', '123@abc.com', '123456', 'www.abc.com', '123-456-7890', 'Solomon', 'Sucks');
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('kirk123', '456@abc.com', '456', 'www.123.com', '123-123-7890', 'Kirk', 'Rawr');
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('dylan123', 'dylan@abc.com', '123456', 'www.aasdadbc.com', '777-456-7290', 'Dylan', 'Doofus');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('jun123', 'jun@abc.com', '123456', '../../client/src/img/jun.png', '719-420-7890', 'Jun', 'Babboon');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('solomon123', '123@abc.com', '123456', '../../client/src/img/solomon.png', '123-456-7890', 'Solomon', 'Sucks');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('kirk123', '456@abc.com', '456', '../../client/src/img/kirk.png', '123-123-7890', 'Kirk', 'Rawr');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('dylan123', 'dylan@abc.com', '123456', '../../client/src/img/dylan.png', '777-456-7290', 'Dylan', 'Doofus');
 
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('james123', 'james@abc.com', '1234ng56', 'www.007.com', '415-420-7890', 'James', 'Bond', '1km2nj3nj3n', 'Aston Martin', 'F1', '2017', 'Sportscar', 'ABC123');
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('jun123', 'donald@abc.com', 'ivanka', 'www.whitehouse.gov', '909-000-0001', 'Donald', 'Trump', '1mk2jnj3ni1', 'Ford', 'Explorer', '2015', 'SUV', '123XYZ');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('james123', 'james@abc.com', '1234ng56', '../../client/src/img/james.jpg', '415-420-7890', 'James', 'Bond', '1km2nj3nj3n', 'Aston Martin', 'F1', '2017', 'Sportscar', 'ABC123');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('jun123', 'donald@abc.com', 'ivanka', '../../client/src/img/donald.jpg', '909-000-0001', 'Donald', 'Trump', '1mk2jnj3ni1', 'Ford', 'Explorer', '2015', 'SUV', '123XYZ');
 
 INSERT INTO trips (
   driver_id, 
