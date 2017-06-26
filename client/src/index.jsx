@@ -22,6 +22,11 @@ class App extends React.Component {
     this.state = {
       searchData: []
     }
+    this.setSearchData = this.setSearchData.bind(this);
+  }
+
+  setSearchData(searchData) {
+    this.setState({ searchData });
   }
 >>>>>>> Refactoring to handle redirect with data
   render () {

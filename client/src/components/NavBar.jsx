@@ -11,6 +11,7 @@ import Home from './Home.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import NotFound from './NotFound.jsx';
+import SearchResults from './SearchResults.jsx';
 
 // Each logical "route" a component. We want to
 // render them when the path matches the current URL.
@@ -25,6 +26,10 @@ const routes = [
   },
   { path: '/signup',
     main: Signup
+  },
+  {
+    path:'/search',
+    main: SearchResults
   },
   {
     path:'*',

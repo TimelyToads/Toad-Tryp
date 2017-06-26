@@ -2,6 +2,8 @@ import React from 'react';
 import range from 'lodash/range';
 import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
+import Redirect from 'react-router-dom/redirect'
+import query from 'query-string'
 
 class Search extends React.Component {
   constructor(props) {
@@ -39,11 +41,7 @@ class Search extends React.Component {
     .then(function (response) {
       console.log('this is properly responding', response);
       app.setState({
-        depart: app.state.depart,
-        arrive: app.state.arrive,
-        departdate: app.state.departdate,
-        arrivedate: app.state.arrivedate,
-        seats: app.state.seats,
+        fireRedirect: true,
         trips: response.data
       });
     })
