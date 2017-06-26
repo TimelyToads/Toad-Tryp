@@ -2,6 +2,8 @@ import React from 'react';
 import range from 'lodash/range';
 import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
+import Redirect from 'react-router-dom/redirect'
+import query from 'query-string'
 
 class Search extends React.Component {
   constructor(props) {
@@ -12,13 +14,13 @@ class Search extends React.Component {
       departdate: '',
       arrivedate: '',
       seats: '',
+      fireRedirect: false,
       trips: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   handleSubmit(e) {
-    //redirect to search page do axios request to server with current state
     e.preventDefault();
     this.fetch();
   }
@@ -36,11 +38,7 @@ class Search extends React.Component {
     .then(function (response) {
       console.log('this is properly responding', response);
       app.setState({
-        depart: app.state.depart,
-        arrive: app.state.arrive,
-        departdate: app.state.departdate,
-        arrivedate: app.state.arrivedate,
-        seats: app.state.seats,
+        fireRedirect: true,
         trips: response.data
       });
     })
@@ -51,6 +49,7 @@ class Search extends React.Component {
 
   render() {
     let s = range(1,6);
+    const { fireRedirect, trips } = this.state;
     return (
       <div className="search">
         <form onSubmit={this.handleSubmit}>
@@ -66,7 +65,12 @@ class Search extends React.Component {
           </select>
           <button type="submit">Find Tryp</button>
         </form>
-        {this.state.trips.length > 0 ? <SearchResults trips={this.state.trips} /> : ''}
+        {fireRedirect && (
+          <Redirect from={'/'} push to={{
+            pathname: '/searchresults',
+            state: { trips }
+          }}/>
+        )}
 
       </div>
     )

@@ -1,7 +1,6 @@
 // The Bookshelf library is initialized by passing an initialized Knex client instance. 
 // The knex documentation provides a number of examples for different databases.
 // http://knexjs.org/
-
 const dbConfig = {
   client: 'mysql',
   connection: {
@@ -14,7 +13,6 @@ const dbConfig = {
 const knex = require('knex')(dbConfig);
 
 
-
 // This initialization should likely only ever happen once in your application. 
 // As it creates a connection pool for the current database, 
 // you should use the bookshelf instance returned throughout your library. 
@@ -24,8 +22,5 @@ const knex = require('knex')(dbConfig);
 const bookshelf = require('bookshelf')(knex);
 
 // elsewhere, to use the bookshelf client:
-
-// var bookshelf = require('./bookshelf');
-// * * * TEMPLATE BOOKSHELF TABLE INSTANCES OF OUR DATABASE * * * // 
 
 module.exports = bookshelf;
