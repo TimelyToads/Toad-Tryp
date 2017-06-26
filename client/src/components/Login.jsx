@@ -1,7 +1,5 @@
 import React from 'react';
 import DocMeta from 'react-doc-meta';
-import path from 'path';
-import axios from 'axios';
 import API_Keys from '../../../lib/api_keys.js';
 
 
@@ -10,8 +8,6 @@ class Login extends React.Component {
     super();
   
   }
-
-
 
 
   componentDidMount() {
