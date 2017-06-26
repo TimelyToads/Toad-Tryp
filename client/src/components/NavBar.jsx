@@ -1,21 +1,15 @@
 import React from 'react'
 import {
-  BrowserRouter as Router,
-  browserHistory,
-  Route,
   Link,
-  Switch
 } from 'react-router-dom'
 
-import Home from './Home.jsx';
-import Login from './Login.jsx';
-import Signup from './Signup.jsx';
-import NotFound from './NotFound.jsx';
-import SearchResults from './SearchResults.jsx';
+import MyRoutes from './MyRoutes.jsx'
+
 
 // Each logical "route" a component. We want to
 // render them when the path matches the current URL.
 
+<<<<<<< HEAD
 const routes = [
   { path: '/',
     exact: true,
@@ -45,6 +39,9 @@ const SidebarExample = () => (
 const NavBar = (props) => (
 >>>>>>> Refactoring to handle redirect with data
   <Router history={browserHistory}>
+=======
+const NavBar = (props) => (
+>>>>>>> Refactor to separate NavBar from MyRoutes and Redirect to /search from search submission
     <div>
       <nav>
         <ul>
@@ -53,19 +50,7 @@ const NavBar = (props) => (
           <li><Link to="/signup">Sign Up</Link></li>
         </ul>
       </nav>
-      <Switch>
-        {routes.map((route, index) => (
-          // Render more <Route>s with the same paths
-          <Route
-            key={index}
-            path={route.path}
-            exact={route.exact}
-            component={route.main}
-          />
-        ))}
-      </Switch>
     </div>
-  </Router>
 )
 
 export default NavBar;

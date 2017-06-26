@@ -1,10 +1,14 @@
 import React from 'react';
 
+import Search from './Search.jsx';
+
+//Resulting trips array can be found at props.location.state.trips
+
 const SearchResults = (props) => (
   <div>
     <h1>SEARCH RESULTS!</h1>
-    
-    {console.log(props)}
+      <Search />
+    {console.log(props.location.state)}
   </div>
 );
 
