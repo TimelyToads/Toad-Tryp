@@ -4,6 +4,7 @@ import NavBar from './components/NavBar.jsx';
 
 
 class App extends React.Component {
+<<<<<<< HEAD
   constructor() {
     super();
 
@@ -15,6 +16,14 @@ class App extends React.Component {
 
   }
 
+=======
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchData: []
+    }
+  }
+>>>>>>> Refactoring to handle redirect with data
   render () {
     return (
       <div>

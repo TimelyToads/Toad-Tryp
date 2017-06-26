@@ -12,6 +12,7 @@ class Search extends React.Component {
       departdate: '',
       arrivedate: '',
       seats: '',
+      fireRedirect: false,
       trips: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,8 +20,10 @@ class Search extends React.Component {
   }
   handleSubmit(e) {
     //redirect to search page do axios request to server with current state
+    
     e.preventDefault();
     this.fetch();
+    
   }
 
   handleChange(e) {
@@ -51,6 +54,7 @@ class Search extends React.Component {
 
   render() {
     let s = range(1,6);
+    const { fireRedirect } = this.state;
     return (
       <div className="search">
         <form onSubmit={this.handleSubmit}>
@@ -66,7 +70,12 @@ class Search extends React.Component {
           </select>
           <button type="submit">Find Tryp</button>
         </form>
-        {this.state.trips.length > 0 ? <SearchResults trips={this.state.trips} /> : ''}
+        {fireRedirect && (
+          <Redirect from={'/'} push to={{
+            pathname: '/search',
+            search: query.stringify(this.state)
+          }}/>
+        )}
 
       </div>
     )

@@ -32,9 +32,13 @@ const routes = [
   }
 ]
 
+<<<<<<< HEAD
 
 
 const SidebarExample = () => (
+=======
+const NavBar = (props) => (
+>>>>>>> Refactoring to handle redirect with data
   <Router history={browserHistory}>
     <div>
       <nav>
@@ -59,4 +63,4 @@ const SidebarExample = () => (
   </Router>
 )
 
-export default SidebarExample
+export default NavBar;
