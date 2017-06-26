@@ -4,6 +4,17 @@ import NavBar from './components/NavBar.jsx';
 
 
 class App extends React.Component {
+  constructor() {
+    super();
+
+
+  }
+
+  componentDidMount() {
+
+
+  }
+
   render () {
     return (
       <div>
