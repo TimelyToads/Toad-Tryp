@@ -17,10 +17,10 @@ app.get('/users', (req, res) => {
   models.Users.fetch().then( (users) => {
     res.status(200).send(users);
   })
-  .catch( (err) => {
-    console.log('ERROR GETting Users collection: ', err);
-    res.status(404).send(err);
-  });
+    .catch( (err) => {
+      console.log('ERROR GETting Users collection: ', err);
+      res.status(404).send(err);
+    });
 });
 
 app.get('/trips', (req, res) => {
@@ -71,19 +71,18 @@ app.get('/trips', (req, res) => {
     departure_city: req.query.depart,
     arrival_city: req.query.arrive,
   }).fetch()
-  .then((trips) => {
-    console.log(trips)
-    res.status(200).send(JSON.stringify(trips));
-  })
-  .catch((err) => {
-    res.status(404).send(err);
-  })
-})
+    .then((trips) => {
+      console.log(trips)
+      res.status(200).send(JSON.stringify(trips));
+    })
+    .catch((err) => {
+      res.status(404).send(err);
+    })
+});
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
 });
-
 app.listen(PORT, ADDRESS, () => {
   console.log('Toad Tryp server listening on port 3000.');
 });

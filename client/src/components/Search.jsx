@@ -1,6 +1,6 @@
 import React from 'react';
 import range from 'lodash/range';
-import axios from 'Axios';
+import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
 
 class Search extends React.Component {
