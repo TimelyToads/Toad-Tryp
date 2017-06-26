@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchResultsItem from './SearchResultsItem.jsx'
 
 import Search from './Search.jsx';
 
