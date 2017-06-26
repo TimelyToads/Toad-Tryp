@@ -1,8 +1,8 @@
 import React from 'react';
 
-const SearchResultsItem = ({trip}) => (
-  <div className="search-results-item">
-
+const Trip = ({trip, match}) => (
+  <div className="trip">
+    {console.log(match)}
     <span><b>Departure:</b> 
     {trip.departure_address_line1 }  
     {trip.departure_city}, {trip.departure_state}   </span> 
@@ -13,7 +13,7 @@ const SearchResultsItem = ({trip}) => (
   </div>
 );
 
-export default SearchResultsItem;
+export default Trip;
 
 // arrival_address_line1
 // :
