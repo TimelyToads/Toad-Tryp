@@ -35,11 +35,8 @@
     "mocha": "^3.4.2",
     "mysql": "^2.13.0",
     "node": "0.0.0",
-<<<<<<< HEAD
     "passport-google-oauth2": "^0.1.6",
-=======
     "query-string": "^4.3.4",
->>>>>>> Submitting search terms redirects to search results page with correct search query on bare props object
     "react": "^15.6.1",
     "react-doc-meta": "^0.2.0",
     "react-dom": "^15.6.1",

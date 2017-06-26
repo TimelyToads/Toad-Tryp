@@ -1,10 +1,6 @@
 // The Bookshelf library is initialized by passing an initialized Knex client instance. 
 // The knex documentation provides a number of examples for different databases.
 // http://knexjs.org/
-<<<<<<< HEAD
-
-=======
->>>>>>> Merge conflicts
 const dbConfig = {
   client: 'mysql',
   connection: {
