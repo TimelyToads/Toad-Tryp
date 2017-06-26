@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const models = require('../database/models/models.js');
 const Trips = models.Trip;
+const User = models.Users;
 
 const app = express();
 const ADDRESS = '127.0.0.1';
@@ -81,7 +82,7 @@ app.get('/api/trips', (req, res) => {
   })
   .fetch()
   .then((trips) => {
-    console.log(trips)
+    // console.log(trips.related('user'))
     res.status(200).send(JSON.stringify(trips));
   })
   .catch( (err) => {
