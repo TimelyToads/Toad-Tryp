@@ -17,29 +17,29 @@ import Profile from './Profile.jsx';
 const routes = [
   { path: '/',
     exact: true,
-    main: Home
+    component: Home
   },
   { path: '/login',
-    main: Login
+    component: Login
   },
   { path: '/signup',
-    main: Signup
+    component: Signup
   },
   {
     path:'/searchresults',
-    main: SearchResults
+    component: SearchResults
   },
   {
     path:'/trip/:tripId',
-    main: Trip
+    component: Trip
   },
   {
     path: '/profile/:username',
-    main: Profile
+    component: Profile
   },
   {
     path:'*',
-    main: NotFound
+    component: NotFound
   }
 ]
 
@@ -51,7 +51,7 @@ const MyRoutes = () => (
         key={index}
         path={route.path}
         exact={route.exact}
-        component={route.main}
+        component={route.component}
       />
     ))}
   </Switch>
