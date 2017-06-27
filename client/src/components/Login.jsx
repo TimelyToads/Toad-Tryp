@@ -11,15 +11,11 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = { userLoggedIn: false };
-
-  
   }
-
 
   componentDidMount() {
 
-    console.log('Inside  Login.jsx/componentDidMount', this.props);
- 
+    console.log('Inside  Login.jsx/componentDidMount' );
     gapi.signin2.render('g-signin2', {
 			'scope': 'profile email',
 			'width': 200,
@@ -36,16 +32,18 @@ class Login extends React.Component {
     console.log('INSIDE Login.jsx/onSignInSuccess: ', googleData);
 
     let googleUserObject = AuthenticationHelper.retrieveUserInfo(googleData);
+    window.authToken = googleUserObject.authToken;
 
-    AuthenticationHelper.validateToken(googleUserObject.authToken)
+    AuthenticationHelper.isUserAuthenticated()
       .then( res => {
-        console.log('Successfully validated token', this.props.authenticateUserFunc);
+        console.log('Successfully called AuthenticationHelper.isUserAuthenticated()', res);
         this.props.authenticateUserFunc();
+        
+
         if (res.status === 200 && res.data.aud === API_Keys.client_id) {
           this.setState({
             userLoggedIn: true
           });
-          
         }
       })
       .catch( err => {

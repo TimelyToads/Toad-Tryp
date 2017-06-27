@@ -4,6 +4,7 @@ import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
 import Redirect from 'react-router-dom/redirect'
 import query from 'query-string'
+import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 
 class Search extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Search extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
   handleSubmit(e) {
     e.preventDefault();
     this.fetch();
@@ -48,6 +50,7 @@ class Search extends React.Component {
   }
 
   render() {
+
     let s = range(1,6);
     const { fireRedirect, trips } = this.state;
 
