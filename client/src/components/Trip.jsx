@@ -17,11 +17,7 @@ class Trip extends React.Component {
 
   fetch(tripId) {
     const app = this;
-    axios.get('/api/trips/:tripId', { 
-      params: {
-        tripId: tripId
-      }
-    })
+    axios.get(`/api/trips/${tripId}`)
     .then(function(response) {
       console.log('Successfully fetching from db in Trip Component', response);
       app.setState({
@@ -61,7 +57,8 @@ class Trip extends React.Component {
               <h4>{trips.arrival_address_line1}</h4>
               <h4>{trips.arrival_city}, {trips.arrival_state}, {trips.arrival_zip}</h4>
             </div>
-            <button>Request to Book</button>
+            <button>Request to Book</button><br/>
+            <span className="disclaimer">You won't be charged until your Driver accepts your reservation.</span>
           </div>
         </div>
       </div>

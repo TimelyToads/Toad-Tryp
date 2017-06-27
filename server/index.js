@@ -147,8 +147,8 @@ app.get('/bundle.js', function(req, res){
   res.sendFile(path.join(__dirname + '/../client/dist/bundle.js'));
 });
 
-app.get('/style.css', function(req, res){
-  res.sendFile(path.join(__dirname + '/../client/dist/style.css'));
+app.get('/styles.css', function(req, res){
+  res.sendFile(path.join(__dirname + '/../client/dist/styles.css'));
 });
 
 app.get('/*', function(req, res){
