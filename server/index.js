@@ -138,11 +138,7 @@ app.get('/api/trips/:tripId', (req,res) => {
     console.error(message);
     res.status(404).send({ message });
   });
-<<<<<<< HEAD
-})
-=======
 });
->>>>>>> GET /api/trips/:tripId gets the right driver driver
 
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
