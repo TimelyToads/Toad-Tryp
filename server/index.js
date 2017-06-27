@@ -3,8 +3,8 @@ const session = require('express-session');
 const path = require('path');
 const bodyParser = require('body-parser');
 const models = require('../database/models/models.js');
-const Trips = models.Trip;
-const User = models.Users;
+const Trip = models.Trip;
+const User = models.User;
 
 const app = express();
 const ADDRESS = '127.0.0.1';
@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 /**************USERS*****************/
 app.get('/api/users', (req, res) => {
   console.log('GET /users endpoint pinged.');
-  models.Users.fetch().then( (users) => {
+  User.fetch().then( (users) => {
     res.status(200).send(users);
   })
     .catch( (err) => {
@@ -37,7 +37,7 @@ app.get('/api/users', (req, res) => {
 app.get('/api/users/:username' ,(req, res) => {
   const username = req.params.username;
   console.log(`GET /api/users/${username}`);
-  models.User.forge({ username })
+  User.forge({ username })
   .fetch().then( user => {
     if (user) {
       console.log('\tSUCCESS');
@@ -56,7 +56,7 @@ app.get('/api/users/:username' ,(req, res) => {
 app.get('/api/users/:username/trips', (req, res) => {
   const username = req.params.username;
   console.log(`GET /api/users/${username}/trips`);
-  models.User.forge({ username })
+  User.forge({ username })
   .fetch({withRelated: ['hostedTrips', 'trips']})
   .then( (trips) => {
     if (trips) {
@@ -102,7 +102,7 @@ app.post('/api/trips', (req, res) => {
 
 
 app.get('/api/trips', (req, res) => {
-  Trips.query((qb) => {
+  Trip.query((qb) => {
     qb.where({
       departure_city: req.query.depart,
       arrival_city: req.query.arrive,
@@ -123,7 +123,7 @@ app.get('/api/trips', (req, res) => {
 app.get('/api/trips/:tripId', (req,res) => {
   const id = req.params.tripId;
   console.log(`GET /api/trips/${id}`);
-  Trips.where({ id })
+  Trip.where({ id })
   .fetch({withRelated: ['driver','riders']})
   .then( (trip) => {
     if (trip) {
