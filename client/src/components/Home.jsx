@@ -7,9 +7,14 @@ class Home extends React.Component {
   }
   render() {
     return (<div>
-      <h1>
-        Toad Tryp
-      </h1>
+      <div className="page-heading">
+        <h1>
+          ToadTryp
+        </h1>
+        <h2>
+          Go anywhere with a fellow Toad.
+        </h2>
+      </div>
       <Search />
     </div>);
   }

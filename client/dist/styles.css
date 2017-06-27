@@ -1,0 +1,104 @@
+
+* {
+  font-family: Futura;
+}
+
+
+h1 {
+  color: #21BA45;
+  font-size: 50px;
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  color: gray;
+}
+
+h3 {
+  color: #21BA45;
+  font-size: 40px;
+  margin: 0;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 50px;
+  padding: 0;
+  overflow: hidden;
+  margin-right: 100px;
+}
+
+nav li {
+  float: right;
+}
+
+nav a {
+  text-decoration: none;
+  width: 100px;
+  display: block;
+  color: #21BA45;
+  font-size: 20px;
+}
+
+.page-heading {
+  margin-left: 230px;
+}
+
+.search {
+  text-align:center;
+}
+
+.search-form {
+  padding: 20px; 
+}
+
+.search-form input {
+  padding: 10px;
+  font-size: 14px;
+  width: 180px;
+}
+
+.search-form select {
+  padding: 40px;
+  height: 40px;
+  border-radius: 0;
+  font-size: 14px;
+  background: transparent;
+}
+
+.search-form button {
+  padding: 10px;
+  font-size: 14px;
+  background-color: #21BA45;
+  color: white;
+  font-weight:bold;
+  border-style:none;
+  border-radius: 2px
+}
+
+.search-results {
+  margin: 0 230px;
+}
+
+.search-results-item {
+  margin: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: lightgrey;
+  padding: 20px
+
+}
+
+.search-arrival {
+  float: right;
+}
+
+.search-item-price {
+  color: #21BA45;
+  font-weight: bold;
+}
+
+.search-item-seats {
+  float: right;
+}

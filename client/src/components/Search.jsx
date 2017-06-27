@@ -56,13 +56,17 @@ class Search extends React.Component {
 
     return (
       <div className="search">
-        <form onSubmit={this.handleSubmit}>
+        <form className="search-form" onSubmit={this.handleSubmit}>
           <input type="text" name="depart" placeholder="Depart" value={this.state.depart} onChange={this.handleChange}/>
           <input type="text" name="arrive" placeholder="Arrive" value={this.state.arrive} onChange={this.handleChange}/>
+
+
+          
           <input type="text" name="departdate" placeholder="Depart Date" value={this.state.departdate} onChange={this.handleChange}/>
           <input type="text" name="arrivedate" placeholder="Arrive Date" value={this.state.arrivedate} onChange={this.handleChange}/>
           
           <select name="seats" value={this.state.seats} onChange={this.handleChange}>
+            <option key="Seats" value="#" >Seats</option>
             {s.map( (n, i) => {
               return <option key={i} value={n}>{n}</option>
             })}

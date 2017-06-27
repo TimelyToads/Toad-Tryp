@@ -28,8 +28,11 @@ class SearchResults extends React.Component {
     const { redirectTo } = this.state;
     return (
     <div>
-      <h1>SEARCH RESULTS!</h1>
-        <Search />
+      <div className="page-heading">
+        <h1>SEARCH RESULTS!</h1>
+      </div>
+      <Search />
+      <div className="search-results">
         {
           (() => {
             if (location.state.trips !== null) {
@@ -46,8 +49,11 @@ class SearchResults extends React.Component {
 
         {redirectTo &&
           <Redirect push to={this.state.redirectTo} />}
+      </div>
     </div>);
   }
 };
+
+
 
 export default SearchResults;
