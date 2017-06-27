@@ -12,6 +12,9 @@ const Trip = bookshelf.Model.extend({
   tableName: 'trips',
   riders: function() {
     return this.belongsToMany(User,'trips_toads');
+  },
+  driver:function () {
+    return this.belongsTo(User);
   }
 });
 

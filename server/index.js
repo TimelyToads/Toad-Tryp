@@ -21,6 +21,8 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+/**************USERS*****************/
 app.get('/api/users', (req, res) => {
   console.log('GET /users endpoint pinged.');
   models.Users.fetch().then( (users) => {
@@ -32,20 +34,12 @@ app.get('/api/users', (req, res) => {
     });
 });
 
+app.get('/api/users/:username' ,(req, res) => {
+  console.log('WELCOME TO USERS ENDPOINT');
+  res.status(200).send();
+})
 
-// app.get('/trips', (req, res) => {
-//   console.log('GET /trips endpoint pinged.');
-//   models.Trips.fetch()
-//     .then( (trips) => {
-//       res.status(200).send(trips);
-//     })
-    // .catch( (err) => {
-    //   console.log('ERROR GETting Trips collection: ', err);
-    //   res.status(404).send(err);
-    // });
-// });
-
-app.post('/api/user', (req, res) => {
+app.post('/api/users', (req, res) => {
   let user = req.body;
   console.log('POSTing user data: ', user);
   new models.User(user).save()
@@ -58,7 +52,8 @@ app.post('/api/user', (req, res) => {
     });
 });
 
-app.post('/api/trip', (req, res) => {
+/**************TRIPS***************/
+app.post('/api/trips', (req, res) => {
   let trip = req.body;
   console.log('POSTing trip data: ', trip);
   new models.Trip(trip).save()
@@ -93,7 +88,7 @@ app.get('/api/trips', (req, res) => {
 
 
 app.get('/api/trips/:tripId', (req,res) => {
-  Trips.forge({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
+  Trips.where({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
     // console.log(JSON.stringify(trip.related('riders')));
     res.status(200).send(trip.toJSON());
   });
