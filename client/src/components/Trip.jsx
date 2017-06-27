@@ -31,6 +31,14 @@ class Trip extends React.Component {
 
   render() {
     const { trips } = this.state
+    const formatTime = (str) => {
+      let hour = parseInt(str.substring(0, 2), 10);
+      let minute = str.substring(2, 5);
+      let meridiem = (hour > 12) ? ' PM' : ' AM'
+      hour = (hour === 0) ? '12' : hour.toString()
+      return hour + minute + meridiem;
+    }
+
     return (
       <div>
         <div className="page-heading">
@@ -42,7 +50,7 @@ class Trip extends React.Component {
             <h3 className="green-text">Price: ${trips.price}</h3>
             <div>
               <h3>Departure:</h3>
-              <h4>Time: {(trips.departure_time) ? trips.departure_time.substring(0, 5) : ''}</h4>
+              <h4>{(trips.departure_time) ? `Departing at ${formatTime(trips.departure_time)}` : ''}</h4>
 
               <br/>
               <h4>Pickup Point: </h4>
@@ -51,7 +59,7 @@ class Trip extends React.Component {
             </div>
             <div>
               <h3>Arrival:</h3>
-              <h4>Time: {(trips.arrival_time) ? trips.arrival_time.substring(0, 5) : ''}</h4>
+              <h4>{(trips.arrival_time) ? `Arriving at ${formatTime(trips.arrival_time)}` : ''}</h4>
               <br />
               <h4>Dropoff Point: </h4>
               <h4>{trips.arrival_address_line1}</h4>
