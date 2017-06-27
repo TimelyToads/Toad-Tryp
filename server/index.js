@@ -35,15 +35,29 @@ app.get('/api/users', (req, res) => {
 });
 
 app.get('/api/users/:username' ,(req, res) => {
-  console.log('WELCOME TO USERS ENDPOINT');
-  res.status(200).send('sick get to /:username');
+  const username = req.params.username;
+  console.log(`GET /api/users/${username}`);
+  models.User.forge({ username })
+  .fetch().then( user => {
+    if (user) {
+      console.log('\tSUCCESS');
+      res.status(200).send(user.toJSON());
+    } else {
+      throw user;
+    }
+  })
+  .catch( err => {
+    const message = `\tUnable to find user: ${req.params.username}`
+    console.error(message);
+    res.status(404).send({ message });
+  });
 });
 
 app.get('/api/users/:username/trips', (req, res) => {
   const username = req.params.username;
   console.log(`GET /api/users/${username}/trips`);
   models.User.forge({ username })
-  .fetch({withRelated: ['trips']})
+  .fetch({withRelated: ['hostedTrips', 'trips']})
   .then( (trips) => {
     if (trips) {
       console.log('\tSUCCESS');
@@ -53,7 +67,7 @@ app.get('/api/users/:username/trips', (req, res) => {
     }
   })
   .catch( err => {
-    const message = `\tUnable to find trips for user: ${req.params.username}`
+    const message = `\tUnable to find user: ${req.params.username}`
     console.error(message);
     res.status(404).send({ message });
   });

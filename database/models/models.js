@@ -3,8 +3,11 @@ const bookshelf = require('../bookshelf.js');
 
 const User = bookshelf.Model.extend({
   tableName: 'users',
-  trips: function () {
+  hostedTrips: function() {
     return this.hasMany(Trip,'driver_id');
+  },
+  trips: function() {
+    return this.belongsToMany(Trip,'trips_toads');
   }
 });
 
@@ -14,7 +17,7 @@ const Trip = bookshelf.Model.extend({
     return this.belongsToMany(User,'trips_toads');
   },
   driver:function () {
-    return this.belongsTo(User,'id');
+    return this.belongsTo(User,'driver_id');
   }
 });
 
