@@ -24,12 +24,8 @@ class NavBar extends React.Component {
      <div>
       <nav>
         <ul>
-<<<<<<< HEAD
           <li><Link to="/">Home</Link></li>
           <li>{loginLink}</li>
-=======
-          <li><Login /></li> 
->>>>>>> Add styling to Index and Search-related components.
           <li><Link to="/signup">Sign Up</Link></li>
           <li><Link to="/">Home</Link></li>
 
