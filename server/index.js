@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
   console.log('GET /users endpoint pinged.');
   models.Users.fetch().then( (users) => {
     res.status(200).send(users);
@@ -81,6 +81,13 @@ app.get('/api/trips', (req, res) => {
     res.status(404).send(err);
   });
 });
+
+app.get('/api/trips/:tripId', (req,res) => {
+  Trips.forge({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
+    // console.log(JSON.stringify(trip.related('riders')));
+    res.status(200).send(trip.toJSON());
+  });
+})
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
 

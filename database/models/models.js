@@ -2,11 +2,17 @@ const bookshelf = require('../bookshelf.js');
 
 
 const User = bookshelf.Model.extend({
-  tableName: 'users'
+  tableName: 'users',
+  trips: function () {
+    return this.hasMany(Trip);
+  }
 });
 
 const Trip = bookshelf.Model.extend({
-  tableName: 'trips'
+  tableName: 'trips',
+  riders: function() {
+    return this.belongsToMany(User,'trips_toads');
+  }
 });
 
 const Ride = bookshelf.Model.extend({
