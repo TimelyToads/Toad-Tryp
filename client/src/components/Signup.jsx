@@ -38,6 +38,7 @@ class Signup extends React.Component {
         fireRedirect: true,
         trips: response.data
       });
+      alert("Your Account has been successfully created!");
     })
     .catch(function (error) {
       console.log(error);
