@@ -4,8 +4,7 @@ import {
 } from 'react-router-dom'
 
 import MyRoutes from './MyRoutes.jsx'
-import Login from './Login.jsx'
-import Logout from './Logout.jsx'
+
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -26,8 +25,7 @@ class NavBar extends React.Component {
         <ul>
           <li>{loginLink}</li>
           <li><Link to="/signup">Sign Up</Link></li>
-          <li><Link to="/">Home</Link></li>
-
+          <li><Link to="/create">Become a Driver</Link></li>
         </ul>
       </nav>
     </div>
