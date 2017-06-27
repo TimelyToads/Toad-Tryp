@@ -1,19 +1,19 @@
 import React from 'react';
 
-const SearchResultsItem = ({trip}) => (
-  <div className="search-results-item">
+const SearchResultItem = ({trip, handleClick}) => (
+  <div className="search-result-item">
+    <span><b>Departure:</b>
+    {trip.departure_address_line1 }
+    {trip.departure_city}, {trip.departure_state}   </span>
 
-    <span><b>Departure:</b> 
-    {trip.departure_address_line1 }  
-    {trip.departure_city}, {trip.departure_state}   </span> 
-
-    <span><b>Arrival: </b> 
-    {trip.arrival_address_line1 }  
+    <span><b>Arrival: </b>
+    {trip.arrival_address_line1 }
     {trip.arrival_city}, {trip.arrival_state}</span>
+    <button value={trip.id} onClick={handleClick}>INSPECT</button>
   </div>
 );
 
-export default SearchResultsItem;
+export default SearchResultItem;
 
 // arrival_address_line1
 // :
