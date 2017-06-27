@@ -1,8 +1,6 @@
 import React from 'react';
 import Redirect from 'react-router-dom/redirect'
-
 import SearchResultItem from './SearchResultItem.jsx'
-
 import Search from './Search.jsx';
 // import SearchSwitch from './SearchSwitch.jsx';
 

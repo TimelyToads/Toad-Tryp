@@ -4,8 +4,30 @@ class Trip extends React.Component {
   constructor(props) {
     super(props);
     this.match = props.match;
+    this.state = {
+      trips: []
+    }
   }
 
+  componentDidMount() {
+    this.fetch(this.match);
+  }
+
+  fetch(trip_id) {
+    const app = this;
+    axios.get('/api/trips/:tripId', { 
+      params: trip_id
+    })
+    .then(function (response) {
+      console.log('Successfully fetching from db in Trip Component', response);
+      app.setState({
+        trips: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   render() {
     return (

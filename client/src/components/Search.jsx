@@ -33,12 +33,11 @@ class Search extends React.Component {
 
   fetch() {
     const app = this;
-    console.log('this is fetching the following: ', this.state)
     axios.get('/api/trips', { 
       params: this.state 
     })
     .then(function (response) {
-      console.log('this is properly responding', response);
+      console.log('Successfully fetching from db in Search Component', response);
       app.setState({
         fireRedirect: true,
         trips: response.data
