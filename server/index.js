@@ -88,7 +88,7 @@ app.get('/api/trips', (req, res) => {
 
 
 app.get('/api/trips/:tripId', (req,res) => {
-  Trips.where({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
+  Trips.where({id: req.params.tripId}).fetch({withRelated: ['riders','driver']}).then((trip) => {
     // console.log(JSON.stringify(trip.related('riders')));
     res.status(200).send(trip.toJSON());
   });
