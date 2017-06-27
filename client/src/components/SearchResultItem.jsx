@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchResultsItem = ({trip, handleClick}) => (
+const SearchResultItem = ({trip, handleClick}) => (
   <div className="search-results-item">
     
     <span className="search-departure"><b>Departure: </b>{trip.departure_address_line1}, {trip.departure_city}, {trip.departure_state} at {trip.departure_time.substring(0, 5)} </span> 
