@@ -83,11 +83,9 @@ app.get('/api/trips', (req, res) => {
 });
 
 app.get('/api/trips/:tripId', (req,res) => {
-  Trips.where({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
-    console.log(trip.get('id'));
-    console.log(JSON.stringify(trip.related('riders')));
-    // console.log(trip.relations.riders.models);
-    res.status(200).json(trip);
+  Trips.forge({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
+    // console.log(JSON.stringify(trip.related('riders')));
+    res.status(200).send(trip.toJSON());
   });
 })
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>

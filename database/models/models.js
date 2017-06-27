@@ -11,7 +11,7 @@ const User = bookshelf.Model.extend({
 const Trip = bookshelf.Model.extend({
   tableName: 'trips',
   riders: function() {
-    return this.hasMany(Ride);
+    return this.belongsToMany(User,'trips_toads');
   }
 });
 
