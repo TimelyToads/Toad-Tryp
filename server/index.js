@@ -3,8 +3,6 @@ const session = require('express-session');
 const path = require('path');
 const bodyParser = require('body-parser');
 const models = require('../database/models/models.js');
-const Trips = models.Trip;
-const User = models.Users;
 
 const app = express();
 const ADDRESS = '127.0.0.1';
@@ -24,14 +22,16 @@ app.use(bodyParser.json());
 
 /**************USERS*****************/
 app.get('/api/users', (req, res) => {
-  console.log('GET /users endpoint pinged.');
+  console.log('GET /api/users');
   models.Users.fetch().then( (users) => {
+    console.log('\tSUCCESS');
     res.status(200).send(users);
   })
-    .catch( (err) => {
-      console.log('ERROR GETting Users collection: ', err);
-      res.status(404).send(err);
-    });
+  .catch( (err) => {
+    const message = 'Unable to get users';
+    console.error(message);
+    res.status(500).send({ message });
+  });
 });
 
 app.get('/api/users/:username' ,(req, res) => {
@@ -67,23 +67,25 @@ app.get('/api/users/:username/trips', (req, res) => {
     }
   })
   .catch( err => {
-    const message = `\tUnable to find user: ${req.params.username}`
-    console.error(message);
+    const message = `Unable to find user: ${req.params.username}`
+    console.error('\t' + message);
     res.status(404).send({ message });
   });
 })
 
 app.post('/api/users', (req, res) => {
   let user = req.body;
-  console.log('POSTing user data: ', user);
-  new models.User(user).save()
-    .then( (user) => {
-      res.status(201).send(user);
-    })
-    .catch( (err) => {
-      console.log('ERROR POSTing User model: ', err);
-      res.status(400).send(err);
-    });
+  console.log('POST /api/users: ', user);
+  models.User.forge(user).save()
+  .then( (user) => {
+    console.log('\tSUCCESS');
+    res.status(201).send();
+  })
+  .catch( (err) => {
+    const message = 'Unable to create user';
+    console.error('\t' + message);
+    res.status(500).send({ message });
+  });
 });
 
 /**************TRIPS***************/
@@ -91,18 +93,19 @@ app.post('/api/trips', (req, res) => {
   let trip = req.body;
   console.log('POSTing trip data: ', trip);
   new models.Trip(trip).save()
-    .then((trip) => {
-      res.status(201).send(trip);
-    })
-    .catch((err) => {
-      console.log('ERROR POSTing Trip model: ', err);
-      res.status(400).send(err);
-    });
+  .then( (trip) => {
+    res.status(201).send(trip);
+  })
+  .catch( (err) => {
+    console.log('ERROR POSTing Trip model: ', err);
+    res.status(400).send(err);
+  });
 });
 
 
 app.get('/api/trips', (req, res) => {
-  Trips.query((qb) => {
+  console.log(req.query);
+  models.Trip.query((qb) => {
     qb.where({
       departure_city: req.query.depart,
       arrival_city: req.query.arrive,
@@ -123,7 +126,7 @@ app.get('/api/trips', (req, res) => {
 app.get('/api/trips/:tripId', (req,res) => {
   const id = req.params.tripId;
   console.log(`GET /api/trips/${id}`);
-  Trips.where({ id })
+  models.Trip.forge({ id })
   .fetch({withRelated: ['driver','riders']})
   .then( (trip) => {
     if (trip) {
