@@ -93,15 +93,6 @@ app.post('/api/trips', (req, res) => {
   let trip = req.body;
   console.log('POSTing trip data: ', trip);
   new models.Trip(trip).save()
-<<<<<<< HEAD
-    .then((trip) => {
-      res.status(201).send(trip);
-    })
-    .catch((err) => {
-      console.log('ERROR POSTing Trip model: ', err);
-      res.status(400).send(err);
-    });
-=======
   .then( (trip) => {
     res.status(201).send(trip);
   })
@@ -109,7 +100,6 @@ app.post('/api/trips', (req, res) => {
     console.log('ERROR POSTing Trip model: ', err);
     res.status(400).send(err);
   });
->>>>>>> guh tabs
 });
 
 
