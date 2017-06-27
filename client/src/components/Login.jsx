@@ -3,19 +3,23 @@ import DocMeta from 'react-doc-meta';
 import API_Keys from '../../../lib/api_keys.js';
 import axios from 'axios';
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+import Redirect from 'react-router-dom/redirect' 
 
 
 class Login extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { userLoggedIn: false };
+
   
   }
 
 
   componentDidMount() {
 
+    console.log('Inside  Login.jsx/componentDidMount', this.props);
+ 
     gapi.signin2.render('g-signin2', {
 			'scope': 'profile email',
 			'width': 200,
@@ -35,27 +39,21 @@ class Login extends React.Component {
 
     AuthenticationHelper.validateToken(googleUserObject.authToken)
       .then( res => {
-        console.log('Successfully validated token', res.data.aud);
-
+        console.log('Successfully validated token', this.props.authenticateUserFunc);
+        this.props.authenticateUserFunc();
         if (res.status === 200 && res.data.aud === API_Keys.client_id) {
           this.setState({
             userLoggedIn: true
           });
-
-          axios.post('/googleapi/login', googleUserObject)
-            .then( res => {
-              console.log( 'returned from /googleapis/login call ', res);
-            })
-            .catch( err => {
-              console.log( 'error calling /googleapis/login ', err);
-            });
+          
         }
       })
       .catch( err => {
-        console.log('Error validating token');
+        console.log('Error validating token', err);
       });
     
 	}
+  
 
   onSignInFailure(err) {
     console.log('Inside of onSignInFailure ', err);
@@ -75,6 +73,7 @@ class Login extends React.Component {
   }
 
   render() {
+  
     let signOutLink = '';
     if (this.state.userLoggedIn) {
       signOutLink = <a href="#" onClick={this.signOut.bind(this)}>Sign out of ToadTryp</a>
@@ -89,6 +88,12 @@ class Login extends React.Component {
         <DocMeta tags={tags} />
         <div id="g-signin2" />
        {signOutLink}
+
+       {this.state.userLoggedIn && (
+        <Redirect from={'/'} push to={{
+          pathname: '/'
+        }}/>
+       )}
       </div>
       
     );

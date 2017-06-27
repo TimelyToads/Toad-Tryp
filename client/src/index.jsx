@@ -7,14 +7,36 @@ import {
 
 import NavBar from './components/NavBar.jsx';
 import MyRoutes from './components/MyRoutes.jsx';
+class App extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      isAuthenticated: false
+    }
+  }
 
-const App = () => (
-  <Router history={browserHistory}>
-    <div>
-      <NavBar />
-      <MyRoutes />
-    </div>
-  </Router>
-)
+  authenticateUser() {
+    this.setState(
+      {
+        isAuthenticated: true
+      }
+    )
+  }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+  isUserAuthenticated() {
+    return this.state.isAuthenticated
+  }
+
+  render() {
+    return (
+      <Router history={browserHistory}>
+        <div>
+          <NavBar isAuthenticated={this.isUserAuthenticated.bind(this)}/>
+          <MyRoutes authenticateUserFunc={this.authenticateUser.bind(this)}/>
+        </div>
+      </Router>
+    )
+  }
+} 
+
+ReactDOM.render(<App />, document.getElementById('app'));
