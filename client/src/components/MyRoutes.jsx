@@ -9,7 +9,9 @@ import Home from './Home.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import NotFound from './NotFound.jsx';
-import SearchSwitch from './SearchSwitch.jsx';
+import SearchResults from './SearchResults.jsx';
+import Trip from './Trip.jsx';
+import Profile from './Profile.jsx';
 
 //Associate each route URL path with a component
 const routes = [
@@ -25,7 +27,15 @@ const routes = [
   },
   {
     path:'/searchresults',
-    main: SearchSwitch
+    main: SearchResults
+  },
+  {
+    path:'/trip/:tripId',
+    main: Trip
+  },
+  {
+    path: '/profile/:username',
+    main: Profile
   },
   {
     path:'*',

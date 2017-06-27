@@ -50,6 +50,7 @@ class Search extends React.Component {
   render() {
     let s = range(1,6);
     const { fireRedirect, trips } = this.state;
+
     return (
       <div className="search">
         <form onSubmit={this.handleSubmit}>
