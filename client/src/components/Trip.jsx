@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import axios from 'axios';
 
 class Trip extends React.Component {
   constructor(props) {
@@ -10,13 +11,17 @@ class Trip extends React.Component {
   }
 
   componentDidMount() {
-    this.fetch(this.match);
+    this.fetch(this.match.params.tripId);
   }
 
-  fetch(trip_id) {
+  fetch(tripId) {
+    console.log(this.match);
+
     const app = this;
     axios.get('/api/trips/:tripId', { 
-      params: trip_id
+      params: {
+        tripId: tripId
+      }
     })
     .then(function (response) {
       console.log('Successfully fetching from db in Trip Component', response);
