@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
   console.log('GET /users endpoint pinged.');
   models.Users.fetch().then( (users) => {
     res.status(200).send(users);
