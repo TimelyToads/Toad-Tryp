@@ -81,6 +81,15 @@ app.get('/api/trips', (req, res) => {
     res.status(404).send(err);
   });
 });
+
+app.get('/api/trips/:tripId', (req,res) => {
+  Trips.where({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
+    console.log(trip.get('id'));
+    console.log(JSON.stringify(trip.related('riders')));
+    // console.log(trip.relations.riders.models);
+    res.status(200).json(trip);
+  });
+})
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
 
