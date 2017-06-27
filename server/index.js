@@ -21,6 +21,8 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+/**************USERS*****************/
 app.get('/api/users', (req, res) => {
   console.log('GET /users endpoint pinged.');
   models.Users.fetch().then( (users) => {
@@ -32,20 +34,46 @@ app.get('/api/users', (req, res) => {
     });
 });
 
+app.get('/api/users/:username' ,(req, res) => {
+  const username = req.params.username;
+  console.log(`GET /api/users/${username}`);
+  models.User.forge({ username })
+  .fetch().then( user => {
+    if (user) {
+      console.log('\tSUCCESS');
+      res.status(200).send(user.toJSON());
+    } else {
+      throw user;
+    }
+  })
+  .catch( err => {
+    const message = `\tUnable to find user: ${req.params.username}`
+    console.error(message);
+    res.status(404).send({ message });
+  });
+});
 
-// app.get('/trips', (req, res) => {
-//   console.log('GET /trips endpoint pinged.');
-//   models.Trips.fetch()
-//     .then( (trips) => {
-//       res.status(200).send(trips);
-//     })
-    // .catch( (err) => {
-    //   console.log('ERROR GETting Trips collection: ', err);
-    //   res.status(404).send(err);
-    // });
-// });
+app.get('/api/users/:username/trips', (req, res) => {
+  const username = req.params.username;
+  console.log(`GET /api/users/${username}/trips`);
+  models.User.forge({ username })
+  .fetch({withRelated: ['hostedTrips', 'trips']})
+  .then( (trips) => {
+    if (trips) {
+      console.log('\tSUCCESS');
+      res.status(200).send(trips.toJSON());
+    } else {
+      throw trips;
+    }
+  })
+  .catch( err => {
+    const message = `\tUnable to find user: ${req.params.username}`
+    console.error(message);
+    res.status(404).send({ message });
+  });
+})
 
-app.post('/api/user', (req, res) => {
+app.post('/api/users', (req, res) => {
   let user = req.body;
   console.log('POSTing user data: ', user);
   new models.User(user).save()
@@ -58,7 +86,8 @@ app.post('/api/user', (req, res) => {
     });
 });
 
-app.post('/api/trip', (req, res) => {
+/**************TRIPS***************/
+app.post('/api/trips', (req, res) => {
   let trip = req.body;
   console.log('POSTing trip data: ', trip);
   new models.Trip(trip).save()
@@ -74,7 +103,6 @@ app.post('/api/trip', (req, res) => {
 
 app.get('/api/trips', (req, res) => {
   Trips.query((qb) => {
-    // qb.innerJoin('Users', 'Users.id', '=', 'Trips.driver_id');
     qb.where({
       departure_city: req.query.depart,
       arrival_city: req.query.arrive,
@@ -93,11 +121,24 @@ app.get('/api/trips', (req, res) => {
 
 
 app.get('/api/trips/:tripId', (req,res) => {
-  Trips.forge({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
-    // console.log(JSON.stringify(trip.related('riders')));
-    res.status(200).send(trip.toJSON());
+  const id = req.params.tripId;
+  console.log(`GET /api/trips/${id}`);
+  Trips.where({ id })
+  .fetch({withRelated: ['driver','riders']})
+  .then( (trip) => {
+    if (trip) {
+      console.log('\tSUCCESS');
+      res.status(200).send(trip.toJSON());
+    } else {
+      throw trip;
+    }
+  })
+  .catch( err => {
+    const message = `\tUnable to find trip with id: ${id}`
+    console.error(message);
+    res.status(404).send({ message });
   });
-})
+});
 
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
