@@ -22,13 +22,15 @@ app.use(bodyParser.json());
 
 /**************USERS*****************/
 app.get('/api/users', (req, res) => {
-  console.log('GET /users endpoint pinged.');
+  console.log('GET /api/users');
   models.Users.fetch().then( (users) => {
+    console.log('\tSUCCESS');
     res.status(200).send(users);
   })
     .catch( (err) => {
-      console.log('ERROR GETting Users collection: ', err);
-      res.status(404).send(err);
+      const message = 'Unable to get users';
+      console.error(message);
+      res.status(500).send({ message });
     });
 });
 
@@ -65,23 +67,25 @@ app.get('/api/users/:username/trips', (req, res) => {
     }
   })
   .catch( err => {
-    const message = `\tUnable to find user: ${req.params.username}`
-    console.error(message);
+    const message = `Unable to find user: ${req.params.username}`
+    console.error('\t' + message);
     res.status(404).send({ message });
   });
 })
 
 app.post('/api/users', (req, res) => {
   let user = req.body;
-  console.log('POSTing user data: ', user);
-  new models.User(user).save()
-    .then( (user) => {
-      res.status(201).send(user);
-    })
-    .catch( (err) => {
-      console.log('ERROR POSTing User model: ', err);
-      res.status(400).send(err);
-    });
+  console.log('POST /api/users: ', user);
+  models.User.forge(user).save()
+  .then( (user) => {
+    console.log('\tSUCCESS');
+    res.status(201).send();
+  })
+  .catch( (err) => {
+    const message = 'Unable to create user';
+    console.error('\t' + message);
+    res.status(500).send({ message });
+  });
 });
 
 /**************TRIPS***************/
