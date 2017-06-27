@@ -119,7 +119,6 @@ app.get('/api/trips', (req, res) => {
   });
 });
 
-<<<<<<< HEAD
 
 app.get('/api/trips/:tripId', (req,res) => {
   const id = req.params.tripId;
@@ -138,13 +137,6 @@ app.get('/api/trips/:tripId', (req,res) => {
     const message = `\tUnable to find trip with id: ${id}`
     console.error(message);
     res.status(404).send({ message });
-=======
-app.get('/api/trips/:tripId', (req, res) => {
-  console.log('this is the tripId', req.params.tripId);
-  Trips.forge({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
-    // console.log(JSON.stringify(trip.related('riders')));
-    res.status(200).send(trip.toJSON());
->>>>>>> Broke server. Need to revert to previous commit.
   });
 });
 

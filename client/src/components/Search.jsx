@@ -33,6 +33,7 @@ class Search extends React.Component {
 
   fetch() {
     const app = this;
+
     axios.get('/api/trips', { 
       params: this.state 
     })
@@ -58,8 +59,6 @@ class Search extends React.Component {
         <form className="search-form" onSubmit={this.handleSubmit}>
           <input type="text" name="depart" placeholder="Depart" value={this.state.depart} onChange={this.handleChange}/>
           <input type="text" name="arrive" placeholder="Arrive" value={this.state.arrive} onChange={this.handleChange}/>
-
-
           
           <input type="text" name="departdate" placeholder="Depart Date" value={this.state.departdate} onChange={this.handleChange}/>
           <input type="text" name="arrivedate" placeholder="Arrive Date" value={this.state.arrivedate} onChange={this.handleChange}/>
