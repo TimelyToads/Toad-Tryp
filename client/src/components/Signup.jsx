@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -6,6 +7,7 @@ class Signup extends React.Component {
     this.state = {
       first_name: '',
       last_name: '',
+      username: '',
       email: '',
       password: '',
       img_url: '',
@@ -18,7 +20,7 @@ class Signup extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log(this.state)
-    // this.fetch();
+    this.fetch();
   }
 
   handleChange(e) {
@@ -55,6 +57,7 @@ class Signup extends React.Component {
           <p> or </p>
           <form className="signup-form" onSubmit={this.handleSubmit}>
             <input type="text" name="email" placeholder="E-mail Address" value={this.state.email} onChange={this.handleChange}/><br/>
+            <input type="text" name="username" placeholder="Username" value={this.state.username} onChange={this.handleChange}/><br/>
             <input type="text" name="first_name" placeholder="First name" value={this.state.first_name} onChange={this.handleChange}/><br/>
             <input type="text" name="last_name" placeholder="Last name" value={this.state.last_name} onChange={this.handleChange}/><br/>
             <input type="text" name="phone_number" placeholder="Phone number" value={this.state.phone_number} onChange={this.handleChange}/><br/>
