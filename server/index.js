@@ -1,15 +1,22 @@
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 const bodyParser = require('body-parser');
 const models = require('../database/models/models.js');
 const Trips = models.Trip;
 
 const app = express();
-
 const ADDRESS = '127.0.0.1';
 const PORT = 3000;
+const MAX_COOKIE_AGE = 3600000;
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
+// app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {maxAge: MAX_COOKIE_AGE}
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -63,6 +70,7 @@ app.post('/api/trip', (req, res) => {
     });
 });
 
+
 app.get('/api/trips', (req, res) => {
   Trips.query((qb) => {
     // qb.innerJoin('Users', 'Users.id', '=', 'Trips.driver_id');
@@ -82,18 +90,35 @@ app.get('/api/trips', (req, res) => {
   });
 });
 
+
 app.get('/api/trips/:tripId', (req,res) => {
   Trips.forge({id: req.params.tripId}).fetch({withRelated: ['riders']}).then((trip) => {
     // console.log(JSON.stringify(trip.related('riders')));
     res.status(200).send(trip.toJSON());
   });
 })
+
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
 
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
+app.get('/bundle.js', function(req, res){
+  res.sendFile(path.join(__dirname + '/../client/dist/bundle.js'));
 });
+
+app.get('/style.css', function(req, res){
+  res.sendFile(path.join(__dirname + '/../client/dist/style.css'));
+});
+
+app.get('/*', function(req, res){
+  console.log('requesting /*', req.session.authToken);
+  res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
+  // console.log('Session created: ', req.session);
+});
+
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
+// });
+
 app.listen(PORT, ADDRESS, () => {
   console.log('Toad Tryp server listening on port 3000.');
 });
