@@ -34,15 +34,35 @@ class Trip extends React.Component {
   }
 
   render() {
+    const { trips } = this.state
     return (
       <div>
-        <Search />
         <div className="page-heading">
           <h1>Trip Confirmation</h1>
           <h2>Please review the details of your trip!</h2>
         </div>
         <div className="page-heading">
-          tripId: {this.match.params.tripId}
+          <div className="trip-confirmation-details">
+            <h3 className="green-text">Price: ${trips.price}</h3>
+            <div>
+              <h3>Departure:</h3>
+              <h4>Time: {(trips.departure_time) ? trips.departure_time.substring(0, 5) : ''}</h4>
+
+              <br/>
+              <h4>Pickup Point: </h4>
+              <h4>{trips.departure_address_line1}</h4>
+              <h4>{trips.departure_city}, {trips.departure_state}, {trips.departure_zip}</h4>
+            </div>
+            <div>
+              <h3>Arrival:</h3>
+              <h4>Time: {(trips.arrival_time) ? trips.arrival_time.substring(0, 5) : ''}</h4>
+              <br />
+              <h4>Dropoff Point: </h4>
+              <h4>{trips.arrival_address_line1}</h4>
+              <h4>{trips.arrival_city}, {trips.arrival_state}, {trips.arrival_zip}</h4>
+            </div>
+            <button>Request to Book</button>
+          </div>
         </div>
       </div>
     )

@@ -52,13 +52,13 @@ class Search extends React.Component {
   render() {
 
     let s = range(1,6);
-    const { fireRedirect, trips } = this.state;
+    const { fireRedirect, trips, depart, arrive } = this.state;
 
     return (
       <div className="search">
         <form className="search-form" onSubmit={this.handleSubmit}>
-          <input type="text" name="depart" placeholder="Depart" value={this.state.depart} onChange={this.handleChange}/>
-          <input type="text" name="arrive" placeholder="Arrive" value={this.state.arrive} onChange={this.handleChange}/>
+          <input type="text" name="depart" placeholder="Depart City" value={this.state.depart} onChange={this.handleChange}/>
+          <input type="text" name="arrive" placeholder="Arrive City" value={this.state.arrive} onChange={this.handleChange}/>
           
           <input type="text" name="departdate" placeholder="Depart Date" value={this.state.departdate} onChange={this.handleChange}/>
           <input type="text" name="arrivedate" placeholder="Arrive Date" value={this.state.arrivedate} onChange={this.handleChange}/>
@@ -74,7 +74,7 @@ class Search extends React.Component {
         {fireRedirect && (
           <Redirect from={'/'} push to={{
             pathname: '/searchresults',
-            state: { trips }
+            state: { trips, depart, arrive }
           }}/>
         )}
 

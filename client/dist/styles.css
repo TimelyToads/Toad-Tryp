@@ -41,6 +41,10 @@ nav a {
   font-size: 20px;
 }
 
+.green-text {
+  color: #21BA45;
+}
+
 .page-heading {
   margin-left: 230px;
 }
@@ -67,7 +71,7 @@ nav a {
   background: transparent;
 }
 
-.search-form button {
+button {
   padding: 10px;
   font-size: 14px;
   background-color: #21BA45;
@@ -75,6 +79,12 @@ nav a {
   font-weight:bold;
   border-style:none;
   border-radius: 2px
+}
+
+.search-results-item button {
+  font-size: 12px;
+  padding: 4px;
+  margin-left: 12px;
 }
 
 .search-results {
@@ -101,4 +111,22 @@ nav a {
 
 .search-item-seats {
   float: right;
+}
+
+.trip-confirmation-details {
+  margin: 0;
+  border-style: solid;
+  border-width: 1px;
+  border-color: lightgrey;
+  padding: 20px  
+}
+
+.trip-confirmation-details h3, h4 {
+  margin: 0;
+}
+
+.trip-confirmation-details button {
+  margin: 20px 0;
+  padding: 10px;
+  font-size: 16px;
 }
