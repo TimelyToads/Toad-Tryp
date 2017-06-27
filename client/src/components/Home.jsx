@@ -9,7 +9,7 @@ class Home extends React.Component {
     return (<div>
       <div className="page-heading">
         <h1>
-          Toad Tryp
+          ToadTryp
         </h1>
         <h2>
           Go anywhere with a fellow Toad.
