@@ -134,3 +134,31 @@ button {
   padding: 10px;
   font-size: 16px;
 }
+
+.signup-page {
+  text-align: center;
+}
+
+.signup-page input {
+  padding: 16px;
+  font-size: 16px;
+  width: 500px;
+}
+
+.signup-page button {
+  background-color: #21BA45;
+  margin: 5px 0;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  width: 536px;
+}
+
+.signup-page-driver button {
+  background-color: #21BA45;
+  margin: 5px 0;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  width: 536px;
+}
