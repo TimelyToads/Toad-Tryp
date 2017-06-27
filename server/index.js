@@ -91,10 +91,10 @@ app.post('/api/trips', (req, res) => {
   let trip = req.body;
   console.log('POSTing trip data: ', trip);
   new models.Trip(trip).save()
-    .then( (trip) => {
+    .then((trip) => {
       res.status(201).send(trip);
     })
-    .catch( (err) => {
+    .catch((err) => {
       console.log('ERROR POSTing Trip model: ', err);
       res.status(400).send(err);
     });
@@ -113,7 +113,7 @@ app.get('/api/trips', (req, res) => {
     // console.log(trips.related('user'))
     res.status(200).send(JSON.stringify(trips));
   })
-  .catch( (err) => {
+  .catch((err) => {
     console.log('ERROR GETting Trips collection: ', err);
     res.status(404).send(err);
   });
@@ -147,19 +147,14 @@ app.get('/bundle.js', function(req, res){
   res.sendFile(path.join(__dirname + '/../client/dist/bundle.js'));
 });
 
-app.get('/style.css', function(req, res){
-  res.sendFile(path.join(__dirname + '/../client/dist/style.css'));
+app.get('/styles.css', function(req, res){
+  res.sendFile(path.join(__dirname + '/../client/dist/styles.css'));
 });
 
 app.get('/*', function(req, res){
   console.log('requesting /*', req.session.authToken);
   res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
-  // console.log('Session created: ', req.session);
 });
-
-// app.get('/*', (req, res) => {
-//   res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
-// });
 
 app.listen(PORT, ADDRESS, () => {
   console.log('Toad Tryp server listening on port 3000.');

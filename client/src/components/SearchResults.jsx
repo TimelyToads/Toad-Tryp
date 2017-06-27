@@ -1,8 +1,6 @@
 import React from 'react';
 import Redirect from 'react-router-dom/redirect'
-
 import SearchResultItem from './SearchResultItem.jsx'
-
 import Search from './Search.jsx';
 // import SearchSwitch from './SearchSwitch.jsx';
 
@@ -18,6 +16,7 @@ class SearchResults extends React.Component {
   }
 
   handleClick(e) {
+    console.log(this.props)
     this.setState( {
       redirectTo: `/trip/${e.target.value}`
     })
@@ -29,7 +28,8 @@ class SearchResults extends React.Component {
     return (
     <div>
       <div className="page-heading">
-        <h1>SEARCH RESULTS!</h1>
+        <h1>Search Results</h1>
+        <h2>Showing results from <span className="green-text">{this.props.location.state.depart}</span> to <span className="green-text">{this.props.location.state.arrive}</span></h2>
       </div>
       <Search />
       <div className="search-results">
