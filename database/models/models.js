@@ -4,7 +4,7 @@ const bookshelf = require('../bookshelf.js');
 const User = bookshelf.Model.extend({
   tableName: 'users',
   trips: function () {
-    return this.hasMany(Trip);
+    return this.hasMany(Trip,'driver_id');
   }
 });
 

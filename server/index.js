@@ -36,7 +36,27 @@ app.get('/api/users', (req, res) => {
 
 app.get('/api/users/:username' ,(req, res) => {
   console.log('WELCOME TO USERS ENDPOINT');
-  res.status(200).send();
+  res.status(200).send('sick get to /:username');
+});
+
+app.get('/api/users/:username/trips', (req, res) => {
+  const username = req.params.username;
+  console.log(`GET /api/users/${username}/trips`);
+  models.User.forge({ username })
+  .fetch({withRelated: ['trips']})
+  .then( (trips) => {
+    if (trips) {
+      console.log('\tSUCCESS');
+      res.status(200).send(trips.toJSON());
+    } else {
+      throw trips;
+    }
+  })
+  .catch( err => {
+    const message = `\tUnable to find trips for user: ${req.params.username}`
+    console.error(message);
+    res.status(404).send({ message });
+  });
 })
 
 app.post('/api/users', (req, res) => {
@@ -69,7 +89,6 @@ app.post('/api/trips', (req, res) => {
 
 app.get('/api/trips', (req, res) => {
   Trips.query((qb) => {
-    // qb.innerJoin('Users', 'Users.id', '=', 'Trips.driver_id');
     qb.where({
       departure_city: req.query.depart,
       arrival_city: req.query.arrive,
@@ -88,11 +107,28 @@ app.get('/api/trips', (req, res) => {
 
 
 app.get('/api/trips/:tripId', (req,res) => {
-  Trips.where({id: req.params.tripId}).fetch({withRelated: ['riders','driver']}).then((trip) => {
-    // console.log(JSON.stringify(trip.related('riders')));
-    res.status(200).send(trip.toJSON());
+  const id = req.params.tripId;
+  console.log(`GET /api/trips/${id}`);
+  Trips.where({ id })
+  .fetch({withRelated: ['driver','riders']})
+  .then( (trip) => {
+    if (trip) {
+      console.log('\tSUCCESS');
+      res.status(200).send(trip.toJSON());
+    } else {
+      throw trip;
+    }
+  })
+  .catch( err => {
+    const message = `\tUnable to find trip with id: ${id}`
+    console.error(message);
+    res.status(404).send({ message });
   });
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> GET /api/trips/:tripId gets the right driver driver
 
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
