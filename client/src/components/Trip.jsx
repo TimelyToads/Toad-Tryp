@@ -1,14 +1,25 @@
 import React from 'react'
 
-const Trip = ({match}) => (
-  <div>
-    <h3>
-      I'M A TRIP PAGE PLACEHOLDER FOR ALL THINGS RELATED TO A SPECIFIC TRIP
-    </h3>
-    <div>
-      tripId: {match.params.tripId}
-    </div>
-  </div>
-)
+class Trip extends React.Component {
+  constructor(props) {
+    super(props);
+    this.match = props.match;
+  }
+
+
+  render() {
+    return (
+      <div>
+        <div className="page-heading">
+          <h1>Trip Confirmation</h1>
+          <h2>Please review the details of your trip!</h2>
+        </div>
+        <div className="page-heading">
+          tripId: {this.match.params.tripId}
+        </div>
+      </div>
+    )
+  }
+}
 
 export default Trip;
