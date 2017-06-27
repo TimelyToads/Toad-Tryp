@@ -27,11 +27,11 @@ app.get('/api/users', (req, res) => {
     console.log('\tSUCCESS');
     res.status(200).send(users);
   })
-    .catch( (err) => {
-      const message = 'Unable to get users';
-      console.error(message);
-      res.status(500).send({ message });
-    });
+  .catch( (err) => {
+    const message = 'Unable to get users';
+    console.error(message);
+    res.status(500).send({ message });
+  });
 });
 
 app.get('/api/users/:username' ,(req, res) => {
@@ -93,6 +93,7 @@ app.post('/api/trips', (req, res) => {
   let trip = req.body;
   console.log('POSTing trip data: ', trip);
   new models.Trip(trip).save()
+<<<<<<< HEAD
     .then((trip) => {
       res.status(201).send(trip);
     })
@@ -100,6 +101,15 @@ app.post('/api/trips', (req, res) => {
       console.log('ERROR POSTing Trip model: ', err);
       res.status(400).send(err);
     });
+=======
+  .then( (trip) => {
+    res.status(201).send(trip);
+  })
+  .catch( (err) => {
+    console.log('ERROR POSTing Trip model: ', err);
+    res.status(400).send(err);
+  });
+>>>>>>> guh tabs
 });
 
 
