@@ -4,7 +4,7 @@
 const dbConfig = {
   client: 'mysql',
   connection: {
-    host: '127.0.0.1',
+    host: 'ba536313340d86:d24fd53d@us-cdbr-iron-east-03.cleardb.net/heroku_b0a0970355d4cba?reconnect=true',
     user: 'root',
     password: '',
     database: 'toads'

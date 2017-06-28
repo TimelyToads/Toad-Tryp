@@ -1,5 +1,5 @@
 {
-  "base": "client/src/templates",
+  "base": "/client/src/templates/",
   "paths": {
     "source": {
       "config": "src/theme.config",
