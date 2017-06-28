@@ -19,28 +19,24 @@ class Signup extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state)
     this.fetch();
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value })
-    console.log(e.target.value)
   }
 
   fetch() {
-    const app = this;
-
     axios.post('/api/users', this.state)
-    .then(function (response) {
+    .then((response) => {
       console.log('Successfully fetching from db in Search Component', response);
-      app.setState({
+      this.setState({
         fireRedirect: true,
         trips: response.data
       });
       alert("Your Account has been successfully created!");
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
   }

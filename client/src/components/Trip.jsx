@@ -15,18 +15,34 @@ class Trip extends React.Component {
     this.fetch(this.match.params.tripId);
   }
 
+  handleRequestTrip(e) {
+    e.preventDefault();
+    console.log('this is clicking')
+
+    // this.postTripRequest(riderId, driverId)
+  }
+
   fetch(tripId) {
-    const app = this;
     axios.get(`/api/trips/${tripId}`)
-    .then(function(response) {
+    .then((response) => {
       console.log('Successfully fetching from db in Trip Component', response);
-      app.setState({
+      this.setState({
         trips: response.data
       });
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch((error) => {
+      console.log('GET unsuccessful from the DB in Trip Component', error);
     });
+  }
+
+  postTripRequest() {
+    axios.post(`/api/trips/${}`)
+    .then((response) => {
+      console.log('Successfully posting to the DB in the Trip Component', response);
+    })
+    .catch((error) => {
+      console.log('POST unsuccessful in Trip Component', error)
+    })
   }
 
   render() {
@@ -42,7 +58,7 @@ class Trip extends React.Component {
     return (
       <div>
         <div className="page-heading">
-          <h1>Trip Confirmation</h1>
+          <h1>Trip Details</h1>
           <h2>Please review the details of your trip!</h2>
         </div>
         <div className="page-heading">
@@ -51,8 +67,6 @@ class Trip extends React.Component {
             <div>
               <h3>Departure:</h3>
               <h4>{(trips.departure_time) ? `Departing at ${formatTime(trips.departure_time)}` : ''}</h4>
-
-              <br/>
               <h4>Pickup Point: </h4>
               <h4>{trips.departure_address_line1}</h4>
               <h4>{trips.departure_city}, {trips.departure_state}, {trips.departure_zip}</h4>
@@ -60,12 +74,11 @@ class Trip extends React.Component {
             <div>
               <h3>Arrival:</h3>
               <h4>{(trips.arrival_time) ? `Arriving at ${formatTime(trips.arrival_time)}` : ''}</h4>
-              <br />
               <h4>Dropoff Point: </h4>
               <h4>{trips.arrival_address_line1}</h4>
               <h4>{trips.arrival_city}, {trips.arrival_state}, {trips.arrival_zip}</h4>
             </div>
-            <button>Request to Book</button><br/>
+            <button type="submit" onClick={this.handleRequestTrip} >Request to Book</button><br/>
             <span className="disclaimer">You won't be charged until your Driver accepts your reservation.</span>
           </div>
         </div>
