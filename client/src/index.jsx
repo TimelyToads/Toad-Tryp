@@ -7,6 +7,8 @@ import {
 
 import NavBar from './components/NavBar.jsx';
 import MyRoutes from './components/MyRoutes.jsx';
+
+
 class App extends React.Component {
   constructor(props) {
     super();
