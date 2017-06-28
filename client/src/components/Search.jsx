@@ -5,6 +5,9 @@ import SearchResults from './SearchResults.jsx';
 import {Redirect} from 'react-router-dom'
 import query from 'query-string'
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+// import 'react-dates/lib/css/_datepicker.css';
+require.resolve('react-dates/lib/css/_datepicker.css')
 
 class Search extends React.Component {
   constructor(props) {
@@ -54,6 +57,14 @@ class Search extends React.Component {
     const { redirectTo, trips, depart, arrive } = this.state;
     return (
       <div className="search">
+        <DateRangePicker
+          startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+          endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+          onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+          focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+          onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+        />
+
         <form className="search-form" onSubmit={this.handleSubmit}>
           <input type="text" name="depart" placeholder="Depart City" value={this.state.depart} onChange={this.handleChange}/>
           <input type="text" name="arrive" placeholder="Arrive City" value={this.state.arrive} onChange={this.handleChange}/>
