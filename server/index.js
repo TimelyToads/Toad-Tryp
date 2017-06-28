@@ -91,18 +91,6 @@ app.post('/api/users', (req, res) => {
 });
 
 /**************TRIPS***************/
-app.post('/api/trips', (req, res) => {
-  let trip = req.body;
-  console.log('POSTing trip data: ', trip);
-  new models.Trip(trip).save()
-  .then( (trip) => {
-    res.status(201).send(trip);
-  })
-  .catch( (err) => {
-    console.log('ERROR POSTing Trip model: ', err);
-    res.status(400).send(err);
-  });
-});
 
 
 app.get('/api/trips', (req, res) => {
@@ -145,6 +133,23 @@ app.get('/api/trips/:tripId', (req,res) => {
   });
 });
 
+app.post('/api/trips', (req, res) => {
+  let trip = req.body;
+  console.log('POSTing trip data: ', trip);
+  models.Trip.forge(trip).save()
+  .then( (trip) => {
+    res.status(201).send(trip);
+  })
+  .catch( (err) => {
+    console.log('ERROR POSTing Trip model: ', err);
+    res.status(400).send(err);
+  });
+});
+
+app.post('/api/trips/:tripId/join/:username', (req, res) => {
+  const tripId = req.params.tripId;
+  const username = req.params.username;
+})
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
 
