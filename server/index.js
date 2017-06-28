@@ -5,19 +5,21 @@ const bodyParser = require('body-parser');
 const models = require('../database/models/models.js');
 
 const app = express();
-// const ADDRESS = '127.0.0.1';
+const ADDRESS = '127.0.0.1';
 const PORT = process.env.PORT || 3000;
 const MAX_COOKIE_AGE = 3600000;
 
 
 
-// app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
   cookie: {maxAge: MAX_COOKIE_AGE}
 }));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
