@@ -18,12 +18,21 @@ class SearchResults extends React.Component {
   }
 
   handleClick(e) {
-    console.log(this.props)
-    // AuthenticationHelper.isUserAuthenticated() returns an object
-    // [[PromiseValue]]
-    console.log('this is the isUserAuthenticated Function', AuthenticationHelper.isUserAuthenticated())
-    this.setState( {
-      redirectTo: `/trip/${e.target.value}`
+    console.log('this is the props', this.props)
+    // console.log(AuthenticationHelper.isUserAuthenticated())
+
+    AuthenticationHelper.isUserAuthenticated()
+    .then(response => {
+      this.setState({
+        redirectTo: `/trip/${e.target.value}`
+      })
+    })
+    .catch(error => {
+      if (error) { 
+        this.setState( {
+          redirectTo: `/login`
+        });
+      }
     })
   }
 

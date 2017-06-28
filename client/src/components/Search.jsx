@@ -75,7 +75,6 @@ class Search extends React.Component {
             state: { trips, depart, arrive }
           }}/>
         )}
-
       </div>
     )
   }

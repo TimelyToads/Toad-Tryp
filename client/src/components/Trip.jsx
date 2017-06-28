@@ -34,7 +34,6 @@ class Trip extends React.Component {
       this.setState({
         trips: response.data
       });
-      console.log('this is the state after a successful fetch from DB', this.state)
     })
     .catch((error) => {
       console.log('GET unsuccessful from the DB in Trip Component', error);

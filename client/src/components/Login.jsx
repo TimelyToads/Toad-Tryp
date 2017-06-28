@@ -7,15 +7,12 @@ import { Redirect } from 'react-router-dom'
 
 
 class Login extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = { userLoggedIn: false, sourceRoute: '/' };
   }
 
   componentDidMount() {
-
-    console.log('Inside  Login.jsx/componentDidMount' );
     gapi.signin2.render('g-signin2', {
 			'scope': 'profile email',
 			'width': 200,
@@ -92,7 +89,6 @@ class Login extends React.Component {
   }
 
   render() {
-  
     let signOutLink = '';
     if (this.state.userLoggedIn) {
       signOutLink = <a href="#" onClick={this.signOut.bind(this)}>Sign out of ToadTryp</a>

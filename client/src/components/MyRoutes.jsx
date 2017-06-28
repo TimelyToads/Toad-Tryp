@@ -59,6 +59,7 @@ const MyRoutes = (props) => (
   {console.log('PARAMS: ', props.match)}
     {routes.map((route, index) => {
       if (route.path === '/login') {
+        console.log('this is props in the MyRoutes function', props)
         return <Route 
           key={index}
           exact={route.exact}
