@@ -94,7 +94,7 @@ app.post('/api/users', (req, res) => {
 
 
 app.get('/api/trips', (req, res) => {
-  console.log(req.query);
+  console.log('GET /api/trips/\n', req.query);
   models.Trip.query((qb) => {
     qb.where({
       departure_city: req.query.depart,
@@ -103,8 +103,8 @@ app.get('/api/trips', (req, res) => {
   })
   .fetch()
   .then((trips) => {
-    // console.log(trips.related('user'))
-    res.status(200).send(JSON.stringify(trips));
+    console.log('\tSUCCESS\n');
+    res.status(200).json(trips);
   })
   .catch((err) => {
     console.log('ERROR GETting Trips collection: ', err);
@@ -211,6 +211,6 @@ app.get('/*', function(req, res){
   // console.log('Session created: ', req.session);
 });
 
-app.listen(PORT || 3000, () => {
-  console.log('Toad Tryp server listening on port 3000.');
+app.listen(PORT, () => {
+  console.log(`Toad Tryp server listening on port ${PORT}`);
 });

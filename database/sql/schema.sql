@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS toads;
 CREATE DATABASE IF NOT EXISTS toads;
 USE toads;
+-- USE heroku_e8a2cb7b5c6d858;
 
 
 CREATE TABLE IF NOT EXISTS users( 

@@ -1,14 +1,16 @@
 // The Bookshelf library is initialized by passing an initialized Knex client instance. 
 // The knex documentation provides a number of examples for different databases.
 // http://knexjs.org/
+
+const local = {
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'toads'
+};
 const dbConfig = {
   client: 'mysql',
-  connection: {
-    host: 'ba536313340d86:d24fd53d@us-cdbr-iron-east-03.cleardb.net/heroku_b0a0970355d4cba?reconnect=true',
-    user: 'root',
-    password: '',
-    database: 'toads'
-  }
+  connection: process.env.DATABASE_URL || local
 };
 const knex = require('knex')(dbConfig);
 
