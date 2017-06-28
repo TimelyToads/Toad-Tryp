@@ -85,7 +85,7 @@ app.post('/api/users', (req, res) => {
   })
   .catch( (err) => {
     const message = 'Unable to create user';
-    console.error('\t' + message);
+    console.error('\t' + message, err);
     res.status(500).send({ message });
   });
 });

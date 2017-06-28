@@ -1,16 +1,17 @@
 import React from 'react'
-import { Form, Input, Segment, Header, Button,Divider } from 'semantic-ui-react'
+import { Form, Input, Segment, Header, Button, Radio } from 'semantic-ui-react'
 import UserInfo from './UserInfo.jsx'
 import DriverInfo from './DriverInfo.jsx'
 import axios from 'axios';
+import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 
 class Profile extends React.Component{
   constructor(props) {
    
     super(props);
     this.state = { 
-      preventEdits:   true,
-      user:           {username: props.match.params.username} 
+      preventEdits:     true,
+      user:             {username: props.match.params.username}
     };
 
   }
@@ -18,17 +19,45 @@ class Profile extends React.Component{
 
     handleChange (e, { name, value }) {
       console.log('inside on change', name, value);
-      this.setState({ [name]: value })
+
+      let newUserObj = this.state.user;
+      newUserObj[[name]] = value;
+
+      this.setState({user: newUserObj})
     }
   
     handleSubmit (e) {
       
-      const { firstName, lastName } = this.state
-      console.log('Inside handleSubmit', this.state);
-     
+      console.log('Inside handleSubmit', this.state.user);
+      axios.post('/api/users', this.state.user)
+        .then( res => {
+          console.log('SUCCESS creating a user', res);
+          this.setState({preventEdits: true});
+        })
+        .catch( err => {
+          console.log('Error creating a user ', err);
+        });
+    }
+
+    handleEditClick(e) {
+      console.log('inside handleEditClick');
+      this.setState(
+        {preventEdits: false}
+      );
+    } 
+
+    handleCancelClick() {
+      this.setState({preventEdits: true});
     }
 
     componentDidMount() {
+      AuthenticationHelper.isUserAuthenticated()
+        .then( res => {
+          console.log('User is logged in');
+        })
+        .catch( err => {
+          console.log('User is not logged in');
+        });
       
       axios.get(`/api/users/${this.state.user.username}`)
         .then( (response) => {
@@ -44,36 +73,40 @@ class Profile extends React.Component{
     }
   
     render() {
-      const { name, email, submittedName, submittedEmail, preventEdits, user } = this.state
+      const { name, email, submittedName, submittedEmail, preventEdits, user, editing } = this.state
 
       return (
         <div>
-          <Form onSubmit={this.handleSubmit.bind(this)}>
+          <Form >
           <Segment.Group>
-           <Header as='h4' inverted color='green'>User Info</Header>
+         <Segment padded="very">
+            <Header id="userInfoHeader" as='h2' inverted color='green'>User Info</Header>
+            <Button floated="right" toggle active={preventEdits} onClick={this.handleEditClick.bind(this)}>
+              Edit
+            </Button>
+          </Segment>
             <Segment.Group>
               <Segment><UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits} user={user}/></Segment>
             </Segment.Group>
             
             {(() => {
               if (user.license_plate){
+                return <div> <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} /> </div>    
+              } 
+            })()}
+            {(() => {
+              if (!preventEdits){
 
-                 return <div>
-                    <Header as='h4' inverted color='green'>Driver Info</Header>
-                  <Segment.Group>
-                  <Segment><DriverInfo user={user} disabled={preventEdits} /></Segment>
-                  </Segment.Group>
-                  
+                return <div>
+                <Segment textAlign="right">
+                  <Button color="grey" onClick={this.handleCancelClick.bind(this)}>Cancel</Button>
+                  <Button color="green" onClick={this.handleSubmit.bind(this)}> Submit</Button>
+                </Segment>
                 </div>
 
               } 
-            })()}
-
-            <Segment textAlign="right">
-            <Button color="grey">Cancel</Button>
-            <Button color="green" onClick={this.handleSubmit.bind(this)}> Submit</Button>
-            </Segment>
-            </Segment.Group>
+              })()}
+           </Segment.Group>
           </Form>
         </div>
       )
@@ -82,5 +115,3 @@ class Profile extends React.Component{
 
 }
 export default Profile;
-
-
