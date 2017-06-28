@@ -4,9 +4,9 @@ import { Form, Input, Icon } from 'semantic-ui-react'
 const UserInfo = (props) => (
   <div>
     <Form.Group>
-      <Form.Field disabled={props.disabled} onChange={props.onChange} name="firstName" id='form-input-control-first-name' 
+      <Form.Field disabled={props.disabled} onChange={props.onChange} name="first_name" id='form-input-control-first-name' 
         control={Input}  label='First name' placeholder='First name' width="6" value={props.user.first_name}/>
-      <Form.Field disabled={props.disabled}  onChange={props.onChange} name="lastName" id='form-input-control-last-name' 
+      <Form.Field disabled={props.disabled}  onChange={props.onChange} name="last_name" id='form-input-control-last-name' 
       control={Input} label='Last name' placeholder='Last name' width="6" value={props.user.last_name}/>
     </Form.Group>
     <Form.Group >
@@ -20,10 +20,11 @@ const UserInfo = (props) => (
       <Form.Field disabled={props.disabled} onChange={props.onChange} name="zip" id='form-input-zip' control={Input} label='Zip' placeholder='94102-3333' width="4" />
     </Form.Group>
         <Form.Group inline>
-        <Form.Field disabled={props.disabled} onChange={props.onChange} name="phone" id='form-input-phone' control={Input} 
+        <Form.Field disabled={props.disabled} onChange={props.onChange} name="phone_number" id='form-input-phone' control={Input} 
         label='Phone Number' placeholder='(xxx) xxx-xxxx' width="6" value={props.user.phone_number} />
+        <Form.Field disabled={props.disabled} onChange={props.onChange} name="email" id='form-input-email' control={Input} 
+          label='Email' placeholder='@Email' width="6" value={props.user.email} />
       </Form.Group>
-
   </div>
 )
 

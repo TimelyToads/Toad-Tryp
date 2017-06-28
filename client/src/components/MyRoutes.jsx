@@ -13,7 +13,7 @@ import NotFound from './NotFound.jsx';
 import SearchResults from './SearchResults.jsx';
 import Trip from './Trip.jsx';
 import Profile from './Profile.jsx';
-import CreateDriver from './CreateDriver.jsx';
+import Create from './Create.jsx';
 
 
 //Associate each route URL path with a component
@@ -32,7 +32,7 @@ const routes = [
     component:  Signup
   },
   { path:       '/create',
-    component:  CreateDriver
+    component:  Create
 },
   {
     path:       '/searchresults',
