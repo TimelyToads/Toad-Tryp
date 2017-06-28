@@ -147,7 +147,7 @@ app.post('/api/trips', (req, res) => {
 });
 
 app.post('/api/trips/:tripId/join/:userId', (req, res) => {
-
+  //DOES NOT CHECK IF tripId OR userId ARE VALID
   const trip_id = req.params.tripId;
   const user_id = req.params.userId;
   console.log(`POST /api/trips/${trip_id}/join/${user_id}`);
@@ -171,8 +171,29 @@ app.post('/api/trips/:tripId/join/:userId', (req, res) => {
     console.log('\t' + message);
     res.status(500).send({message});
   })
-
 })
+
+app.delete('/api/trips/:tripId/join/:userId', (req,res) => {
+  const trip_id = req.params.tripId;
+  const user_id = req.params.userId;
+  console.log(`DELETE /api/trips/${trip_id}/join/${user_id}`);
+  models.TripToad.forge({trip_id, user_id}).fetch()
+  .then( (tripToad) => {
+    if (tripToad) {
+      tripToad.destroy().then( () => {
+        console.log('\tSUCCESS\n');
+        res.status(202).send({ message: 'User removed from trip' });
+      })
+    } else {
+      const message = 'Resource does not exist';
+      console.log('\t' + message);
+      res.status(404).send({message});
+    }
+  })
+  .catch( (err) => {
+    res.status(500).send({message: 'Server Error: Could not delete'});
+  })
+});
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
 
