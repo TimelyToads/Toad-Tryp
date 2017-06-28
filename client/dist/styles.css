@@ -23,7 +23,7 @@ h3 {
 nav ul {
   list-style-type: none;
   margin: 50px;
-  padding: 0;
+  padding: 5px;
   overflow: hidden;
   margin-right: 100px;
 }
@@ -34,7 +34,8 @@ nav li {
 
 nav a {
   text-decoration: none;
-  width: 100px;
+  text-align: center;
+  width: 170px;
   display: block;
   color: #21BA45;
   font-size: 20px;
@@ -161,4 +162,8 @@ button {
   padding: 16px;
   font-size: 16px;
   width: 536px;
+}
+form {
+    width: 80%;
+    margin: 0 auto;
 }

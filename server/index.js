@@ -9,6 +9,8 @@ const ADDRESS = '127.0.0.1';
 const PORT = 3000;
 const MAX_COOKIE_AGE = 3600000;
 
+
+
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(session({
   secret: 'keyboard cat',
