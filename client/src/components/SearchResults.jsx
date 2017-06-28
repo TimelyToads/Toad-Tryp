@@ -3,6 +3,8 @@ import {Redirect} from 'react-router-dom'
 import SearchResultItem from './SearchResultItem.jsx'
 import Search from './Search.jsx';
 // import SearchSwitch from './SearchSwitch.jsx';
+import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+
 
 //Resulting trips array can be found at props.location.state.trips
 
@@ -17,6 +19,9 @@ class SearchResults extends React.Component {
 
   handleClick(e) {
     console.log(this.props)
+    // AuthenticationHelper.isUserAuthenticated() returns an object
+    // [[PromiseValue]]
+    console.log('this is the isUserAuthenticated Function', AuthenticationHelper.isUserAuthenticated())
     this.setState( {
       redirectTo: `/trip/${e.target.value}`
     })
