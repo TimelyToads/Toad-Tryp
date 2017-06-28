@@ -1,15 +1,15 @@
 import React from 'react'
-import { Form, Input, Segment, Header, Button,Divider } from 'semantic-ui-react'
+import { Form, Input, Segment, Header, Button, Radio } from 'semantic-ui-react'
 import UserInfo from './UserInfo.jsx'
 import DriverInfo from './DriverInfo.jsx'
 import axios from 'axios';
 
-class Profile extends React.Component{
+class Create extends React.Component{
   constructor(props) {
    
     super(props);
     this.state = { 
-      preventEdits:   true,
+      preventEdits:   false,
       user:           {username: props.match.params.username} 
     };
 
@@ -30,21 +30,12 @@ class Profile extends React.Component{
 
     componentDidMount() {
       
-      axios.get(`/api/users/${this.state.user.username}`)
-        .then( (response) => {
-          this.setState({
-            user: response.data
-          });
-          console.log('USER: ', response.data);
-        })
-        .catch( (error) => {
-          console.log('Error fetching user data in Proflie component: ', error);
-        });
-      
     }
   
     render() {
-      const { name, email, submittedName, submittedEmail, preventEdits, user } = this.state
+      const { name, email, submittedName, submittedEmail, preventEdits, user } = this.state;
+      let driverVehicleComponent = '';
+      
 
       return (
         <div>
@@ -54,21 +45,14 @@ class Profile extends React.Component{
             <Segment.Group>
               <Segment><UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits} user={user}/></Segment>
             </Segment.Group>
-            
-            {(() => {
-              if (user.license_plate){
-
-                 return <div>
-                    <Header as='h4' inverted color='green'>Driver Info</Header>
-                  <Segment.Group>
-                  <Segment><DriverInfo user={user} disabled={preventEdits} /></Segment>
-                  </Segment.Group>
-                  
-                </div>
-
-              } 
-            })()}
-
+            <Header as='h4' inverted color='green'>Driver Info</Header>
+              <Segment.Group>
+              <Segment><DriverInfo onChange={this.handleChange.bind(this)}/></Segment>
+              </Segment.Group>
+              <Header as='h4' inverted color='green'>Vehicle Info</Header>
+            <Segment.Group>
+              <Segment><VehicleInfo /></Segment>
+            </Segment.Group>
             <Segment textAlign="right">
             <Button color="grey">Cancel</Button>
             <Button color="green" onClick={this.handleSubmit.bind(this)}> Submit</Button>
@@ -81,6 +65,6 @@ class Profile extends React.Component{
   
 
 }
-export default Profile;
+export default Create;
 
 

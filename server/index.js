@@ -11,7 +11,7 @@ const MAX_COOKIE_AGE = 3600000;
 
 
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
+// app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -197,23 +197,21 @@ app.delete('/api/trips/:tripId/join/:userId', (req,res) => {
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
 
-// app.get('/bundle.js', function(req, res){
-//   res.sendFile(path.join(__dirname + '/../client/dist/bundle.js'));
-// });
-
-// app.get('/styles.css', function(req, res){
-//   res.sendFile(path.join(__dirname + '/../client/dist/styles.css'));
-// });
-
-// app.get('/*', function(req, res){
-//   console.log('requesting /*', req.session.authToken);
-//   res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
-//   // console.log('Session created: ', req.session);
-// });
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
+app.get('/bundle.js', function(req, res){
+  res.sendFile(path.join(__dirname + '/../client/dist/bundle.js'));
 });
+
+app.get('/styles.css', function(req, res){
+  res.sendFile(path.join(__dirname + '/../client/dist/styles.css'));
+});
+
+app.get('/*', function(req, res){
+  console.log('requesting /*', req.session.authToken);
+  res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
+  // console.log('Session created: ', req.session);
+});
+
+
 
 app.listen(PORT, ADDRESS, () => {
   console.log('Toad Tryp server listening on port 3000.');

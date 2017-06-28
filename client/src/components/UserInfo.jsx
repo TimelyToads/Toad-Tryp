@@ -23,7 +23,6 @@ const UserInfo = (props) => (
         <Form.Field disabled={props.disabled} onChange={props.onChange} name="phone" id='form-input-phone' control={Input} 
         label='Phone Number' placeholder='(xxx) xxx-xxxx' width="6" value={props.user.phone_number} />
       </Form.Group>
-
   </div>
 )
 

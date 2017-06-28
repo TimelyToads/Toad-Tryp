@@ -52,7 +52,6 @@
     "webpack": "^3.0.0"
   },
   "devDependencies": {
-    "css-loader": "^0.28.4",
-    "semantic-ui": "^2.2.10"
+    "css-loader": "^0.28.4"
   }
 }
