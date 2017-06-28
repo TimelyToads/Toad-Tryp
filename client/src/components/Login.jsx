@@ -3,7 +3,7 @@ import DocMeta from 'react-doc-meta';
 import API_Keys from '../../../lib/api_keys.js';
 import axios from 'axios';
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
-import Redirect from 'react-router-dom/redirect' 
+import { Redirect } from 'react-router-dom' 
 
 
 class Login extends React.Component {

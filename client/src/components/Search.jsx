@@ -2,7 +2,7 @@ import React from 'react';
 import range from 'lodash/range';
 import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
-import Redirect from 'react-router-dom/redirect'
+import {Redirect} from 'react-router-dom'
 import query from 'query-string'
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 
