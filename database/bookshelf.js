@@ -3,11 +3,9 @@
 // http://knexjs.org/
 const dbConfig = {
   client: 'mysql',
-  connection: proccess.env.DATABASE_URL,
-  ssl: true
+  connection: process.env.DATABASE_URL
 };
 const knex = require('knex')(dbConfig);
-
 
 // This initialization should likely only ever happen once in your application. 
 // As it creates a connection pool for the current database, 
