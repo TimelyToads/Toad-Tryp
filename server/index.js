@@ -149,6 +149,8 @@ app.post('/api/trips', (req, res) => {
 app.post('/api/trips/:tripId/join/:username', (req, res) => {
   const tripId = req.params.tripId;
   const username = req.params.username;
+  res.sendStatus(201);
+
 })
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
 //AND BE ABOVE THE FOLLOWING: app.get('/*'...)
