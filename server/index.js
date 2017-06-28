@@ -6,7 +6,7 @@ const models = require('../database/models/models.js');
 
 const app = express();
 const ADDRESS = '127.0.0.1';
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const MAX_COOKIE_AGE = 3600000;
 
 
@@ -211,8 +211,12 @@ app.get('/*', function(req, res){
   // console.log('Session created: ', req.session);
 });
 
+<<<<<<< HEAD
 
 
 app.listen(PORT, ADDRESS, () => {
+=======
+app.listen(PORT, () => {
+>>>>>>> Temp removed api_keys.js to push to heroku
   console.log('Toad Tryp server listening on port 3000.');
 });
