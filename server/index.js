@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 app.get('/api/users', (req, res) => {
   console.log('GET /api/users');
   models.Users.fetch().then( (users) => {
-    console.log('\tSUCCESS');
+    console.log('\tSUCCESS\n');
     res.status(200).send(users);
   })
   .catch( (err) => {
@@ -42,7 +42,7 @@ app.get('/api/users/:username' ,(req, res) => {
   models.User.forge({ username })
   .fetch().then( user => {
     if (user) {
-      console.log('\tSUCCESS');
+      console.log('\tSUCCESS\n');
       res.status(200).send(user.toJSON());
     } else {
       throw user;
@@ -62,7 +62,7 @@ app.get('/api/users/:username/trips', (req, res) => {
   .fetch({withRelated: ['hostedTrips', 'trips']})
   .then( (trips) => {
     if (trips) {
-      console.log('\tSUCCESS');
+      console.log('\tSUCCESS\n');
       res.status(200).send(trips.toJSON());
     } else {
       throw trips;
@@ -80,8 +80,8 @@ app.post('/api/users', (req, res) => {
   console.log('POST /api/users: ', user);
   models.User.forge(user).save()
   .then( (user) => {
-    console.log('\tSUCCESS');
-    res.status(201).send();
+    console.log('\tSUCCESS\n');
+    res.status(201).send(user);
   })
   .catch( (err) => {
     const message = 'Unable to create user';
@@ -120,7 +120,7 @@ app.get('/api/trips/:tripId', (req,res) => {
   .fetch({withRelated: ['driver','riders']})
   .then( (trip) => {
     if (trip) {
-      console.log('\tSUCCESS');
+      console.log('\tSUCCESS\n');
       res.status(200).send(trip.toJSON());
     } else {
       throw trip;
@@ -142,14 +142,35 @@ app.post('/api/trips', (req, res) => {
   })
   .catch( (err) => {
     console.log('ERROR POSTing Trip model: ', err);
-    res.status(400).send(err);
+    res.status(500).send(err);
   });
 });
 
-app.post('/api/trips/:tripId/join/:username', (req, res) => {
-  const tripId = req.params.tripId;
-  const username = req.params.username;
-  res.sendStatus(201);
+app.post('/api/trips/:tripId/join/:userId', (req, res) => {
+
+  const trip_id = req.params.tripId;
+  const user_id = req.params.userId;
+  console.log(`POST /api/trips/${trip_id}/join/${user_id}`);
+  models.TripToad.forge({trip_id, user_id}).fetch()
+  .then( tripToad => {
+    if (tripToad) {
+      const message = 'Content conflicts with existing resource';
+      console.log('\t' + message, tripToad);
+      res.status(409).send({message, tripToad});
+    }
+     else {
+      models.TripToad.forge({trip_id, user_id}).save()
+      .then( (unique) => {
+        console.log('\tSUCCESS\n');
+        res.status(201).send(unique);
+      });
+    }
+  })
+  .catch( err => {
+    const message = 'Server Error: Could not create';
+    console.log('\t' + message);
+    res.status(500).send({message});
+  })
 
 })
 //ALL REST ENDPOINTS SHOULD START WITH /api/<YOUR PATH>
