@@ -21,7 +21,7 @@ const Trip = bookshelf.Model.extend({
   }
 });
 
-const Ride = bookshelf.Model.extend({
+const TripToad = bookshelf.Model.extend({
   tableName: 'trips_toads'
 });
 
@@ -31,6 +31,6 @@ module.exports = {
   Users: User.collection(User),
   Trip: Trip,
   Trips: Trip.collection(Trip),
-  Ride: Ride,
-  Rides: Ride.collection(Ride)
+  TripToad: TripToad,
+  TripToads: TripToad.collection(TripToad)
 };

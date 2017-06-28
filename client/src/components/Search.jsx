@@ -15,7 +15,7 @@ class Search extends React.Component {
       departdate: '',
       arrivedate: '',
       seats: '',
-      fireRedirect: false,
+      redirectTo: null,
       trips: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,14 +33,13 @@ class Search extends React.Component {
 
   fetch() {
     const app = this;
-
+    const { depart, arrive, departdate, arrivedate, seats } = this.state;
     axios.get('/api/trips', { 
-      params: this.state 
+      params: { depart, arrive, departdate, arrivedate, seats } 
     })
     .then(function (response) {
-      console.log('Successfully fetching from db in Search Component', response);
       app.setState({
-        fireRedirect: true,
+        redirectTo: '/searchresults',
         trips: response.data
       });
     })
@@ -52,8 +51,7 @@ class Search extends React.Component {
   render() {
 
     let s = range(1,6);
-    const { fireRedirect, trips, depart, arrive } = this.state;
-
+    const { redirectTo, trips, depart, arrive } = this.state;
     return (
       <div className="search">
         <form className="search-form" onSubmit={this.handleSubmit}>
@@ -71,9 +69,9 @@ class Search extends React.Component {
           </select>
           <button type="submit">Find Tryp</button>
         </form>
-        {fireRedirect && (
+        {redirectTo && (
           <Redirect from={'/'} push to={{
-            pathname: '/searchresults',
+            pathname: redirectTo,
             state: { trips, depart, arrive }
           }}/>
         )}
