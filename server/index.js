@@ -152,20 +152,20 @@ app.post('/api/trips/:tripId/join/:userId', (req, res) => {
   const user_id = req.params.userId;
   console.log(`POST /api/trips/${trip_id}/join/${user_id}`);
   models.TripToad.forge({trip_id, user_id}).fetch()
-  .then( tripToad => {
-    if (tripToad) {
-      const message = 'Content conflicts with existing resource';
-      console.log('\t' + message, tripToad);
-      res.status(409).send({message, tripToad});
-    }
-     else {
-      models.TripToad.forge({trip_id, user_id}).save()
-      .then( (unique) => {
-        console.log('\tSUCCESS\n');
-        res.status(201).send(unique);
-      });
-    }
-  })
+    .then( tripToad => {
+      if (tripToad) {
+        const message = 'Content conflicts with existing resource';
+        console.log('\t' + message, tripToad);
+        res.status(409).send({message, tripToad});
+      }
+      else {
+        models.TripToad.forge({trip_id, user_id}).save()
+          .then( (unique) => {
+            console.log('\tSUCCESS\n');
+            res.status(201).send(unique);
+          });
+      }
+    })
   .catch( err => {
     const message = 'Server Error: Could not create';
     console.log('\t' + message);

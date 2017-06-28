@@ -22,7 +22,8 @@ class CreateDriver extends React.Component{
       DLState: '',
       DLExpMonth: '',
       DLExpDay: '',
-      DLExpYear: ''};
+      DLExpYear: '',
+      preventEdits: false};
   }
 
 
@@ -40,7 +41,7 @@ class CreateDriver extends React.Component{
     }
   
     render() {
-      const { name, email, submittedName, submittedEmail } = this.state
+      const { name, email, submittedName, submittedEmail, preventEdits } = this.state
   
       return (
         <div>
@@ -48,7 +49,7 @@ class CreateDriver extends React.Component{
           <Segment.Group>
             <Segment.Group>
               <Segment><Header as='h4' inverted color='green'>User Info</Header></Segment>
-              <Segment><UserInfo onChange={this.handleChange.bind(this)}/></Segment>
+              <Segment><UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits}/></Segment>
             </Segment.Group>
             
             <Segment><Header as='h4' inverted color='green'>Driver Info</Header></Segment>
