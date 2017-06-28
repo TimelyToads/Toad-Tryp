@@ -6,6 +6,7 @@ import {
 import MyRoutes from './MyRoutes.jsx'
 
 
+
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -24,8 +25,9 @@ class NavBar extends React.Component {
       <nav>
         <ul>
           <li>{loginLink}</li>
-          <li><Link to="/signup">Sign Up</Link></li>
-          <li><Link to="/create">Become a Driver</Link></li>
+          <li><Link to="/create">Sign Up</Link></li>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/profile/jun123">Profile</Link></li>
         </ul>
       </nav>
     </div>
