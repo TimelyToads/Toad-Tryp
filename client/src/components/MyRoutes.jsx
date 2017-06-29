@@ -56,7 +56,7 @@ const routes = [
 
 const MyRoutes = (props) => (
   <Switch>
-  {console.log('PARAMS: ', props.match)}
+  {console.log('Rendering MyRoutes', props.authenticateUserFunc)}
     {routes.map((route, index) => {
       if (route.path === '/login') {
         console.log('this is props in the MyRoutes function', props)
@@ -65,7 +65,7 @@ const MyRoutes = (props) => (
           exact={route.exact}
           path='/login' 
           render={ () => 
-          <Login authenticateUserFunc={props.authenticateUserFunc} />} 
+            <Login isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
         />
       } else {
         return <Route
