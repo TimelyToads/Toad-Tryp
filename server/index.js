@@ -29,31 +29,55 @@ app.get('/api/users', (req, res) => {
     console.log('\tSUCCESS\n');
     res.status(200).send(users);
   })
-  .catch( (err) => {
-    const message = 'Unable to get users';
-    console.error(message);
-    res.status(500).send({ message });
-  });
+    .catch( (err) => {
+      const message = 'Unable to get users';
+      console.error(message);
+      res.status(500).send({ message });
+    });
 });
+
+
+app.get('/api/users/googleid' ,(req, res) => {
+  const googleid = req.query.googleid;
+  console.log(`GET /api/users/googleid`, googleid);
+
+  models.User.forge({ username: googleid })
+    .fetch().then( user => {
+      if (user) {
+        console.log('\tSUCCESS\n');
+        res.status(200).send(user.toJSON());
+      } else {
+        throw user;
+      }
+    })
+    .catch( err => {
+      const message = `\tUnable to find token  ` + err;
+      console.error(message);
+      res.status(404).send({ message });
+    });
+});
+
 
 app.get('/api/users/:username' ,(req, res) => {
   const username = req.params.username;
   console.log(`GET /api/users/${username}`);
   models.User.forge({ username })
-  .fetch().then( user => {
-    if (user) {
-      console.log('\tSUCCESS\n');
-      res.status(200).send(user.toJSON());
-    } else {
-      throw user;
-    }
-  })
-  .catch( err => {
-    const message = `\tUnable to find user: ${req.params.username}`
-    console.error(message);
-    res.status(404).send({ message });
-  });
+    .fetch().then( user => {
+      if (user) {
+        console.log('\tSUCCESS\n');
+        res.status(200).send(user.toJSON());
+      } else {
+        throw user;
+      }
+    })
+    .catch( err => {
+      const message = `\tUnable to find user: ${req.params.username}`;
+      console.error(message);
+      res.status(404).send({ message });
+    });
 });
+
+
 
 app.get('/api/users/:username/trips', (req, res) => {
   const username = req.params.username;
