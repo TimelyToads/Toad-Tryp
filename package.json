@@ -9,7 +9,7 @@
     "react-start": "webpack -d --watch",
     "db-seed": "mysql -u root < database/sql/schema.sql",
     "start": "node ./server/index.js",
-    "postinstall": "webpack"
+    "heroku-postbuild": "webpack"
   },
   "repository": {
     "type": "git",

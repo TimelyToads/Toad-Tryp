@@ -9,6 +9,10 @@ import moment from 'moment';
 
 // Requirements AirBnB's React-Calendar 
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+<<<<<<< HEAD
+=======
+// require.resolve('react-dates/lib/css/_datepicker.css')
+>>>>>>> NewTrip page
 
 class Search extends React.Component {
   constructor(props) {
