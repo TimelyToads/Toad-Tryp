@@ -9,11 +9,7 @@ import { Redirect } from 'react-router-dom'
 class Login extends React.Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
     this.state = { userLoggedIn: false, sourceRoute: '/' };
-=======
-    this.state = { userLoggedIn: false, currentUser: {} };
->>>>>>> Add dependency for React-Calendar component from AirBnB
   }
 
   componentDidMount() {
@@ -41,7 +37,6 @@ class Login extends React.Component {
       .then( res => {
         console.log('Successfully called AuthenticationHelper.isUserAuthenticated()', res);
         
-<<<<<<< HEAD
         //If auth token valid then query DB to see if user already exist
         axios.get('/api/users/googleid', {
           params: {
@@ -69,16 +64,6 @@ class Login extends React.Component {
 
           }); //end inner catch          
         }) //end then
-=======
-
-        if (res.status === 200 && res.data.aud === API_Keys.client_id) {
-          this.setState({
-            userLoggedIn: true,
-            currentUser: googleUserObject
-          });
-        }
-      })
->>>>>>> Add dependency for React-Calendar component from AirBnB
       .catch( err => {
         console.log('Error validating token', err);
       });
