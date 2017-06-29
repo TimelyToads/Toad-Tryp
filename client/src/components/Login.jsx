@@ -10,7 +10,7 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { userLoggedIn: false };
+    this.state = { userLoggedIn: false, sourceRoute: '/' };
   }
 
   componentDidMount() {
@@ -32,20 +32,41 @@ class Login extends React.Component {
     console.log('INSIDE Login.jsx/onSignInSuccess: ', googleData);
 
     let googleUserObject = AuthenticationHelper.retrieveUserInfo(googleData);
-    window.authToken = googleUserObject.authToken;
 
-    AuthenticationHelper.isUserAuthenticated()
+    window.authToken = googleData.getAuthResponse().id_token;
+
+    //Check if auth token is valid via Google
+    AuthenticationHelper.isTokenValid()
       .then( res => {
         console.log('Successfully called AuthenticationHelper.isUserAuthenticated()', res);
-        this.props.authenticateUserFunc();
         
+        //If auth token valid then query DB to see if user already exist
+        axios.get('/api/users/googleid', {
+          params: {
+            googleid: googleUserObject.username
+          }
+        })  
+          .then( userObj => {
 
-        if (res.status === 200 && res.data.aud === API_Keys.client_id) {
-          this.setState({
-            userLoggedIn: true
-          });
-        }
-      })
+            //If user exists in DB then set the user object on the state
+            console.log('setting this.props.authenticateUserFunc ', userObj.data);
+            this.props.authenticateUserFunc(userObj.data);
+
+          })
+          .catch( err => {
+
+            //User does not exist in DB create a new user in DB and set the googleUserObj to state
+            axios.post('/api/users', googleUserObject)
+            .then( res => {
+              console.log('Created new user in db ', googleUserObject);
+              this.props.authenticateUserFunc(googleUserObject);              
+            })
+            .catch( err => {
+              console.log('ERROR creating user after Login');
+            });
+
+          }); //end inner catch          
+        }) //end then
       .catch( err => {
         console.log('Error validating token', err);
       });
@@ -101,3 +122,5 @@ class Login extends React.Component {
 
 
 export default Login;
+
+// if (res.status === 200 && res.data.aud === API_Keys.client_id) {

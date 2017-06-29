@@ -51,24 +51,15 @@ class Profile extends React.Component{
     }
 
     componentDidMount() {
-      AuthenticationHelper.isUserAuthenticated()
-        .then( res => {
-          console.log('User is logged in');
+      axios.get(`/api/users/${this.state.user.username}`)
+        .then( userData => {
+          this.setState({
+            user: userData.data
+          })
         })
         .catch( err => {
-          console.log('User is not logged in');
-        });
-      
-      axios.get(`/api/users/${this.state.user.username}`)
-        .then( (response) => {
-          this.setState({
-            user: response.data
-          });
-          console.log('USER: ', response.data);
+          console.log('Error retrieving user on Profile page: ', this.state.user.username);
         })
-        .catch( (error) => {
-          console.log('Error fetching user data in Proflie component: ', error);
-        });
       
     }
   
@@ -115,3 +106,23 @@ class Profile extends React.Component{
 
 }
 export default Profile;
+
+
+// AuthenticationHelper.isUserAuthenticated()
+// .then( res => {
+//   console.log('User is logged in');
+// })
+// .catch( err => {
+//   console.log('User is not logged in');
+// });
+
+// axios.get(`/api/users/${this.state.user.username}`)
+// .then( (response) => {
+//   this.setState({
+//     user: response.data
+//   });
+//   console.log('USER: ', response.data);
+// })
+// .catch( (error) => {
+//   console.log('Error fetching user data in Proflie component: ', error);
+// });

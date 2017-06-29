@@ -6,14 +6,14 @@ USE toads;
 
 CREATE TABLE IF NOT EXISTS users( 
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-    username  VARCHAR(20) NOT NULL, 
+    username  VARCHAR(100) NOT NULL, 
     first_name VARCHAR(50) NOT NULL, 
     last_name VARCHAR(50) NOT NULL, 
     email VARCHAR(100), 
     password VARCHAR(512) NOT NULL, 
     img_url VARCHAR(1024), 
     phone_number VARCHAR(20), 
-    salt_hash VARCHAR(512), 
+    token VARCHAR(2048), 
     vin VARCHAR(50), 
     make VARCHAR(50), 
     model VARCHAR(50), 
