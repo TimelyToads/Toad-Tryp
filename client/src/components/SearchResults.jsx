@@ -19,21 +19,28 @@ class SearchResults extends React.Component {
 
   handleClick(e) {
     console.log('this is the props', this.props)
+    // TODO: 
+      // If User is not authenticated
+        // Must Redirect User to Login/Signup page
+      //  If they are logged in
+       // proceed to the POSTing to the database that the user is now a part of the Trip.
+
+    
     // console.log(AuthenticationHelper.isUserAuthenticated())
 
-    AuthenticationHelper.isUserAuthenticated()
-    .then(response => {
-      this.setState({
-        redirectTo: `/trip/${e.target.value}`
-      })
-    })
-    .catch(error => {
-      if (error) { 
-        this.setState( {
-          redirectTo: `/login`
-        });
-      }
-    })
+    // AuthenticationHelper.isUserAuthenticated()
+    // .then(response => {
+    //   this.setState({
+    //     redirectTo: `/trip/${e.target.value}`
+    //   })
+    // })
+    // .catch(error => {
+    //   if (error) { 
+    //     this.setState( {
+    //       redirectTo: `/login`
+    //     });
+    //   }
+    // })
   }
 
   render() {
