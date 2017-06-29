@@ -6,16 +6,21 @@ import axios from 'axios';
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 
 class Profile extends React.Component{
-  constructor(props) {
-   
+  constructor(props) { 
     super(props);
     this.state = { 
-      preventEdits:     true,
-      user:             {username: props.match.params.username}
+      preventEdits: true,
+      user: {
+        username: props.match.params.username
+      } 
     };
 
   }
 
+  handleChange (e, { name, value }) {
+    console.log('inside on change', name, value);
+    this.setState({ [name]: value })
+  }
 
     handleChange (e, { name, value }) {
       console.log('inside on change', name, value);

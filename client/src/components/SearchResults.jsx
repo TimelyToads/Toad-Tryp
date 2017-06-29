@@ -3,6 +3,8 @@ import {Redirect} from 'react-router-dom'
 import SearchResultItem from './SearchResultItem.jsx'
 import Search from './Search.jsx';
 // import SearchSwitch from './SearchSwitch.jsx';
+import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+
 
 //Resulting trips array can be found at props.location.state.trips
 
@@ -16,10 +18,30 @@ class SearchResults extends React.Component {
   }
 
   handleClick(e) {
-    console.log(this.props)
-    this.setState( {
+    // TODO: 
+      // If User is not authenticated
+        // Must Redirect User to Login/Signup page
+      //  If they are logged in
+       // proceed to the POSTing to the database that the user is now a part of the Trip.
+
+    this.setState({
       redirectTo: `/trip/${e.target.value}`
-    })
+    })   
+    // console.log(AuthenticationHelper.isUserAuthenticated())
+
+    // AuthenticationHelper.isUserAuthenticated()
+    // .then(response => {
+      // this.setState({
+      //   redirectTo: `/trip/${e.target.value}`
+      // })
+    // })
+    // .catch(error => {
+    //   if (error) { 
+    //     this.setState( {
+    //       redirectTo: `/login`
+    //     });
+    //   }
+    // })
   }
 
   render() {

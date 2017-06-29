@@ -65,8 +65,8 @@ INSERT INTO users (username, email, password, img_url, phone_number, first_name,
 INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('kirk123', '456@abc.com', '456', '../../client/src/img/kirk.png', '123-123-7890', 'Kirk', 'Rawr');
 INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('dylan123', 'dylan@abc.com', '123456', '../../client/src/img/dylan.png', '777-456-7290', 'Dylan', 'Doofus');
 
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('james123', 'james@abc.com', '1234ng56', '../../client/src/img/james.jpg', '415-420-7890', 'James', 'Bond', '1km2nj3nj3n', 'Aston Martin', 'F1', '2017', 'Sportscar', 'ABC123');
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('jun123', 'donald@abc.com', 'ivanka', '../../client/src/img/donald.jpg', '909-000-0001', 'Donald', 'Trump', '1mk2jnj3ni1', 'Ford', 'Explorer', '2015', 'SUV', '123XYZ');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('james123', 'james@abc.com', '1234ng56', 'http://vignette2.wikia.nocookie.net/jamesbond/images/b/b2/James_Bond_%28Sean_Connery%29_-_Profile.jpg/revision/latest?cb=20130509150135', '415-420-7890', 'James', 'Bond', '1km2nj3nj3n', 'Aston Martin', 'F1', '2017', 'Sportscar', 'ABC123');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('jun123', 'donald@abc.com', 'ivanka', 'http://www.slate.com/content/dam/slate/uploads/2015/9/3/trump_finger.jpg.CROP.thumbnail-small.jpg', '909-000-0001', 'Donald', 'Trump', '1mk2jnj3ni1', 'Ford', 'Explorer', '2015', 'SUV', '123XYZ');
 
 INSERT INTO trips (
   driver_id, 
