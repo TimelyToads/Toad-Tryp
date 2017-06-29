@@ -50,10 +50,13 @@ class Create extends React.Component {
   }
 
   
-  render() {
-    const { driverSignup, preventEdits, user, signupCompleted } = this.state;
+  
+    render() {
+      const { driverSignup, preventEdits, user, signupCompleted } = this.state;
 
-    return (
+      
+      return (
+        
         <div>
         {signupCompleted && (
           <Redirect from={'/'} push to={{
