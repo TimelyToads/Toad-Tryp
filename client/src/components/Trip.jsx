@@ -17,7 +17,6 @@ class Trip extends React.Component {
   }
 
   componentDidMount() {
-    // AuthenticationHelper.is
     this.fetch(this.match.params.tripId);
   }
 

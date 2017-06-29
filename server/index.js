@@ -125,6 +125,7 @@ app.get('/api/trips', (req, res) => {
     qb.where({
       departure_city: req.query.depart,
       arrival_city: req.query.arrive,
+      departure_date: req.query.departdate,
     });
   })
   .fetch()

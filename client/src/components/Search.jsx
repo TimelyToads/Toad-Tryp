@@ -5,8 +5,10 @@ import SearchResults from './SearchResults.jsx';
 import {Redirect} from 'react-router-dom'
 import query from 'query-string'
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+import moment from 'moment';
+
+// Requirements AirBnB's React-Calendar 
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-// import 'react-dates/lib/css/_datepicker.css';
 require.resolve('react-dates/lib/css/_datepicker.css')
 
 class Search extends React.Component {
@@ -15,8 +17,7 @@ class Search extends React.Component {
     this.state = {
       depart: '',
       arrive: '',
-      departdate: '',
-      arrivedate: '',
+      date: '',
       seats: '',
       redirectTo: null,
       trips: []
@@ -35,16 +36,18 @@ class Search extends React.Component {
   }
 
   fetch() {
-    const app = this;
-    const { depart, arrive, departdate, arrivedate, seats } = this.state;
+    const { depart, arrive, date, seats } = this.state;
+    const departdate = moment(date._d).format('YYYY-MM-DD');
+
     axios.get('/api/trips', { 
-      params: { depart, arrive, departdate, arrivedate, seats } 
+      params: { depart, arrive, departdate, seats } 
     })
-    .then(function (response) {
-      app.setState({
+    .then((response) => {
+      this.setState({
         redirectTo: '/searchresults',
         trips: response.data
       });
+      console.log(this.state)
     })
     .catch(function (error) {
       console.log(error);
@@ -54,23 +57,18 @@ class Search extends React.Component {
   render() {
 
     let s = range(1,6);
-    const { redirectTo, trips, depart, arrive } = this.state;
+    const { redirectTo, trips, date, depart, arrive } = this.state;
     return (
       <div className="search">
-        <DateRangePicker
-          startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-          endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-          onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
-          focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-          onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-        />
-
         <form className="search-form" onSubmit={this.handleSubmit}>
           <input type="text" name="depart" placeholder="Depart City" value={this.state.depart} onChange={this.handleChange}/>
           <input type="text" name="arrive" placeholder="Arrive City" value={this.state.arrive} onChange={this.handleChange}/>
-          
-          <input type="text" name="departdate" placeholder="Depart Date" value={this.state.departdate} onChange={this.handleChange}/>
-          <input type="text" name="arrivedate" placeholder="Arrive Date" value={this.state.arrivedate} onChange={this.handleChange}/>
+          <SingleDatePicker
+            date={this.state.date} // momentPropTypes.momentObj or null
+            onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
+            focused={this.state.focused} // PropTypes.bool
+            onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+          />
           
           <select name="seats" value={this.state.seats} onChange={this.handleChange}>
             <option key="Seats" value="#" >Seats</option>
