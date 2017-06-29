@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Segment, Header, Button, Radio, Divider, Checkbox, Label } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom' 
 import UserInfo from './UserInfo.jsx'
 import DriverInfo from './DriverInfo.jsx'
 import axios from 'axios';
@@ -19,45 +20,43 @@ class Create extends React.Component{
 
 
   handleChange (e, { name, value }) {
-    console.log('inside on change', name, value);
 
-    let newUserObj = this.state.user;
-    newUserObj[[name]] = value;
-
-    this.setState({user: newUserObj})
+    this.state.user[[name]] = value;
+    this.setState({user: this.state.user})
   }
 
   handleSubmit (e) {
     
-    console.log('Inside handleSubmit', this.state.user);
-    // axios.post('/api/users', this.state.user)
-    //   .then( res => {
-    //     console.log('SUCCESS creating a user', res);
-    //     this.setState({preventEdits: true});
-    //   })
-    //   .catch( err => {
-    //     console.log('Error creating a user ', err);
-    //   });
+    axios.post('/api/users', this.state.user)
+      .then( res => {
+        this.props.authenticateUserFunc(res.data);
+        this.setState({preventEdits: true, signupCompleted: true});
+      })
+      .catch( err => {
+        console.log('Error creating a user ', err);
+      });
+    
   }
 
     handleCancelClick() {
+      this.setState({signupCompleted: true});
     }
 
     handleDriverToggle() {
       this.setState({driverSignup: !this.state.driverSignup})
     }
-    componentDidMount() {
 
-    }
-  
   
     render() {
       const { driverSignup, preventEdits, user, signupCompleted } = this.state;
-      
+
       return (
-        
         <div>
-        {console.log('Rendering Create.jsx')}
+        {signupCompleted && (
+          <Redirect from={'/'} push to={{
+            pathname: '/'
+          }}/>
+        )}
         <Segment.Group>
           <Segment padded >
             <Login isAuthenticated={this.props.isAuthenticated} authenticateUserFunc={this.props.authenticateUserFunc} />
@@ -78,7 +77,7 @@ class Create extends React.Component{
               </Segment>
             </Segment.Group>
 
-             { (() => {
+            { (() => {
               if (driverSignup) {
                 return <div>
                 <Segment.Group>
@@ -88,9 +87,9 @@ class Create extends React.Component{
                 </Segment.Group>
                 </div>
               }
-             })()}
+            })()}
 
-             {(() => {
+            {(() => {
               if (!preventEdits){
 
                 return <div>
@@ -106,9 +105,7 @@ class Create extends React.Component{
         </Segment.Group>
       </div>
       )
-    }
-  
-
+    } //end render
 }
 export default Create;
 

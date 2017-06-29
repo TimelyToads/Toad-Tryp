@@ -17,12 +17,6 @@ class NavBar extends React.Component {
 
   render() {
     console.log('Rendering NavBar');
-    let loginLink = '';
-    if (!this.props.isAuthenticated()) {
-      loginLink = <Link to="/login">Login</Link>;
-    } else {
-      loginLink = <Link to="/">Logout</Link>;
-    }
 
     let profileLink = '';
     if (!this.props.isAuthenticated()) {
@@ -35,10 +29,10 @@ class NavBar extends React.Component {
      <div>
       <nav>
         <ul>
-          <li>{loginLink}</li>
-          <li><Link to="/create">Sign Up</Link></li>
+        <li>{!this.props.isAuthenticated() && <Link to="/login">Login</Link>}</li>
+        <li>{!this.props.isAuthenticated() && <Link to="/create">Sign Up</Link>}</li>
           <li><Link to="/">Search</Link></li>
-          <li>{profileLink}</li>
+          <li>{this.props.isAuthenticated() && <Link to={'/profile/'+this.props.username}>Profile</Link>}</li>
         </ul>
       </nav>
     </div>

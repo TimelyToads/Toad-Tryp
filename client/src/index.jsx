@@ -32,6 +32,10 @@ class App extends React.Component {
     return this.state.isAuthenticated
   }
 
+  componentDidMount() {
+    console.log('index.jsx token?', window.authToken);
+  }
+
   render() {
     console.log('Rendering login.jsx', this.props);
     return (
