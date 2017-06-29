@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom'
 
 import MyRoutes from './MyRoutes.jsx'
+import { withRouter } from 'react-router';
 
 
 
@@ -12,17 +13,7 @@ class NavBar extends React.Component {
     super(props);
   }
 
-  handleLogoutClick() {
-    console.log('Inside handleLogOutClick()');
-    gapi.auth2.getAuthInstance()
-    .signOut()
-      .then( () => {
-        console.log('User signed out.');
-        this.setState({
-          userLoggedIn: false
-        });
-      });
-  }
+
 
   render() {
     console.log('Rendering NavBar');
@@ -30,7 +21,7 @@ class NavBar extends React.Component {
     if (!this.props.isAuthenticated()) {
       loginLink = <Link to="/login">Login</Link>;
     } else {
-      loginLink = <Link onClick={this.handleLogoutClick.bind(this)} to="/">Logout</Link>;
+      loginLink = <Link to="/">Logout</Link>;
     }
 
     let profileLink = '';
@@ -56,4 +47,4 @@ class NavBar extends React.Component {
 
 }  
 
-export default NavBar;
+export default withRouter(NavBar);

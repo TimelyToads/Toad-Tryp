@@ -33,7 +33,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('Rendering login.jsx', this.state.isAuthenticated);
+    console.log('Rendering login.jsx', this.props);
     return (
       <Router history={browserHistory}>
         <div>

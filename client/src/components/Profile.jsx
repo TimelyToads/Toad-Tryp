@@ -17,10 +17,6 @@ class Profile extends React.Component {
 
   }
 
-  handleChange (e, { name, value }) {
-    console.log('inside on change', name, value);
-    this.setState({ [name]: value });
-  }
 
   handleChange (e, { name, value }) {
     console.log('inside on change', name, value);

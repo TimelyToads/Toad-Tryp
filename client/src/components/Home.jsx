@@ -1,11 +1,13 @@
 import React from 'react';
 import Search from './Search.jsx';
+import { withRouter } from 'react-router';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
+    console.log('Inside Home.jsx', this.props);
     return (<div>
       <div className="page-heading">
         <h1>
@@ -20,4 +22,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);

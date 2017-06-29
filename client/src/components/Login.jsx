@@ -4,6 +4,7 @@ import API_Keys from '../../../lib/api_keys.js';
 import axios from 'axios';
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 import { Redirect } from 'react-router-dom' 
+import { withRouter } from 'react-router';
 
 
 class Login extends React.Component {
@@ -89,7 +90,7 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log('Rendering Login.jsx', this.props.isAuthenticated());
+    console.log('Rendering Login.jsx', this.props);
     let signOutLink = '';
     if (this.props.isAuthenticated()) {
       signOutLink = <a href="#" onClick={this.signOut.bind(this)}>Sign out of ToadTryp</a>
@@ -107,7 +108,7 @@ class Login extends React.Component {
 
        {this.props.isAuthenticated() && (
         <Redirect from={'/'} push to={{
-          pathname: '/searchresults'
+          pathname: '/'
         }}/>
        )}
       </div>
@@ -118,6 +119,6 @@ class Login extends React.Component {
 
 
 
-export default Login;
+export default withRouter(Login);
 
 // if (res.status === 200 && res.data.aud === API_Keys.client_id) {
