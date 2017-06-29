@@ -9,7 +9,6 @@ import { Redirect } from 'react-router-dom'
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userLoggedIn: false, sourceRoute: '/' };
   }
 
   componentDidMount() {
@@ -90,8 +89,9 @@ class Login extends React.Component {
   }
 
   render() {
+    console.log('Rendering Login.jsx', this.props.isAuthenticated());
     let signOutLink = '';
-    if (this.state.userLoggedIn) {
+    if (this.props.isAuthenticated()) {
       signOutLink = <a href="#" onClick={this.signOut.bind(this)}>Sign out of ToadTryp</a>
     }
 
@@ -105,7 +105,7 @@ class Login extends React.Component {
         <div id="g-signin2" />
        {signOutLink}
 
-       {this.state.userLoggedIn && (
+       {this.props.isAuthenticated() && (
         <Redirect from={'/'} push to={{
           pathname: '/searchresults'
         }}/>

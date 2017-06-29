@@ -19,7 +19,7 @@ class App extends React.Component {
   }
 
   authenticateUser(userObj) {
-    console.log('setting user in index.jsx: ', userObj.data);
+    console.log('setting user in index.jsx: ', userObj);
     this.setState(
       {
         isAuthenticated: true,
@@ -32,23 +32,13 @@ class App extends React.Component {
     return this.state.isAuthenticated
   }
 
-  componentDidMount() {
-    // return authHelper.getAuthenticatedUser()
-    // .then( (user) => {
-    //   this.setState({ user });
-    // })
-    // .catch( (err) => {
-    //   console.log('Error authenticating user in index.jsx: ', err);
-    // });
-  }
-
   render() {
-    console.log('HELLO USER: ', this.state.user);
+    console.log('Rendering login.jsx', this.state.isAuthenticated);
     return (
       <Router history={browserHistory}>
         <div>
           <NavBar isAuthenticated={this.isUserAuthenticated.bind(this)} username={this.state.user.username} />
-          <MyRoutes authenticateUserFunc={this.authenticateUser.bind(this)}/>
+          <MyRoutes isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)}/>
         </div>
       </Router>
     )
