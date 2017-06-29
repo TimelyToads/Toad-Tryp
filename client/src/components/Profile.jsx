@@ -1,11 +1,11 @@
-import React from 'react'
-import { Form, Input, Segment, Header, Button, Radio } from 'semantic-ui-react'
-import UserInfo from './UserInfo.jsx'
-import DriverInfo from './DriverInfo.jsx'
+import React from 'react';
+import { Form, Input, Segment, Header, Button, Radio } from 'semantic-ui-react';
+import UserInfo from './UserInfo.jsx';
+import DriverInfo from './DriverInfo.jsx';
 import axios from 'axios';
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 
-class Profile extends React.Component{
+class Profile extends React.Component {
   constructor(props) { 
     super(props);
     this.state = { 
@@ -19,22 +19,22 @@ class Profile extends React.Component{
 
   handleChange (e, { name, value }) {
     console.log('inside on change', name, value);
-    this.setState({ [name]: value })
+    this.setState({ [name]: value });
   }
 
-    handleChange (e, { name, value }) {
-      console.log('inside on change', name, value);
+  handleChange (e, { name, value }) {
+    console.log('inside on change', name, value);
 
-      let newUserObj = this.state.user;
-      newUserObj[[name]] = value;
+    let newUserObj = this.state.user;
+    newUserObj[[name]] = value;
 
-      this.setState({user: newUserObj})
-    }
+    this.setState({user: newUserObj});
+  }
   
-    handleSubmit (e) {
+  handleSubmit (e) {
       
-      console.log('Inside handleSubmit', this.state.user);
-      axios.post('/api/users', this.state.user)
+    console.log('Inside handleSubmit', this.state.user);
+    axios.post('/api/users', this.state.user)
         .then( res => {
           console.log('SUCCESS creating a user', res);
           this.setState({preventEdits: true});
@@ -42,71 +42,75 @@ class Profile extends React.Component{
         .catch( err => {
           console.log('Error creating a user ', err);
         });
-    }
+  }
 
-    handleEditClick(e) {
-      console.log('inside handleEditClick');
-      this.setState(
+  handleEditClick(e) {
+    console.log('inside handleEditClick');
+    this.setState(
         {preventEdits: false}
       );
-    } 
+  } 
 
-    handleCancelClick() {
-      this.setState({preventEdits: true});
-    }
+  handleCancelClick() {
+    this.setState({preventEdits: true});
+  }
 
-    componentDidMount() {
-      axios.get(`/api/users/${this.state.user.username}`)
+  componentDidMount() {
+    axios.get(`/api/users/${this.state.user.username}`)
         .then( userData => {
           this.setState({
             user: userData.data
-          })
+          });
         })
         .catch( err => {
           console.log('Error retrieving user on Profile page: ', this.state.user.username);
-        })
+        });
       
-    }
+  }
   
-    render() {
-      const { name, email, submittedName, submittedEmail, preventEdits, user, editing } = this.state
+  render() {
+    const { name, email, submittedName, submittedEmail, preventEdits, user, editing } = this.state;
 
-      return (
-        <div>
-          <Form >
+    return (
+      <div>
+        <Form >
           <Segment.Group>
-         <Segment padded="very">
-            <Header id="userInfoHeader" as='h2' inverted color='green'>User Info</Header>
-            <Button floated="right" toggle active={preventEdits} onClick={this.handleEditClick.bind(this)}>
-              Edit
-            </Button>
-          </Segment>
+            <Segment padded="very">
+              <Button floated="right" toggle active={preventEdits} onClick={this.handleEditClick.bind(this)}> Edit </Button>
+              <Header id="userInfoHeader" as='h2' inverted color='green'>User Info</Header>
+            </Segment>
             <Segment.Group>
-              <Segment><UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits} user={user}/></Segment>
+              <Segment>
+                <UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits} user={user} />
+              </Segment>
             </Segment.Group>
             
             {(() => {
-              if (user.license_plate){
-                return <div> <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} /> </div>    
+              if (user.license_plate) {
+                return (
+                  <Segment>
+                    <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} />
+                  </Segment>
+                );    
               } 
             })()}
             {(() => {
-              if (!preventEdits){
 
-                return <div>
-                <Segment textAlign="right">
-                  <Button color="grey" onClick={this.handleCancelClick.bind(this)}>Cancel</Button>
-                  <Button color="green" onClick={this.handleSubmit.bind(this)}> Submit</Button>
-                </Segment>
-                </div>
+              if (!preventEdits) {
+                return (
+                  <Segment textAlign="right">
+                    <Button color="grey" onClick={this.handleCancelClick.bind(this)}> Cancel </Button>
+                    <Button color="green" onClick={this.handleSubmit.bind(this)}> Submit </Button>
+                  </Segment>
+                );
+              }
 
-              } 
-              })()}
-           </Segment.Group>
-          </Form>
-        </div>
-      )
-    }
+            })()}
+          </Segment.Group>
+        </Form>
+      </div>
+    );
+  }
   
 
 }

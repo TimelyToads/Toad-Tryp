@@ -2,14 +2,13 @@ import React from 'react';
 import range from 'lodash/range';
 import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
-import {Redirect} from 'react-router-dom'
-import query from 'query-string'
+import {Redirect} from 'react-router-dom';
+import query from 'query-string';
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 import moment from 'moment';
 
 // Requirements AirBnB's React-Calendar 
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-require.resolve('react-dates/lib/css/_datepicker.css')
 
 class Search extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class Search extends React.Component {
       seats: '',
       redirectTo: null,
       trips: []
-    }
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -32,7 +31,7 @@ class Search extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   fetch() {
@@ -47,7 +46,7 @@ class Search extends React.Component {
         redirectTo: '/searchresults',
         trips: response.data
       });
-      console.log(this.state)
+      console.log(this.state);
     })
     .catch(function (error) {
       console.log(error);
@@ -56,7 +55,7 @@ class Search extends React.Component {
 
   render() {
 
-    let s = range(1,6);
+    let s = range(1, 6);
     const { redirectTo, trips, date, depart, arrive } = this.state;
     return (
       <div className="search">
@@ -73,7 +72,7 @@ class Search extends React.Component {
           <select name="seats" value={this.state.seats} onChange={this.handleChange}>
             <option key="Seats" value="#" >Seats</option>
             {s.map( (n, i) => {
-              return <option key={i} value={n}>{n}</option>
+              return <option key={i} value={n}>{n}</option>;
             })}
           </select>
           <button type="submit">Find Tryp</button>
@@ -85,7 +84,7 @@ class Search extends React.Component {
           }}/>
         )}
       </div>
-    )
+    );
   }
 }
 
