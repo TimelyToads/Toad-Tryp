@@ -17,7 +17,7 @@ class Home extends React.Component {
           Go anywhere with a fellow Toad.
         </h2>
       </div>
-      <Search />
+      <Search currentUser={this.props.currentUser} />
     </div>);
   }
 }

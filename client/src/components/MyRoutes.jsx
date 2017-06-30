@@ -76,6 +76,7 @@ const PropsRoute = ({ component, ...rest }) => {
 
 const MyRoutes = (props) => (
   <Switch>
+<<<<<<< HEAD
     {console.log('Rendering MyRoutes', props)}
     {routes.map((route, index) => {
       return <PropsRoute
@@ -87,6 +88,46 @@ const MyRoutes = (props) => (
         currentUser={props.currentUser}
         isAuthenticated={props.isAuthenticated}
       />}
+=======
+<<<<<<< HEAD
+  {console.log('Rendering MyRoutes', props)}
+=======
+>>>>>>> Work on redirect for Login.
+    {routes.map((route, index) => {
+      if (route.path === '/login') {
+        return <Route 
+          key={index}
+          exact={route.exact}
+          path='/login' 
+          render={ () => 
+            <Login lol={route} isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
+        />
+      } else if (route.path === '/'){
+        return <Route 
+          key={index}
+          exact={route.exact}
+          path='/' 
+          render={ () => 
+            <Home currentUser={props.currentUser} />} 
+        />
+      } else if (route.path === '/create') {
+        return <Route 
+          key={index}
+          exact={route.exact}
+          path='/create' 
+          render={ () => 
+            <Create isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
+        />
+      } else {
+        return <Route
+          key={index}
+          path={route.path}
+          exact={route.exact}
+          component={route.component}
+        />
+      }
+    }
+>>>>>>> Work on redirect for Login.
     )}
   </Switch>
 );

@@ -18,6 +18,25 @@ class Login extends React.Component{
     };
   }
 
+<<<<<<< HEAD
+=======
+  componentDidMount() {
+    console.log('LOLOLOLOLOLOLOLOLOLOLDJSIDFGBNISJNVISVND' ,this.props);
+    gapi.signin2.render('g-signin2', {
+			'scope': 'profile email',
+			'width': 200,
+			'height': 30,
+			'longtitle': true,
+			'theme': 'dark',
+			'onsuccess': this.onSignInSuccess.bind(this),
+      'onfailure': this.onSignInFailure.bind(this)
+		});
+  }
+
+
+  onSignInSuccess(googleData) {
+    console.log('INSIDE Login.jsx/onSignInSuccess: ', googleData);
+>>>>>>> Work on redirect for Login.
 
   handleChange (e, { name, value }) {
 

@@ -57,6 +57,8 @@ class Search extends React.Component {
 
     let s = range(1, 6);
     const { redirectTo, trips, date, depart, arrive } = this.state;
+    const currentUser = this.props.currentUser;
+    
     return (
       <div className="search">
         <form className="search-form" onSubmit={this.handleSubmit}>
@@ -80,7 +82,7 @@ class Search extends React.Component {
         {redirectTo && (
           <Redirect from={'/'} push to={{
             pathname: redirectTo,
-            state: { trips, depart, arrive }
+            state: { trips, depart, arrive, currentUser }
           }}/>
         )}
       </div>
