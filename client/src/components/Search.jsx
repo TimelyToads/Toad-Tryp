@@ -54,7 +54,6 @@ class Search extends React.Component {
   }
 
   render() {
-
     let s = range(1, 6);
     const { redirectTo, trips, date, depart, arrive } = this.state;
     const currentUser = this.props.currentUser;

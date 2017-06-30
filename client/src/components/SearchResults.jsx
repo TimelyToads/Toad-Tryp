@@ -23,8 +23,7 @@ class SearchResults extends React.Component {
         // Must Redirect User to Login/Signup page
       //  If they are logged in
        // proceed to the POSTing to the database that the user is now a part of the Trip.
-      console.log('this is the currentUser in Search Results', this.state.currentUser)
-    if (!this.state.currentUser) {
+    if (!this.props.location.state.currentUser.email) {
       this.setState({
         redirectTo: `/login`
       })  
@@ -33,22 +32,6 @@ class SearchResults extends React.Component {
         redirectTo: `/trip/${e.target.value}`
       })  
     }
-
-    // console.log(AuthenticationHelper.isUserAuthenticated())
-
-    // AuthenticationHelper.isUserAuthenticated()
-    // .then(response => {
-      // this.setState({
-      //   redirectTo: `/trip/${e.target.value}`
-      // })
-    // })
-    // .catch(error => {
-    //   if (error) { 
-    //     this.setState( {
-    //       redirectTo: `/login`
-    //     });
-    //   }
-    // })
   }
 
   render() {

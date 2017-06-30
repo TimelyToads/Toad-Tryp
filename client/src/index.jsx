@@ -43,11 +43,7 @@ class App extends React.Component {
       <Router history={browserHistory} >
         <div>
           <NavBar isAuthenticated={this.isUserAuthenticated.bind(this)} username={this.state.user.username} />
-<<<<<<< HEAD
           <MyRoutes isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)} currentUser={currentUser}/>
-=======
-          <MyRoutes currentUser={this.state.user} isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)}/>
->>>>>>> Work on redirect for Login.
         </div>
       </Router>
     )
