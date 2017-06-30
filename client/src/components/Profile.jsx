@@ -20,7 +20,6 @@ class Profile extends React.Component {
   }
 
   handleDriverToggle () {
-    console.log('handleDriverToggle e: ');
     this.setState({ showDriverInfo: !(this.state.showDriverInfo) });
   }
 
