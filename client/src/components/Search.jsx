@@ -13,10 +13,11 @@ import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'rea
 class Search extends React.Component {
   constructor(props) {
     super(props);
+    this.initDate = moment();
     this.state = {
       depart: '',
       arrive: '',
-      date: '',
+      date: this.initDate,
       seats: '',
       redirectTo: null,
       trips: []
