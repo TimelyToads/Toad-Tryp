@@ -7,6 +7,7 @@ class Trip extends React.Component {
   constructor(props) {
     super(props);
     this.match = props.match;
+    this.currentUser = props.location.state.location.state.currentUser
     this.state = {
       trips: {
         driver: {},
@@ -22,8 +23,7 @@ class Trip extends React.Component {
 
   handleRequestTrip(e) {
     e.preventDefault();
-    console.log('this is clicking', this.props)
-    // this.postTripRequest(this.trips.id, this.trips.riders[0].id)
+    this.postTripRequest(this.state.trips.id, this.currentUser.id)
   }
 
   fetch(tripId) {
@@ -40,7 +40,7 @@ class Trip extends React.Component {
   }
 
   postTripRequest(tripId, userId) {
-    axios.post(`/api/trips/${tripId}/join/${userId}`)
+    axios.post(`/api/trips/${tripId}/join/${userId}`, {tripId: tripId, userId: userId})
     .then((response) => {
       console.log('Successfully posting to the DB in the Trip Component', response);
     })
