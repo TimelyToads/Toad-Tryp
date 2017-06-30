@@ -53,14 +53,14 @@ class Profile extends React.Component {
 
   componentDidMount() {
     axios.get(`/api/users/${this.state.user.username}`)
-        .then( userData => {
-          this.setState({
-            user: userData.data
-          });
-        })
-        .catch( err => {
-          console.log('Error retrieving user on Profile page: ', this.state.user.username);
+      .then( userData => {
+        this.setState({
+          user: userData.data
         });
+      })
+      .catch( err => {
+        console.log('Error retrieving user on Profile page: ', this.state.user.username);
+      });
       
   }
   

@@ -6,6 +6,7 @@ import {
 
 //Import components
 import Home from './Home.jsx';
+import GoogleAuth from './GoogleAuth.jsx';
 import Login from './Login.jsx';
 import Logout from './Logout.jsx';
 import Signup from './Signup.jsx';
@@ -21,6 +22,9 @@ const routes = [
   { path:      '/',
     exact:     true,
     component: Home
+  },
+  { path:       '/googleauth',
+    component:  GoogleAuth
   },
   { path:       '/login',
     component:  Login

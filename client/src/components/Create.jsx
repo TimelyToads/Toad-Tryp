@@ -3,8 +3,10 @@ import { Form, Input, Segment, Header, Button, Radio, Divider, Checkbox, Label }
 import { Redirect } from 'react-router-dom' 
 import UserInfo from './UserInfo.jsx'
 import DriverInfo from './DriverInfo.jsx'
+SubmitCancelButtons
 import axios from 'axios';
-import Login from './Login.jsx';
+import GoogleAuth from './GoogleAuth.jsx';
+import SubmitCancelButtons from './SubmitCancelButtons.jsx';
 
 class Create extends React.Component{
   constructor(props) {
@@ -57,14 +59,15 @@ class Create extends React.Component{
             pathname: '/'
           }}/>
         )}
+        <Form>
         <Segment.Group>
           <Segment padded >
-            <Login isAuthenticated={this.props.isAuthenticated} authenticateUserFunc={this.props.authenticateUserFunc} />
+            <GoogleAuth isAuthenticated={this.props.isAuthenticated} authenticateUserFunc={this.props.authenticateUserFunc} />
           </Segment>
           <Divider horizontal>Or</Divider>
-          <Form>
             <Segment.Group>
               <Segment padded>
+                <Header id="userInfoHeader" as='h2' inverted color='green'>User Info</Header>
                 <UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits} user={user}/>
               </Segment>
             </Segment.Group>
@@ -91,18 +94,11 @@ class Create extends React.Component{
 
             {(() => {
               if (!preventEdits){
-
-                return <div>
-                <Segment textAlign="right">
-                  <Button  color="grey" onClick={this.handleCancelClick.bind(this)}>Cancel</Button>
-                  <Button  color="green" onClick={this.handleSubmit.bind(this)}> Submit</Button>
-                </Segment>
-                </div>
-
+                return  <SubmitCancelButtons cancelClickHandler={this.handleCancelClick.bind(this)} submitClickHandler={this.handleSubmit.bind(this)} />
               } 
               })()}
-          </Form>
         </Segment.Group>
+        </Form>
       </div>
       )
     } //end render
