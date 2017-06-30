@@ -63,7 +63,8 @@ class Trip extends React.Component {
   }
 
   render() {
-    const { trips, redirectTo } = this.state
+    const { trips, redirectTo, currentUser } = this.state;
+    const { location, match } = this.props;
     const formatTime = (str) => {
       let hour = parseInt(str.substring(0, 2), 10);
       let minute = str.substring(2, 5);
@@ -112,7 +113,7 @@ class Trip extends React.Component {
 
         {redirectTo && <Redirect push to={{
           pathname: redirectTo,
-          state: {location, match}
+          state: {location, match, currentUser}
         }} />}
       </div>
     )
