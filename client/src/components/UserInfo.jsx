@@ -6,12 +6,6 @@ const UserInfo = (props) => (
   <div>
     <UsernamePassword onChange={props.onChange} disabled={props.disabled} user={props.user}/>
     <Form.Group>
-      <Form.Field disabled={props.disabled} onChange={props.onChange} name="username" id='form-input-control-username' 
-        control={Input}  label='Username' placeholder='toadsRKool' width="6" value={props.user.username}/>
-      <Form.Field disabled={props.disabled}  onChange={props.onChange} name="password" id='form-input-control-password' 
-      control={Input} label='Password' placeholder='P@$$W0RD' width="6" value={props.user.password}/>
-    </Form.Group>
-    <Form.Group>
       <Form.Field disabled={props.disabled} onChange={props.onChange} name="first_name" id='form-input-control-first-name' 
         control={Input}  label='First name' placeholder='Toady' width="6" value={props.user.first_name}/>
       <Form.Field disabled={props.disabled}  onChange={props.onChange} name="last_name" id='form-input-control-last-name' 
