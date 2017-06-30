@@ -22,7 +22,7 @@ const DriverInfo = (props) => (
       </Form.Group>
       <Form.Group >
       <Form.Field disabled={props.disabled} onChange={props.onChange} name='vin' id='form-input-control-vin' control={Input} label='Vehicle VIN' 
-        placeholder='2017' width="3" value={props.user.vin} />
+        placeholder='JAV123456ASCR789IPT' width="3" value={props.user.vin} />
       </Form.Group>
     </Segment>
   </div>

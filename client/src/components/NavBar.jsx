@@ -4,6 +4,8 @@ import {
 } from 'react-router-dom'
 
 import MyRoutes from './MyRoutes.jsx'
+import { withRouter } from 'react-router';
+import { Popup, Button, Image } from 'semantic-ui-react'
 
 
 
@@ -12,26 +14,10 @@ class NavBar extends React.Component {
     super(props);
   }
 
-  handleLogoutClick() {
-    console.log('Inside handleLogOutClick()');
-    gapi.auth2.getAuthInstance()
-    .signOut()
-      .then( () => {
-        console.log('User signed out.');
-        this.setState({
-          userLoggedIn: false
-        });
-      });
-  }
+
 
   render() {
     console.log('Rendering NavBar');
-    let loginLink = '';
-    if (!this.props.isAuthenticated()) {
-      loginLink = <Link to="/login">Login</Link>;
-    } else {
-      loginLink = <Link onClick={this.handleLogoutClick.bind(this)} to="/">Logout</Link>;
-    }
 
     let profileLink = '';
     if (!this.props.isAuthenticated()) {
@@ -44,10 +30,17 @@ class NavBar extends React.Component {
      <div>
       <nav>
         <ul>
-          <li>{loginLink}</li>
-          <li><Link to="/create">Sign Up</Link></li>
+        <li>{!this.props.isAuthenticated() && <Link to="/login">Login</Link>}</li>
+        <li>{!this.props.isAuthenticated() && <Link to="/create">Sign Up</Link>}</li>
           <li><Link to="/">Search</Link></li>
-          <li>{profileLink}</li>
+          <li>{this.props.isAuthenticated() && <Link to={'/profile/'+this.props.username}>Profile</Link>}</li>
+          <Popup
+trigger={<Button color='red' icon='flask' content='Activate doomsday device' />}
+content={<Button color='green' content='Confirm the launch' />}
+on='click'
+position='top right' 
+/> 
+         
         </ul>
       </nav>
     </div>
@@ -56,4 +49,12 @@ class NavBar extends React.Component {
 
 }  
 
-export default NavBar;
+export default withRouter(NavBar);
+
+
+{/* <Popup
+trigger={<Button color='red' icon='flask' content='Activate doomsday device' />}
+content={<Button color='green' content='Confirm the launch' />}
+on='click'
+position='top right'
+/> */}

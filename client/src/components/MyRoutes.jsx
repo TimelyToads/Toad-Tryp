@@ -6,6 +6,7 @@ import {
 
 //Import components
 import Home from './Home.jsx';
+import GoogleAuth from './GoogleAuth.jsx';
 import Login from './Login.jsx';
 import Logout from './Logout.jsx';
 import Signup from './Signup.jsx';
@@ -21,6 +22,9 @@ const routes = [
   { path:      '/',
     exact:     true,
     component: Home
+  },
+  { path:       '/googleauth',
+    component:  GoogleAuth
   },
   { path:       '/login',
     component:  Login
@@ -56,16 +60,23 @@ const routes = [
 
 const MyRoutes = (props) => (
   <Switch>
-  {console.log('Rendering MyRoutes', props.authenticateUserFunc)}
+  {console.log('Rendering MyRoutes', props)}
     {routes.map((route, index) => {
       if (route.path === '/login') {
-        console.log('this is props in the MyRoutes function', props)
         return <Route 
           key={index}
           exact={route.exact}
           path='/login' 
           render={ () => 
             <Login isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
+        />
+      } else if (route.path === '/create') {
+        return <Route 
+          key={index}
+          exact={route.exact}
+          path='/create' 
+          render={ () => 
+            <Create isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
         />
       } else {
         return <Route
