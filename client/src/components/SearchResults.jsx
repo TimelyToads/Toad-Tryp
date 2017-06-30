@@ -18,24 +18,20 @@ class SearchResults extends React.Component {
   }
 
   handleClick(e) {
-    // TODO: 
-      // If User is not authenticated
-        // Must Redirect User to Login/Signup page
-      //  If they are logged in
-       // proceed to the POSTing to the database that the user is now a part of the Trip.
+    console.log('This is the props in SearchResults', this.props)
     if (!this.props.location.state.currentUser.email) {
       this.setState({
         redirectTo: `/login`
       })  
     } else {
       this.setState({
-        redirectTo: `/trip/${e.target.value}`
+        redirectTo: `/trip/${e.target.value}`,
       })  
     }
   }
 
   render() {
-    const { location, match } = this.props;
+    const { currentUser, location, match } = this.props;
     const { redirectTo } = this.state;
     return (
     <div>
@@ -60,7 +56,10 @@ class SearchResults extends React.Component {
         }
 
         {redirectTo &&
-          <Redirect push from='helloworld' to={this.state.redirectTo} />}
+          <Redirect push to={{
+            pathname: this.state.redirectTo,
+            state: {location, match}
+          }} />}
       </div>
     </div>);
   }

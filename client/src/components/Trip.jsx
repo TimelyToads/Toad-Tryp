@@ -22,7 +22,7 @@ class Trip extends React.Component {
 
   handleRequestTrip(e) {
     e.preventDefault();
-    console.log('this is clicking', this.state.trips)
+    console.log('this is clicking', this.props)
     // this.postTripRequest(this.trips.id, this.trips.riders[0].id)
   }
 
