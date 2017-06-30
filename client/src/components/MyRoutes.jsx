@@ -15,6 +15,7 @@ import SearchResults from './SearchResults.jsx';
 import Trip from './Trip.jsx';
 import Profile from './Profile.jsx';
 import Create from './Create.jsx';
+import NewTrip from './NewTrip.jsx';
 
 
 //Associate each route URL path with a component
@@ -37,7 +38,11 @@ const routes = [
   },
   { path:       '/create',
     component:  Create
-},
+  },
+  {
+    path:       '/newtrip',
+    component: NewTrip
+  },
   {
     path:       '/searchresults',
     component:  SearchResults
