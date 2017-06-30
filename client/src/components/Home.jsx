@@ -7,7 +7,6 @@ class Home extends React.Component {
     super(props);
   }
   render() {
-    console.log('Inside Home.jsx', this.props);
     return (<div>
       <div className="page-heading">
         <h1>
