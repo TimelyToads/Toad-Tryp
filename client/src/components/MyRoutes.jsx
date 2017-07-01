@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  Route,
-  Switch
-} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom'
 
 //Import components
 import Home from './Home.jsx';
@@ -12,6 +9,7 @@ import Logout from './Logout.jsx';
 import NotFound from './NotFound.jsx';
 import SearchResults from './SearchResults.jsx';
 import Trip from './Trip.jsx';
+import Trips from './Trips.jsx';
 import Profile from './Profile.jsx';
 import Create from './Create.jsx';
 import NewTrip from './NewTrip.jsx';
@@ -45,6 +43,11 @@ const routes = [
   {
     path: '/trip/:tripId',
     component: Trip
+  },
+  
+  {
+    path:       '/trips/:username',
+    component:  Trips
   },
   {
     path: '/profile/:username',
