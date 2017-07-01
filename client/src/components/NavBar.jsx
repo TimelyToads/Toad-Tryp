@@ -5,7 +5,7 @@ import {
 
 import MyRoutes from './MyRoutes.jsx'
 import { withRouter } from 'react-router';
-import { Popup, Button, Image } from 'semantic-ui-react'
+import { Popup, Button, Image, Modal } from 'semantic-ui-react'
 
 
 
@@ -35,7 +35,13 @@ class NavBar extends React.Component {
         <li>{!this.props.isAuthenticated() && <Link to="/create">Sign Up</Link>}</li>
           <li><Link to="/">Search</Link></li>
           <li>{this.props.isAuthenticated() && <Link to={'/profile/'+this.props.username}>Profile</Link>}</li>
-          <Image src='./toad_icon.jpeg' size='tiny' shape='circular' />
+          <Popup
+          trigger={<Image src='./toad_icon.jpeg' size='tiny' shape='circular' />}
+          content={<Button color='red' icon='flask' content='Activate doomsday device' />}
+          on='click'
+          position='top right'
+          /> 
+         
         </ul>
       </nav>
     </div>
@@ -53,3 +59,5 @@ content={<Button color='green' content='Confirm the launch' />}
 on='click'
 position='top right'
 /> */}
+
+// <Image src='./toad_icon.jpeg' size='tiny' shape='circular' />
