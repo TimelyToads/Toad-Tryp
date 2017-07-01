@@ -1,22 +1,24 @@
 import React from 'react';
+import { Segment, Container, Header, Button, Checkbox, Form, Input, Select } from 'semantic-ui-react'
 import range from 'lodash/range';
 import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
 import {Redirect} from 'react-router-dom';
 import query from 'query-string';
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
-import moment from 'moment';
 
 // Requirements AirBnB's React-Calendar 
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import moment from 'moment';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
+    this.initDate = moment();
     this.state = {
       depart: '',
       arrive: '',
-      date: '',
+      date: this.initDate,
       seats: '',
       redirectTo: null,
       trips: []
@@ -54,36 +56,39 @@ class Search extends React.Component {
   }
 
   render() {
-
     let s = range(1, 6);
     const { redirectTo, trips, date, depart, arrive } = this.state;
+    const currentUser = this.props.currentUser;
+    
     return (
-      <div className="search">
-        <form className="search-form" onSubmit={this.handleSubmit}>
-          <input type="text" name="depart" placeholder="Depart City" value={this.state.depart} onChange={this.handleChange}/>
-          <input type="text" name="arrive" placeholder="Arrive City" value={this.state.arrive} onChange={this.handleChange}/>
-          <SingleDatePicker
-            date={this.state.date} // momentPropTypes.momentObj or null
-            onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
-            focused={this.state.focused} // PropTypes.bool
-            onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
-          />
+      <Form size="large" onSubmit={this.handleSubmit}>
+        <Form.Group inline>
+          <Form.Input width={7} type="text" color="black" name="depart" placeholder="Depart City" value={this.state.depart} onChange={this.handleChange}/>
+          <Form.Input width={7} type="text" name="arrive" placeholder="Arrive City" value={this.state.arrive} onChange={this.handleChange}/>
+
+          <Form.Field>
+            <SingleDatePicker date={this.state.date} onDateChange={date => this.setState({ date })} focused={this.state.focused} onFocusChange={({ focused }) => this.setState({ focused })} />
+          </Form.Field>
           
-          <select name="seats" value={this.state.seats} onChange={this.handleChange}>
-            <option key="Seats" value="#" >Seats</option>
-            {s.map( (n, i) => {
-              return <option key={i} value={n}>{n}</option>;
-            })}
-          </select>
-          <button type="submit">Find Tryp</button>
-        </form>
+          <Form.Field>
+            <select className="ui dropdown" color="grey" name="seats" value={this.state.seats} onChange={this.handleChange}>
+              <option key="Seats" value="#" >Seats</option>
+              {s.map( (n, i) => {
+                return <option key={i} value={n}>{n}</option>;
+              })}
+            </select>
+          </Form.Field>
+
+          <Button color="green" type="submit">Search</Button>
+        </Form.Group>
+
         {redirectTo && (
           <Redirect from={'/'} push to={{
             pathname: redirectTo,
-            state: { trips, depart, arrive }
+            state: { trips, depart, arrive, currentUser }
           }}/>
         )}
-      </div>
+      </Form>
     );
   }
 }

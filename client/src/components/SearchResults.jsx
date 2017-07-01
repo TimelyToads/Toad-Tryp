@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Header, Button } from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom'
 import SearchResultItem from './SearchResultItem.jsx'
 import Search from './Search.jsx';
@@ -18,43 +19,27 @@ class SearchResults extends React.Component {
   }
 
   handleClick(e) {
-    // TODO: 
-      // If User is not authenticated
-        // Must Redirect User to Login/Signup page
-      //  If they are logged in
-       // proceed to the POSTing to the database that the user is now a part of the Trip.
-
-    this.setState({
-      redirectTo: `/trip/${e.target.value}`
-    })   
-    // console.log(AuthenticationHelper.isUserAuthenticated())
-
-    // AuthenticationHelper.isUserAuthenticated()
-    // .then(response => {
-      // this.setState({
-      //   redirectTo: `/trip/${e.target.value}`
-      // })
-    // })
-    // .catch(error => {
-    //   if (error) { 
-    //     this.setState( {
-    //       redirectTo: `/login`
-    //     });
-    //   }
-    // })
+    console.log('This is the props in SearchResults', this.props)
+    if (!this.props.location.state.currentUser.email) {
+      this.setState({
+        redirectTo: `/login`
+      })  
+    } else {
+      this.setState({
+        redirectTo: `/trip/${e.target.value}`,
+      })  
+    }
   }
 
   render() {
-    const { location, match } = this.props;
+    const { currentUser, location, match } = this.props;
     const { redirectTo } = this.state;
     return (
-    <div>
-      <div className="page-heading">
-        <h1>Search Results</h1>
-        <h2>Showing results from <span className="green-text">{this.props.location.state.depart}</span> to <span className="green-text">{this.props.location.state.arrive}</span></h2>
-      </div>
+    <Container>
+      <Header as='h1'>Search Results</Header>
+      <Header as='h2'>Showing results from <span className="green-text">{this.props.location.state.depart}</span> to <span className="green-text">{this.props.location.state.arrive}</span></Header>
       <Search />
-      <div className="search-results">
+      <Container className="search-results">
         {
           (() => {
             if (location.state.trips !== null) {
@@ -70,9 +55,12 @@ class SearchResults extends React.Component {
         }
 
         {redirectTo &&
-          <Redirect push to={this.state.redirectTo} />}
-      </div>
-    </div>);
+          <Redirect push to={{
+            pathname: this.state.redirectTo,
+            state: {location, match}
+          }} />}
+      </Container>
+    </Container>);
   }
 };
 

@@ -1,24 +1,25 @@
 import React from 'react';
+import { Container, Header } from 'semantic-ui-react';
 import Search from './Search.jsx';
 import { withRouter } from 'react-router';
+
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
-    console.log('Inside Home.jsx', this.props);
-    return (<div>
-      <div className="page-heading">
-        <h1>
-          ToadTryp
-        </h1>
-        <h2>
-          Go anywhere with a fellow Toad.
-        </h2>
-      </div>
-      <Search />
-    </div>);
+    return (
+    <Container>
+      <Header as='h1' color="green">
+        ToadTryp
+      </Header>
+      <Header as='h2' color="grey">
+        Go anywhere with a fellow Toad.
+      </Header>
+      <Search currentUser={this.props.currentUser} />
+    </Container>
+    );
   }
 }
 

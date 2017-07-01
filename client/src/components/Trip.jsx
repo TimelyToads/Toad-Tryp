@@ -2,12 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import Search from './Search.jsx';
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+import {Redirect} from 'react-router-dom'
 
 class Trip extends React.Component {
   constructor(props) {
     super(props);
     this.match = props.match;
+    this.currentUser = props.location.state.location.state.currentUser
     this.state = {
+      redirectTo: null,
       trips: {
         driver: {},
         rider: {}
@@ -22,8 +25,8 @@ class Trip extends React.Component {
 
   handleRequestTrip(e) {
     e.preventDefault();
-    console.log('this is clicking', this.state.trips)
-    // this.postTripRequest(this.trips.id, this.trips.riders[0].id)
+    console.log('this is getting to handleRequestTrip', this.currentUser)
+    this.postTripRequest(this.state.trips.id, this.currentUser.id)
   }
 
   fetch(tripId) {
@@ -31,6 +34,7 @@ class Trip extends React.Component {
     .then((response) => {
       console.log('Successfully fetching from db in Trip Component', response);
       this.setState({
+        redirectTo: this.state.redirectTo,
         trips: response.data
       });
     })
@@ -40,17 +44,26 @@ class Trip extends React.Component {
   }
 
   postTripRequest(tripId, userId) {
-    axios.post(`/api/trips/${tripId}/join/${userId}`)
+    axios.post(`/api/trips/${tripId}/join/${userId}`, {tripId: tripId, userId: userId})
     .then((response) => {
       console.log('Successfully posting to the DB in the Trip Component', response);
+      console.log('PROPSPROPSPROPS', this.props);
+      this.setState({
+        redirectTo: `/trips/${this.props.currentUser.username}`
+      });
     })
     .catch((error) => {
-      console.log('POST unsuccessful in Trip Component', error)
+      console.log('POST unsuccessful in Trip Component', error.response)
+      if (error.response.status === 409) { 
+        alert('You have already been signed up for this trip! Redirecting you back to the homepage...');
+        this.setState({ redirectTo: '/' });
+      }
     })
   }
 
   render() {
-    const { trips } = this.state
+    const { trips, redirectTo, currentUser } = this.state;
+    const { location, match } = this.props;
     const formatTime = (str) => {
       let hour = parseInt(str.substring(0, 2), 10);
       let minute = str.substring(2, 5);
@@ -96,6 +109,11 @@ class Trip extends React.Component {
             <span className="disclaimer">You won't be charged until your Driver accepts your reservation.</span>
           </div>
         </div>
+
+        {redirectTo && <Redirect push to={{
+          pathname: redirectTo,
+          state: {location, match, currentUser}
+        }} />}
       </div>
     )
   }

@@ -9,7 +9,6 @@ import PasswordFailMessage from './PasswordFailMessage.jsx';
 
 class Login extends React.Component{
   constructor(props) {
-   
     super(props);
     this.state = {
       signupCompleted:        false,
