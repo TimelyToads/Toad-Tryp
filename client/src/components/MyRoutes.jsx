@@ -16,7 +16,6 @@ import Profile from './Profile.jsx';
 import Create from './Create.jsx';
 import NewTrip from './NewTrip.jsx';
 
-
 //Associate each route URL path with a component
 const routes = [
   { path: '/',
@@ -36,8 +35,13 @@ const routes = [
     component: Create
   },
   {
+<<<<<<< HEAD
     path: '/newtrip',
     component: NewTrip
+=======
+    path:       '/newtrip',
+    component: NewTrip,
+>>>>>>> PropRoute replaces all routes such that props can be passed from parent routes, to nested child routes
   },
   {
     path: '/searchresults',
@@ -57,12 +61,26 @@ const routes = [
   }
 ];
 
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return (
+    React.createElement(component, finalProps)
+  );
+}
 
+const PropsRoute = ({ component, ...rest }) => {
+  return (
+    <Route {...rest} render={routeProps => {
+      return renderMergedProps(component, routeProps, rest);
+    }}/>
+  );
+}
 
 const MyRoutes = (props) => (
   <Switch>
-  {console.log('Rendering MyRoutes', props)}
+    {console.log('Rendering MyRoutes', props)}
     {routes.map((route, index) => {
+<<<<<<< HEAD
       if (route.path === '/login') {
         return <Route 
           key={index}
@@ -88,6 +106,17 @@ const MyRoutes = (props) => (
         />;
       }
     }
+=======
+      return <PropsRoute
+        key={index}
+        path={route.path}
+        exact={route.exact}
+        component={route.component}
+        authenticateUserFunc={props.authenticateUserFunc}
+        currentUser={props.currentUser}
+        isAuthenticated={props.isAuthenticated}
+      />}
+>>>>>>> PropRoute replaces all routes such that props can be passed from parent routes, to nested child routes
     )}
   </Switch>
 );

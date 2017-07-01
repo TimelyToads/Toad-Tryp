@@ -1,36 +1,58 @@
 import React from 'react';
 import {Button, CheckBox, Form, Input, Segment, Header, Select } from 'semantic-ui-react';
 import axios from 'axios';
-const options = [
-  {key: '1', text: '1', value: '1'},
-  {key: '2', text: '2', value: '2'},
-  {key: '3', text: '3', value: '3'},
-  {key: '4', text: '4', value: '4'},
-  {key: '5', text: '5', value: '5'}
-]
-const NewTrip = (props) => (
-  <div>
-    <Segment.Group>
-      <Segment padded="very">
-        <Header as='h2' color='green'>New Trip</Header>
-        <Segment.Group>
-          <Segment>
-            <Form>
-              <Form.Group widths='equal'>
-                <Form.Field control={Input} label='Depart City' placeholder='Depart City'/>
-                <Form.Field control={Input} label='Arrive City' placeholder='Arrive City'/>
-                <Form.Field control={Select} label='Seats' options={options} placeholder='Seats'/>
-              </Form.Group>
-              <Form.Group>
-                <Form.Field control={Input} label='Pickup Point' placeholder='Pickup Point'/>
-                <Form.Field control={Input} label='Depart Date' placeholder='Depart Date'/>
-              </Form.Group>
-            </Form>
-          </Segment>
-        </Segment.Group>
-      </Segment>
-    </Segment.Group>
-  </div>
-);
+import SubmitCancelButtons from './SubmitCancelButtons.jsx';
+import TripField from './TripField.jsx';
+
+class NewTrip extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formComplete: false,
+      trip: {}
+    };
+    console.log(this);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e, {name, value}) {
+    this.state.trip[[name]] = value;
+    this.setState({trip: this.state.trip},() => {
+      console.log(this.state.trip);
+    });
+  }
+  handleCancelClick() {
+    console.log('handleclick');
+    this.setState({formComplete: true});
+  }
+  handleSubmit() {
+    console.log('handlesubmit');
+    this.setState({formComplete: true});
+    axios.post('/api/trips', this.state.trip)
+      .then( res => {
+        this.props.authenticateUserFunc(res.data);
+        this.setState({preventEdits: true, signupCompleted: true});
+      })
+      .catch( err => {
+        console.log('Error creating a user ', err);
+      });
+  }
+  render() {
+    return (<div>
+      <Segment.Group>
+        <Segment padded="very">
+          <Header as='h2' color='green'>New Trip</Header>
+          <Segment.Group>
+            <Segment>
+              <TripField handleChange={this.handleChange}/>
+            </Segment>
+            <SubmitCancelButtons cancelClickHandler={this.handleCancelClick} submitClickHandler={this.handleSubmit}/>
+          </Segment.Group>
+        </Segment>
+      </Segment.Group>
+    </div>);
+  } 
+} 
 
 export default NewTrip;

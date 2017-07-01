@@ -38,11 +38,12 @@ class App extends React.Component {
 
   render() {
     console.log('Rendering login.jsx', this.props);
+    const currentUser = this.state.user;
     return (
-      <Router history={browserHistory}>
+      <Router history={browserHistory} >
         <div>
           <NavBar isAuthenticated={this.isUserAuthenticated.bind(this)} username={this.state.user.username} />
-          <MyRoutes isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)}/>
+          <MyRoutes isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)} currentUser={currentUser}/>
         </div>
       </Router>
     )
