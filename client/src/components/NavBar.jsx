@@ -30,6 +30,7 @@ class NavBar extends React.Component {
      <div>
       <nav>
         <ul>
+        <li>{this.props.isAuthenticated() && <Link to={'/trips/'+this.props.username}>Trips</Link>}</li>
         <li>{!this.props.isAuthenticated() && <Link to="/login">Login</Link>}</li>
         <li>{!this.props.isAuthenticated() && <Link to="/create">Sign Up</Link>}</li>
           <li><Link to="/">Search</Link></li>

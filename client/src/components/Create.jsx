@@ -1,8 +1,8 @@
-import React from 'react';
-import { Form, Input, Segment, Header, Button, Radio, Divider, Checkbox, Label } from 'semantic-ui-react';
-import { Redirect } from 'react-router-dom'; 
-import UserInfo from './UserInfo.jsx';
-import DriverInfo from './DriverInfo.jsx';
+import React from 'react'
+import { Form, Input, Segment, Header, Button, Radio, Divider, Checkbox, Label } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom' 
+import UserInfo from './UserInfo.jsx'
+import DriverInfo from './DriverInfo.jsx'
 import axios from 'axios';
 import GoogleAuth from './GoogleAuth.jsx';
 import SubmitCancelButtons from './SubmitCancelButtons.jsx';

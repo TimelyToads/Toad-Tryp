@@ -76,12 +76,10 @@ class GoogleAuth extends React.Component {
   }
 
   signOut() {
-    console.log('user clicked signout link');
 
     gapi.auth2.getAuthInstance()
       .signOut()
         .then( () => {
-          console.log('User signed out.');
           this.setState({
             userLoggedIn: false,
             currentUser: {}
@@ -90,7 +88,6 @@ class GoogleAuth extends React.Component {
   }
 
   render() {
-    console.log('Rendering Login.jsx', this.props);
     let signOutLink = '';
     if (this.props.isAuthenticated()) {
       signOutLink = <a href="#" onClick={this.signOut.bind(this)}>Sign out of ToadTryp</a>
@@ -118,7 +115,4 @@ class GoogleAuth extends React.Component {
 }
 
 
-
 export default withRouter(GoogleAuth);
-
-// if (res.status === 200 && res.data.aud === API_Keys.client_id) {

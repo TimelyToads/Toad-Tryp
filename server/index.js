@@ -232,6 +232,10 @@ app.get('/styles.css', function(req, res){
   res.sendFile(path.join(__dirname + '/../client/dist/styles.css'));
 });
 
+app.get('/toad_icon.jpeg', function(req, res){
+res.sendFile(path.join(__dirname + '/../client/dist/toad_icon.jpeg'));
+});
+
 app.get('/*', function(req, res){
   console.log('requesting /*', req.session.authToken);
   res.sendFile(path.join(__dirname + '/../client/dist/index.html'));
