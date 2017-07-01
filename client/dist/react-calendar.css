@@ -445,17 +445,19 @@
 .DayPickerKeyboardShortcuts__panel--block .KeyboardShortcutRow__action {
   display: inline; }
 
+/*    INPUT BOX    */
 .DateInput {
   font-weight: 200;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   color: #757575;
   margin: 0;
-  padding: 8px;
+  padding: 5px;
   background: #fff;
   position: relative;
   display: inline-block;
   width: 130px;
+  border-radius: 5px;
   vertical-align: middle; }
 
 .DateInput--with-caret::before,

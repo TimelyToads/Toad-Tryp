@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Header, Button } from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom'
 import SearchResultItem from './SearchResultItem.jsx'
 import Search from './Search.jsx';
@@ -34,13 +35,11 @@ class SearchResults extends React.Component {
     const { currentUser, location, match } = this.props;
     const { redirectTo } = this.state;
     return (
-    <div>
-      <div className="page-heading">
-        <h1>Search Results</h1>
-        <h2>Showing results from <span className="green-text">{this.props.location.state.depart}</span> to <span className="green-text">{this.props.location.state.arrive}</span></h2>
-      </div>
+    <Container>
+      <Header as='h1'>Search Results</Header>
+      <Header as='h2'>Showing results from <span className="green-text">{this.props.location.state.depart}</span> to <span className="green-text">{this.props.location.state.arrive}</span></Header>
       <Search />
-      <div className="search-results">
+      <Container className="search-results">
         {
           (() => {
             if (location.state.trips !== null) {
@@ -60,8 +59,8 @@ class SearchResults extends React.Component {
             pathname: this.state.redirectTo,
             state: {location, match}
           }} />}
-      </div>
-    </div>);
+      </Container>
+    </Container>);
   }
 };
 
