@@ -35,13 +35,8 @@ const routes = [
     component: Create
   },
   {
-<<<<<<< HEAD
     path: '/newtrip',
-    component: NewTrip
-=======
-    path:       '/newtrip',
     component: NewTrip,
->>>>>>> PropRoute replaces all routes such that props can be passed from parent routes, to nested child routes
   },
   {
     path: '/searchresults',
@@ -80,33 +75,6 @@ const MyRoutes = (props) => (
   <Switch>
     {console.log('Rendering MyRoutes', props)}
     {routes.map((route, index) => {
-<<<<<<< HEAD
-      if (route.path === '/login') {
-        return <Route 
-          key={index}
-          exact={route.exact}
-          path='/login' 
-          render={ () => 
-            <Login isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
-        />;
-      } else if (route.path === '/create') {
-        return <Route 
-          key={index}
-          exact={route.exact}
-          path='/create' 
-          render={ () => 
-            <Create isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
-        />;
-      } else {
-        return <Route
-          key={index}
-          path={route.path}
-          exact={route.exact}
-          component={route.component}
-        />;
-      }
-    }
-=======
       return <PropsRoute
         key={index}
         path={route.path}
@@ -116,7 +84,6 @@ const MyRoutes = (props) => (
         currentUser={props.currentUser}
         isAuthenticated={props.isAuthenticated}
       />}
->>>>>>> PropRoute replaces all routes such that props can be passed from parent routes, to nested child routes
     )}
   </Switch>
 );
