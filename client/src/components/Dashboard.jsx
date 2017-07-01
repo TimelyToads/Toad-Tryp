@@ -28,7 +28,7 @@ class Dashboard extends React.Component{
     console.log('PROPS: ', this.props.isAuthenticated());
     axios.get(`/api/users/${this.props.match.params.username}/trips`)
     .then( tripData => {
-
+      console.log('TRIP: ', tripData);
       DateTimeParser.parseDates(tripData.data.hostedTrips);
       DateTimeParser.parseDates(tripData.data.trips);
       this.setState( { trips: tripData.data} );

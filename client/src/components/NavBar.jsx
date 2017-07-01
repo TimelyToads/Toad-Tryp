@@ -37,11 +37,10 @@ class NavBar extends React.Component {
           <li>{this.props.isAuthenticated() && <Link to={'/profile/'+this.props.username}>Profile</Link>}</li>
           <Popup
           trigger={<Image src='./toad_icon.jpeg' size='tiny' shape='circular' />}
-          content={<Button color='red' icon='flask' content='Activate doomsday device' />}
+          content={<Button color='red' icon='flask' content='Activate the "Marcus Protocol"' />}
           on='click'
           position='top right'
           /> 
-         
         </ul>
       </nav>
     </div>
