@@ -2,14 +2,13 @@ import React from 'react';
 import {
   Route,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 //Import components
 import Home from './Home.jsx';
 import GoogleAuth from './GoogleAuth.jsx';
 import Login from './Login.jsx';
 import Logout from './Logout.jsx';
-import Signup from './Signup.jsx';
 import NotFound from './NotFound.jsx';
 import SearchResults from './SearchResults.jsx';
 import Trip from './Trip.jsx';
@@ -20,46 +19,43 @@ import NewTrip from './NewTrip.jsx';
 
 //Associate each route URL path with a component
 const routes = [
-  { path:      '/',
-    exact:     true,
+  { path: '/',
+    exact: true,
     component: Home
   },
-  { path:       '/googleauth',
-    component:  GoogleAuth
+  { path: '/googleauth',
+    component: GoogleAuth
   },
-  { path:       '/login',
-    component:  Login
+  { path: '/login',
+    component: Login
   },
-   { path:      '/logout',
-    component:  Logout
+  { path: '/logout',
+    component: Logout
   },
-  { path:       '/signup',
-    component:  Signup
-  },
-  { path:       '/create',
-    component:  Create
+  { path: '/create',
+    component: Create
   },
   {
-    path:       '/newtrip',
+    path: '/newtrip',
     component: NewTrip
   },
   {
-    path:       '/searchresults',
-    component:  SearchResults
+    path: '/searchresults',
+    component: SearchResults
   },
   {
-    path:       '/trip/:tripId',
-    component:  Trip
+    path: '/trip/:tripId',
+    component: Trip
   },
   {
-    path:       '/profile/:username',
-    component:  Profile
+    path: '/profile/:username',
+    component: Profile
   },
   {
-    path:       '*',
-    component:  NotFound
+    path: '*',
+    component: NotFound
   }
-]
+];
 
 
 
@@ -74,7 +70,7 @@ const MyRoutes = (props) => (
           path='/login' 
           render={ () => 
             <Login isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
-        />
+        />;
       } else if (route.path === '/create') {
         return <Route 
           key={index}
@@ -82,18 +78,18 @@ const MyRoutes = (props) => (
           path='/create' 
           render={ () => 
             <Create isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
-        />
+        />;
       } else {
         return <Route
           key={index}
           path={route.path}
           exact={route.exact}
           component={route.component}
-        />
+        />;
       }
     }
     )}
   </Switch>
-)
+);
 
 export default MyRoutes;

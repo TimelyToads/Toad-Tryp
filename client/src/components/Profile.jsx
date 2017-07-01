@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input, Segment, Header, Button, Radio } from 'semantic-ui-react';
 import UserInfo from './UserInfo.jsx';
 import DriverInfo from './DriverInfo.jsx';
+import BecomeADriver from './BecomeADriver.jsx';
 import axios from 'axios';
 import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 
@@ -10,13 +11,17 @@ class Profile extends React.Component {
     super(props);
     this.state = { 
       preventEdits: true,
+      showDriverInfo: false,
       user: {
         username: props.match.params.username
       } 
     };
-
+    this.handleDriverToggle = this.handleDriverToggle.bind(this);
   }
 
+  handleDriverToggle () {
+    this.setState({ showDriverInfo: !(this.state.showDriverInfo) });
+  }
 
   handleChange (e, { name, value }) {
     console.log('inside on change', name, value);
@@ -81,15 +86,23 @@ class Profile extends React.Component {
               </Segment>
             </Segment.Group>
             
-            {(() => {
-              if (user.license_plate) {
-                return (
-                  <Segment>
-                    <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} />
-                  </Segment>
-                );    
-              } 
-            })()}
+            {
+              (() => {
+                if (this.state.showDriverInfo) {
+                  return (
+                    <Segment>
+                      <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} />
+                    </Segment>
+                  );    
+                } else {
+                  return (
+                    <Segment>
+                      <BecomeADriver handleDriverToggle={this.handleDriverToggle} />
+                    </Segment>
+                  );
+                }
+              }
+            )()}
             {(() => {
 
               if (!preventEdits) {
