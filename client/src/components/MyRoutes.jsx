@@ -16,7 +16,6 @@ import Profile from './Profile.jsx';
 import Create from './Create.jsx';
 import NewTrip from './NewTrip.jsx';
 
-
 //Associate each route URL path with a component
 const routes = [
   { path: '/',
@@ -37,7 +36,7 @@ const routes = [
   },
   {
     path: '/newtrip',
-    component: NewTrip
+    component: NewTrip,
   },
   {
     path: '/searchresults',
@@ -57,37 +56,34 @@ const routes = [
   }
 ];
 
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return (
+    React.createElement(component, finalProps)
+  );
+}
 
+const PropsRoute = ({ component, ...rest }) => {
+  return (
+    <Route {...rest} render={routeProps => {
+      return renderMergedProps(component, routeProps, rest);
+    }}/>
+  );
+}
 
 const MyRoutes = (props) => (
   <Switch>
-  {console.log('Rendering MyRoutes', props)}
+    {console.log('Rendering MyRoutes', props)}
     {routes.map((route, index) => {
-      if (route.path === '/login') {
-        return <Route 
-          key={index}
-          exact={route.exact}
-          path='/login' 
-          render={ () => 
-            <Login isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
-        />;
-      } else if (route.path === '/create') {
-        return <Route 
-          key={index}
-          exact={route.exact}
-          path='/create' 
-          render={ () => 
-            <Create isAuthenticated={props.isAuthenticated} authenticateUserFunc={props.authenticateUserFunc} />} 
-        />;
-      } else {
-        return <Route
-          key={index}
-          path={route.path}
-          exact={route.exact}
-          component={route.component}
-        />;
-      }
-    }
+      return <PropsRoute
+        key={index}
+        path={route.path}
+        exact={route.exact}
+        component={route.component}
+        authenticateUserFunc={props.authenticateUserFunc}
+        currentUser={props.currentUser}
+        isAuthenticated={props.isAuthenticated}
+      />}
     )}
   </Switch>
 );
