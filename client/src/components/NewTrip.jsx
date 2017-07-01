@@ -9,7 +9,7 @@ class NewTrip extends React.Component {
     super(props);
     this.state = {
       formComplete: false,
-      trip: {}
+      trip: {driver_id: props.currentUser.id || 1}
     };
     console.log(this);
     this.handleCancelClick = this.handleCancelClick.bind(this);
@@ -31,11 +31,11 @@ class NewTrip extends React.Component {
     this.setState({formComplete: true});
     axios.post('/api/trips', this.state.trip)
       .then( res => {
-        this.props.authenticateUserFunc(res.data);
-        this.setState({preventEdits: true, signupCompleted: true});
+        // this.props.authenticateUserFunc(res.data);
+        this.setState({formComplete: true});
       })
       .catch( err => {
-        console.log('Error creating a user ', err);
+        console.log('Error creating a trip ', err);
       });
   }
   render() {
