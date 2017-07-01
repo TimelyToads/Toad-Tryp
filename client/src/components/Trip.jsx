@@ -47,11 +47,10 @@ class Trip extends React.Component {
     axios.post(`/api/trips/${tripId}/join/${userId}`, {tripId: tripId, userId: userId})
     .then((response) => {
       console.log('Successfully posting to the DB in the Trip Component', response);
-      // TODO: Change this redirect to Dashboard when the respective component is finished.
-      this.setState({ redirectTo: '/' })
-      // this.setState({
-      //   redirectTo: `/dashboard/userId`
-      // });
+      console.log('PROPSPROPSPROPS', this.props);
+      this.setState({
+        redirectTo: `/trips/${this.props.currentUser.username}`
+      });
     })
     .catch((error) => {
       console.log('POST unsuccessful in Trip Component', error.response)
