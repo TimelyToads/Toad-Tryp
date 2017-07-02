@@ -121,12 +121,12 @@ app.post('/api/users', (req, res) => {
 
 app.get('/api/trips', (req, res) => {
   console.log('GET /api/trips/\n', req.query);
+  const search = {};
+  if (req.query.depart) search.departure_city = req.query.depart;
+  if (req.query.arrive) search.arrival_city = req.query.arrive;
+  if (req.query.departdate) search.departure_date = req.query.departdate;
   models.Trip.query((qb) => {
-    qb.where({
-      departure_city: req.query.depart,
-      arrival_city: req.query.arrive,
-      departure_date: req.query.departdate,
-    });
+    qb.where(search);
   })
   .fetch()
   .then((trips) => {
