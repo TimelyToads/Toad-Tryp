@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Header, Button, Table } from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
-import SearchResultItem from './SearchResultItem.jsx';
 import SearchResultRow from './SearchResultRow.jsx';
 import SearchResultTableHeader from './SearchResultTableHeader.jsx';
 import Search from './Search.jsx';
@@ -19,8 +18,7 @@ class SearchResults extends React.Component {
   }
 
   handleClick(e) {
-    console.log('This is the props in SearchResults', this.props)
-    if (!this.props.location.state.currentUser.email) {
+    if (!this.props.currentUser.email) {
       this.setState({
         redirectTo: `/login`
       })  
@@ -38,12 +36,12 @@ class SearchResults extends React.Component {
     return (
     <Container>
       <Header as='h1'>Search Results</Header>
-      <Header as='h2'>Showing results from <span className="green-text">{this.props.location.state.depart}</span> to <span className="green-text">{this.props.location.state.arrive}</span></Header>
+      <Header as='h2'>Showing results from <span className="green-text">{location.state.depart}</span> to <span className="green-text">{location.state.arrive}</span></Header>
       <Search />
       <Container className="search-results">
         {
           (() => {
-            console.log('this is the match and location in SearchResults.jsx', location, match);
+            console.log('this is the props in SearchResults.jsx', this.props);
             if (location.state.trips) {
               
 

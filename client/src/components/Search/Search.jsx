@@ -13,11 +13,10 @@ import moment from 'moment';
 class Search extends React.Component {
   constructor(props) {
     super(props);
-    this.initDate = moment();
     this.state = {
       depart: '',
       arrive: '',
-      date: this.initDate,
+      date: moment(),
       seats: '',
       redirectTo: null,
       trips: []
@@ -38,7 +37,6 @@ class Search extends React.Component {
   fetch() {
     const { depart, arrive, date, seats } = this.state;
     const departdate = moment(date._d).format('YYYY-MM-DD');
-
     axios.get('/api/trips', { 
       params: { depart, arrive, departdate, seats } 
     })
@@ -48,6 +46,8 @@ class Search extends React.Component {
         trips: response.data
       });
       console.log(this.state);
+      console.log('SEARCHSEARCHSEARCHSEARCH', this.props)
+
     })
     .catch(function (error) {
       console.log(error);
