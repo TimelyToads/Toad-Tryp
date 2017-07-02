@@ -58,7 +58,7 @@ class NewTrip extends React.Component {
       </Segment.Group>
       }
       {!this.props.isAuthenticated() && 
-        <div>NOT LOGED INT</div>
+        <div>NOT LOGGED IN</div>
       }
     </div>);
   } 

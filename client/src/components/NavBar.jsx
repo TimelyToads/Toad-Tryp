@@ -1,14 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router';
-<<<<<<< HEAD
 import { Popup, Button, Image, Modal } from 'semantic-ui-react'
-
-
-=======
-import { Popup, Button, Image } from 'semantic-ui-react'
-import MyRoutes from './MyRoutes.jsx'
->>>>>>> NewTrip requires login
 
 class NavBar extends React.Component {
   constructor(props) {
