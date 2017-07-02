@@ -29,7 +29,7 @@ const routes = [
   { path: '/logout',
     component: Logout
   },
-  { path: '/create',
+  { path: '/signup',
     component: Create
   },
   {

@@ -18,14 +18,12 @@ class UserMessage extends React.Component {
       )
     } else if  (this.props.message.type === 'warning') {
       return (
-    
         <Message warning>
           <Message.Header>{this.props.message.header}</Message.Header>
           <p>{this.props.message.content}</p>
-          </Message>
-     
+        </Message>
       )
-   }
+    }
 
   } //end render
 }
