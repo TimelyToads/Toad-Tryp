@@ -44,7 +44,6 @@ const routes = [
     path: '/trip/:tripId',
     component: Trip
   },
-  
   {
     path:       '/trips/:username',
     component:  Dashboard
@@ -84,6 +83,7 @@ const MyRoutes = (props) => (
         exact={route.exact}
         component={route.component}
         authenticateUserFunc={props.authenticateUserFunc}
+        setUserObject={props.setUserObject}
         currentUser={props.currentUser}
         isAuthenticated={props.isAuthenticated}
       />}

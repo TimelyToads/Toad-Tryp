@@ -24,8 +24,6 @@ class Profile extends React.Component {
   }
 
   handleChange (e, { name, value }) {
-    console.log('inside on change', name, value);
-
     let newUserObj = this.state.user;
     newUserObj[[name]] = value;
 
@@ -33,12 +31,10 @@ class Profile extends React.Component {
   }
   
   handleSubmit (e) {
-      
-    console.log('Inside handleSubmit', this.state.user);
     axios.post('/api/users', this.state.user)
         .then( res => {
-          console.log('SUCCESS creating a user', res);
           this.setState({preventEdits: true});
+          this.props.setUserObject(res.data);
         })
         .catch( err => {
           console.log('Error creating a user ', err);
@@ -124,23 +120,3 @@ class Profile extends React.Component {
 
 }
 export default Profile;
-
-
-// AuthenticationHelper.isUserAuthenticated()
-// .then( res => {
-//   console.log('User is logged in');
-// })
-// .catch( err => {
-//   console.log('User is not logged in');
-// });
-
-// axios.get(`/api/users/${this.state.user.username}`)
-// .then( (response) => {
-//   this.setState({
-//     user: response.data
-//   });
-//   console.log('USER: ', response.data);
-// })
-// .catch( (error) => {
-//   console.log('Error fetching user data in Proflie component: ', error);
-// });
