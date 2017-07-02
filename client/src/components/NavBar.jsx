@@ -42,13 +42,3 @@ class NavBar extends React.Component {
 }
 
 export default withRouter(NavBar);
-
-
-{/* <Popup
-trigger={<Button color='red' icon='flask' content='Activate doomsday device' />}
-content={<Button color='green' content='Confirm the launch' />}
-on='click'
-position='top right'
-/> */}
-
-// <Image src='./toad_icon.jpeg' size='tiny' shape='circular' />

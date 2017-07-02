@@ -29,7 +29,7 @@ class Create extends React.Component {
   }
 
   handleSubmit (e) {
-    
+    console.log('POSTING USER DATA: ', this.state.user);
     axios.post('/api/users', this.state.user)
       .then( res => {
         this.props.authenticateUserFunc(res.data);

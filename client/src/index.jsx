@@ -28,6 +28,10 @@ class App extends React.Component {
     )
   }
 
+  setUserObject(userObj) {
+    this.setState( {user: userObj} );
+  }
+
   isUserAuthenticated() {
     return this.state.isAuthenticated
   }
@@ -43,7 +47,7 @@ class App extends React.Component {
       <Router history={browserHistory} >
         <div>
           <NavBar isAuthenticated={this.isUserAuthenticated.bind(this)} username={this.state.user.username} />
-          <MyRoutes isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)} currentUser={currentUser}/>
+          <MyRoutes isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)} currentUser={currentUser} setUserObject={this.setUserObject.bind(this)} />
         </div>
       </Router>
     )
