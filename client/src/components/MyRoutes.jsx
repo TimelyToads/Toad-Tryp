@@ -9,7 +9,7 @@ import Logout from './Logout.jsx';
 import NotFound from './NotFound.jsx';
 import SearchResults from './SearchResults.jsx';
 import Trip from './Trip.jsx';
-import Trips from './Trips.jsx';
+import Dashboard from './Dashboard.jsx';
 import Profile from './Profile.jsx';
 import Create from './Create.jsx';
 import NewTrip from './NewTrip.jsx';
@@ -47,7 +47,7 @@ const routes = [
   
   {
     path:       '/trips/:username',
-    component:  Trips
+    component:  Dashboard
   },
   {
     path: '/profile/:username',
