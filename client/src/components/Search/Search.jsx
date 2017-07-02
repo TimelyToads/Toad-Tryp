@@ -1,12 +1,12 @@
 import React from 'react';
-import { Segment, Container, Header, Button, Checkbox, Form, Input, Select } from 'semantic-ui-react'
+import { Segment, Container, Header, Button, Checkbox, Form, Input, Select } from 'semantic-ui-react';
 import range from 'lodash/range';
 import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
 import {Redirect} from 'react-router-dom';
 import query from 'query-string';
 
-// Requirements AirBnB's React-Calendar 
+// Requirements for AirBnB's React-Calendar 
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import moment from 'moment';
 
@@ -60,16 +60,16 @@ class Search extends React.Component {
     const currentUser = this.props.currentUser;
     
     return (
-      <Form size="large" onSubmit={this.handleSubmit}>
+      <Form size="large" onSubmit={this.handleSubmit} className="container">
         <Form.Group inline>
-          <Form.Input width={7} type="text" color="black" name="depart" placeholder="Depart City" value={this.state.depart} onChange={this.handleChange}/>
-          <Form.Input width={7} type="text" name="arrive" placeholder="Arrive City" value={this.state.arrive} onChange={this.handleChange}/>
+          <Form.Input width={6} type="text" name="depart" placeholder="Depart City" value={this.state.depart} onChange={this.handleChange}/>
+          <Form.Input width={6} type="text" name="arrive" placeholder="Arrive City" value={this.state.arrive} onChange={this.handleChange}/>
 
-          <Form.Field>
+          <Form.Field width={3}>
             <SingleDatePicker date={this.state.date} onDateChange={date => this.setState({ date })} focused={this.state.focused} onFocusChange={({ focused }) => this.setState({ focused })} />
           </Form.Field>
           
-          <Form.Field>
+          <Form.Field width={2}>
             <select className="ui dropdown" color="grey" name="seats" value={this.state.seats} onChange={this.handleChange}>
               <option key="Seats" value="#" >Seats</option>
               {s.map( (n, i) => {
@@ -78,7 +78,7 @@ class Search extends React.Component {
             </select>
           </Form.Field>
 
-          <Button color="green" type="submit">Search</Button>
+          <Button width={1} color="green" type="submit">Search</Button>
         </Form.Group>
 
         {redirectTo && (

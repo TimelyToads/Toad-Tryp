@@ -1,4 +1,5 @@
 import React from 'react';
+import { Segment, Container, Header, Button, Checkbox, Form, Input, Select, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import Search from '../Search/Search.jsx';
 import {Redirect} from 'react-router-dom'
@@ -72,16 +73,19 @@ class Trip extends React.Component {
     }
 
     return (
-      <div>
-        <div className="page-heading">
+      <Container>
+        <div>
           <h1>Trip Details</h1>
           <h2>Please review the details of your trip!</h2>
         </div>
-        <div className="page-heading">
+
+        <Container>
           <div className="trip-confirmation-details">
             <div className="trip-confirmation-details-driver">
-              <h3 className="green-text">Your Driver for your trip</h3>
-              <img src={trips.driver.img_url} />
+              <Header as='h3'>
+                Your Driver for your trip
+              </Header>
+              <Image shape='circular' size='small' src={trips.driver.img_url} />
               <p>
                 Name: {trips.driver.first_name} {trips.driver.last_name}<br/>
                 E-mail: {trips.driver.email}<br/>
@@ -107,13 +111,13 @@ class Trip extends React.Component {
             <button type="submit" onClick={this.handleRequestTrip.bind(this)} >Request to Book</button><br/>
             <span className="disclaimer">You won't be charged until your Driver accepts your reservation.</span>
           </div>
-        </div>
+        </Container>
 
         {redirectTo && <Redirect push to={{
           pathname: redirectTo,
           state: {location, match, currentUser}
         }} />}
-      </div>
+      </Container>
     )
   }
 }

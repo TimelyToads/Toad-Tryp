@@ -1,7 +1,9 @@
 import React from 'react';
-import { Container, Header, Button } from 'semantic-ui-react';
-import {Redirect} from 'react-router-dom'
-import SearchResultItem from './SearchResultItem.jsx'
+import { Container, Header, Button, Table } from 'semantic-ui-react';
+import {Redirect} from 'react-router-dom';
+import SearchResultItem from './SearchResultItem.jsx';
+import SearchResultRow from './SearchResultRow.jsx';
+import SearchResultTableHeader from './SearchResultTableHeader.jsx';
 import Search from './Search.jsx';
 
 
@@ -32,6 +34,7 @@ class SearchResults extends React.Component {
   render() {
     const { currentUser, location, match } = this.props;
     const { redirectTo } = this.state;
+    const tableHeaders = ['Price', 'Departure', 'Arrival', 'Vehicle', 'Driver', 'Details'];
     return (
     <Container>
       <Header as='h1'>Search Results</Header>
@@ -40,12 +43,23 @@ class SearchResults extends React.Component {
       <Container className="search-results">
         {
           (() => {
-            if (location.state.trips !== null) {
-              if (Array.isArray(location.state.trips)) {
-                return location.state.trips.map(trip => <SearchResultItem trip={trip} handleClick={this.handleClick}/>);
-              } else {
-                return <SearchResultItem trip={location.state.trips} handleClick={this.handleClick}/>
-              }
+            console.log('this is the match and location in SearchResults.jsx', location, match);
+            if (location.state.trips) {
+              
+
+                {
+                  if (Array.isArray(location.state.trips)) {
+                    return <Table>
+                    <SearchResultTableHeader headers={tableHeaders} />
+                    {location.state.trips.map(trip => <SearchResultRow trip={trip} driverDetails={trip} handleClick={this.handleClick}/> )}
+                    </Table>
+                  } else {
+                    return <Table>
+                    <SearchResultTableHeader headers={tableHeaders} />
+                    <SearchResultRow trip={location.state.trips} driverDetails={location.state.trips} handleClick={this.handleClick}/>
+                    </Table>
+                  }
+                }
             } else {
               return <div>No Results Found.</div>
             }

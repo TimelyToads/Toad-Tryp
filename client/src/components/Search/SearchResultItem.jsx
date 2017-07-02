@@ -1,13 +1,15 @@
 import React from 'react';
+import DashboardTableBody from './DashboardTableBody.jsx';
+import formatTime from './utils/formatTime.js';
 
 const SearchResultItem = ({trip, handleClick}) => (
   <div className="search-results-item">    
     <span className="search-departure">
-      <b>Departure:</b>{trip.departure_address_line1}, {trip.departure_city}, {trip.departure_state} at {trip.departure_time.substring(0, 5)} 
+      <b>Departure:</b>{trip.departure_address_line1}, {trip.departure_city}, {trip.departure_state} at {formatTime(trip.departure_time)} 
     </span> 
 
     <span className="search-arrival">
-      <b>Arrival: </b>{trip.arrival_address_line1 }, {trip.arrival_city}, {trip.arrival_state} at {trip.arrival_time.substring(0, 5)}
+      <b>Arrival: </b>{trip.arrival_address_line1 }, {trip.arrival_city}, {trip.arrival_state} at {formatTime(trip.arrival_time)}
     </span> <br/>
     
     <b>Price:</b> <span className="search-item-price">${trip.price} </span> 
