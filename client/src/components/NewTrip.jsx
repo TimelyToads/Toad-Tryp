@@ -16,16 +16,19 @@ class NewTrip extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange(e, {name, value}) {
     this.state.trip[[name]] = value;
     this.setState({trip: this.state.trip},() => {
       console.log(this.state.trip);
     });
   }
+
   handleCancelClick() {
     console.log('handleclick');
     this.setState({formComplete: true});
   }
+
   handleSubmit() {
     console.log('handlesubmit');
     this.setState({formComplete: true});
@@ -38,8 +41,10 @@ class NewTrip extends React.Component {
         console.log('Error creating a trip ', err);
       });
   }
+
   render() {
     return (<div>
+      {this.props.isAuthenticated() && 
       <Segment.Group>
         <Segment padded="very">
           <Header as='h2' color='green'>New Trip</Header>
@@ -51,6 +56,10 @@ class NewTrip extends React.Component {
           </Segment.Group>
         </Segment>
       </Segment.Group>
+      }
+      {!this.props.isAuthenticated() && 
+        <div>NOT LOGED INT</div>
+      }
     </div>);
   } 
 } 
