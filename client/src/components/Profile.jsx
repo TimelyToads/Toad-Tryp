@@ -81,7 +81,9 @@ class Profile extends React.Component {
                 <UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits} user={user} />
               </Segment>
             </Segment.Group>
-            
+            <Segment>
+              <BecomeADriver handleDriverToggle={this.handleDriverToggle} />
+            </Segment>
             {
               (() => {
                 if (this.state.showDriverInfo) {
@@ -90,12 +92,6 @@ class Profile extends React.Component {
                       <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} />
                     </Segment>
                   );    
-                } else {
-                  return (
-                    <Segment>
-                      <BecomeADriver handleDriverToggle={this.handleDriverToggle} />
-                    </Segment>
-                  );
                 }
               }
             )()}
