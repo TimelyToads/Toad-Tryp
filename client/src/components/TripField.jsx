@@ -24,7 +24,8 @@ const TripField = (props) => (
           <Form.Field fluid name='departure_time' control={Input} label='Depart Time' placeholder='Depart Time' onChange={props.handleChange}/>
         </Form.Group>
         <Form.Group>
-          <Form.Field name='seats' control={Select} label='Seats' options={options} onChange={props.handleChange}/>
+          <Form.Field size='small' name='seats' control={Select} label='Seats' options={options} onChange={props.handleChange}/>
+          <Form.Field size='medium' name='price' control={Input} label='Price' placeholder='Price' onChange={props.handleChange}/>
         </Form.Group>
       </Segment>
       <Segment>

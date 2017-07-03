@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "server/index.js",
+  "engines": {
+    "node": "8.0.0"
+  },
   "scripts": {
     "test": "mocha",
     "dev-start": "nodemon ./server/index.js",
     "react-start": "webpack -d --watch",
     "db-seed": "mysql -u root < database/sql/schema.sql",
     "start": "node ./server/index.js",
-    "heroku-postbuild": "webpack"
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
@@ -41,7 +44,6 @@
     "mocha": "^3.4.2",
     "moment": "^2.18.1",
     "mysql": "^2.13.0",
-    "node": "0.0.0",
     "passport-google-oauth2": "^0.1.6",
     "query-string": "^4.3.4",
     "react": "^15.6.1",
@@ -54,10 +56,5 @@
     "semantic-ui-css": "^2.2.10",
     "semantic-ui-react": "^0.70.0",
     "webpack": "^3.0.0"
-  },
-  "devDependencies": {
-    "css-loader": "^0.28.4",
-    "file-loader": "^0.11.2",
-    "url-loader": "^0.5.9"
   }
 }
