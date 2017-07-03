@@ -15,8 +15,8 @@ class GoogleAuth extends React.Component {
   componentDidMount() {
     gapi.signin2.render('g-signin2', {
 			'scope': 'profile email',
-			'width': 200,
-			'height': 30,
+			'width': 400,
+			'height': 50,
 			'longtitle': true,
 			'theme': 'dark',
 			'onsuccess': this.onSignInSuccess.bind(this),
