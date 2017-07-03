@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, CheckBox, Form, Input, Segment, Header, Select } from 'semantic-ui-react';
+import {Button, CheckBox, Form, Input, Segment, Header, Select} from 'semantic-ui-react';
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import SubmitCancelButtons from './SubmitCancelButtons.jsx';
 import TripField from './TripField.jsx';
@@ -27,12 +28,11 @@ class NewTrip extends React.Component {
 
   handleCancelClick() {
     console.log('handleclick');
-    this.setState({formComplete: true});
+    this.props.history.goBack();
   }
 
   handleSubmit() {
     console.log('handlesubmit');
-    this.setState({formComplete: true});
     axios.post('/api/trips', this.state.trip)
       .then( res => {
         // this.props.authenticateUserFunc(res.data);
@@ -46,7 +46,9 @@ class NewTrip extends React.Component {
   render() {
     return (
       <div>
-        {console.log(this.props.currentUser)}
+        {this.state.formComplete && 
+          <Redirect to={`/trips/${this.props.currentUser.username}`} />
+        }
         {( () => {
           if (this.props.isAuthenticated() && this.props.currentUser.vin) {
             return <Segment.Group>
