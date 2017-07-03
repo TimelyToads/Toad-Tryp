@@ -32,13 +32,13 @@ class SearchResults extends React.Component {
   render() {
     const { currentUser, location, match } = this.props;
     const { redirectTo } = this.state;
-    const tableHeaders = ['Price', 'Departure', 'Arrival', 'Vehicle', 'Remaining Seats', 'Details'];
+    const tableHeaders = ['Price', 'Departure', 'Arrival', 'Vehicle', 'Remaining Seats', ''];
     const driver = location.state.trips.driver;
 
     return (
     <Container>
-      <Header as='h1'>Search Results</Header>
-      <Header as='h2'>Showing results from <span className="green-text">{location.state.depart}</span> to <span className="green-text">{location.state.arrive}</span></Header>
+      <Header as='h1' color='green'>Search Results</Header>
+      <Header as='h2' color='grey'>Showing trips from <span className="green-text">{location.state.depart}</span> to <span className="green-text">{location.state.arrive}</span></Header>
       <Search />
       <Container className="search-results">
         { (() => {
@@ -46,7 +46,7 @@ class SearchResults extends React.Component {
               {
                 if (Array.isArray(location.state.trips)) {
                   return (
-                  <Table>
+                  <Table striped padded='very'>
                     <SearchResultTableHeader headers={tableHeaders} />
                     {location.state.trips.map(trip => <SearchResultRow trip={trip} driverDetails={driver} handleClick={this.handleClick}/> )}
                   </Table>);
@@ -59,7 +59,7 @@ class SearchResults extends React.Component {
                 }
               }
             } else {
-              return <div>No Results Found.</div>
+              return <Header>No Results Found For This Date</Header>
             }
           })()
         }
