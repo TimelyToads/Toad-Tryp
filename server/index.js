@@ -139,23 +139,12 @@ app.post('/api/users', (req, res) => {
 
 app.get('/api/trips', (req, res) => {
   console.log('GET /api/trips/\n', req.query);
-<<<<<<< HEAD
   const search = {};
   if (req.query.depart) search.departure_city = req.query.depart;
   if (req.query.arrive) search.arrival_city = req.query.arrive;
   if (req.query.departdate) search.departure_date = req.query.departdate
   models.Trip.where(search)
-  .fetchAll()
-=======
-  models.Trip.query((qb) => {
-    qb.where({
-      departure_city: req.query.depart,
-      arrival_city: req.query.arrive,
-      departure_date: req.query.departdate,
-    });
-  })
-  .fetch({withRelated: ['driver','riders']})
->>>>>>> Add 'withRelated' property in GET request for /api/trips to also get the Driver information in a search for trips in server.
+  .fetchAll({withRelated: ['driver','riders']})
   .then((trips) => {
     console.log('\tSUCCESS\n');
     res.status(200).json(trips);

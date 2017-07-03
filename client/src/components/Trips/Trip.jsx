@@ -1,8 +1,10 @@
 import React from 'react';
-import { Segment, Container, Header, Button, Checkbox, Form, Input, Select, Image } from 'semantic-ui-react';
+import { Segment, Container, Header, Button, Checkbox, Form, Input, Select, Image, Card, Icon } from 'semantic-ui-react';
 import axios from 'axios';
-import Search from '../Search/Search.jsx';
-import {Redirect} from 'react-router-dom'
+import Search from './Search.jsx';
+import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+import {Redirect} from 'react-router-dom';
+import formatTime from './utils/formatTime.js';
 
 class Trip extends React.Component {
   constructor(props) {
@@ -64,53 +66,90 @@ class Trip extends React.Component {
   render() {
     const { trips, redirectTo, currentUser } = this.state;
     const { location, match } = this.props;
-    const formatTime = (str) => {
-      let hour = parseInt(str.substring(0, 2), 10);
-      let minute = str.substring(2, 5);
-      let meridiem = (hour > 12) ? ' PM' : ' AM'
-      hour = (hour === 0) ? '12' : hour.toString()
-      return hour + minute + meridiem;
-    }
 
     return (
       <Container>
-        <div>
-          <h1>Trip Details</h1>
-          <h2>Please review the details of your trip!</h2>
-        </div>
+        <Header as='h1' color='green'>Trip Details</Header>
+        <Header as='h2' color='grey'>Please review the details of your trip!</Header>
 
-        <Container>
-          <div className="trip-confirmation-details">
-            <div className="trip-confirmation-details-driver">
-              <Header as='h3'>
-                Your Driver for your trip
-              </Header>
-              <Image shape='circular' size='small' src={trips.driver.img_url} />
-              <p>
-                Name: {trips.driver.first_name} {trips.driver.last_name}<br/>
-                E-mail: {trips.driver.email}<br/>
-                Phone Number: {trips.driver.phone_number}<br/>
-                Car: {trips.driver.year} {trips.driver.make} {trips.driver.model}
-              </p>
-            </div> 
-            <h3 className="green-text">Price: ${trips.price}</h3>
-            <div>
-              <h3>Departure:</h3>
-              <h4>{(trips.departure_time) ? `Departing at ${formatTime(trips.departure_time)}` : ''}</h4>
-              <h4>Pickup Point: </h4>
-              <h4>{trips.departure_address_line1}</h4>
-              <h4>{trips.departure_city}, {trips.departure_state}, {trips.departure_zip}</h4>
-            </div>
-            <div>
-              <h3>Arrival:</h3>
-              <h4>{(trips.arrival_time) ? `Arriving at ${formatTime(trips.arrival_time)}` : ''}</h4>
-              <h4>Dropoff Point: </h4>
-              <h4>{trips.arrival_address_line1}</h4>
-              <h4>{trips.arrival_city}, {trips.arrival_state}, {trips.arrival_zip}</h4>
-            </div>
-            <button type="submit" onClick={this.handleRequestTrip.bind(this)} >Request to Book</button><br/>
-            <span className="disclaimer">You won't be charged until your Driver accepts your reservation.</span>
-          </div>
+        <Card.Group>
+          <Card>
+            <Card.Content>
+              <Header color='green'>Price: ${trips.price}</Header>
+            </Card.Content>
+
+            <Card.Content>
+              <Card.Header>Departure:</Card.Header>
+              <Card.Meta>Details</Card.Meta>
+              <Card.Description>              
+                {(trips.departure_time) ? `Departing at ${formatTime(trips.departure_time)}` : ''} <br/>
+                Pickup Point: <br/>
+                {trips.departure_address_line1} <br/>
+                {trips.departure_city}, {trips.departure_state}, {trips.departure_zip}
+              </Card.Description>
+            </Card.Content>
+            
+            <Card.Content>
+              <Card.Header>Arrival:</Card.Header>
+              <Card.Meta>Details</Card.Meta>
+              <Card.Description>              
+                {(trips.arrival_time) ? `Arriving at ${formatTime(trips.arrival_time)}` : ''}<br/>
+                Dropoff Point: <br/>
+                {trips.arrival_address_line1}<br/>
+                {trips.arrival_city}, {trips.arrival_state}, {trips.arrival_zip}
+              </Card.Description>
+            </Card.Content>
+          </Card>
+
+          <Card>
+            <Card.Content extra>
+              <Header>Your Driver for this Tryp:</Header>
+            </Card.Content>
+            <Image src={trips.driver.img_url} shape='circular' size='medium'/>
+            <Card.Content>
+              <Card.Header>
+                {trips.driver.first_name} {trips.driver.last_name}
+              </Card.Header>
+              <Card.Meta>
+                <span className='date'>
+                  Joined in 2017
+                </span>
+              </Card.Meta>
+              <Card.Description>
+                <Icon name='mail outline' /> {trips.driver.email} <br/>
+                <Icon name='phone'/> {trips.driver.phone_number}<br/>
+                <Icon name='car'/> {trips.driver.year} {trips.driver.make} {trips.driver.model}
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <a>
+                <Icon name='road' />
+                22 Total Tryps
+              </a>
+            </Card.Content>
+          </Card>
+
+          <Card>
+            <Image src='https://lh3.googleusercontent.com/1_qs4sNbwTW3lAAsMNr-k2EEmeDzPthNvuoNCL285LhlR7CidyDmxVJWOKscfhW7M5WDFASZQ_b3ig__wrEMPLkEb8hpIfFUe-pB_rxqQ7p16EAS8GthhiYugDqrFbj7ojfaib-a35xTJF1usnHbzfhOFJjWjeKpqRfbjNOswQIzKz301bDZdhgwYQF5a1tOMamwrT3F47HhhShHwmNnx82lnRzdiAGkxkUDRn3lpk8L9Oeko1jt0TkYpQ-SPQYk8CiF5c9nOY0R7MFvzyXpKI54PVrDGqZ9_bR9FxRufGJgI45YyIsdIHuntq-oE68a1u_Wos0mAL1RNSsxeKOIG07m8tk3BAr2bwqR2Of2W91X2G3wGc7y7B2QB7AOZ4UEHVQ3g64XlI0T_PaB4E8rrPSanUqDum2SeFpf2jGZp4cCG7ztINcwJvT_GAmx3NzbMMDpB0NOXS8BwdTdj72NLnhZeQbjhfbJr50f0Nmsir0J348Jw-lWw4RYwB5zyOxo7Mod7PKGyrT-yj7Azo-YqRiGim_jeULZFtrYSBj2jHu5PaifVuu0Tg2fHBqujY-wsBZVqTkvCnQhcYTZCiEXg2W1s2-hDnueAUvwSrOT6egPW6v5sbDi=w1436-h1432-no' />
+            <Card.Content>
+              <Card.Header>
+                <Icon name='map outline' /> Google Maps
+              </Card.Header>
+              <Card.Meta>
+                <span className='date'>
+                  Updated July 3rd, 2017
+                </span>
+              </Card.Meta>
+              <Card.Description>
+                {trips.departure_city}, {trips.departure_state} to {trips.arrival_city}, {trips.arrival_state}
+              </Card.Description>
+            </Card.Content>
+          </Card>
+        </Card.Group>
+        <Container textAlign='center'>
+          <br/>
+          <Button color='green' onClick={this.handleRequestTrip.bind(this)} >Request to Book</Button><br/>
+          <span id='disclaimer'>You won't be charged until your Driver accepts your reservation.</span>
         </Container>
 
         {redirectTo && <Redirect push to={{
