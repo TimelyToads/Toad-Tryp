@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, CheckBox, Form, Input, Segment, Header, Select} from 'semantic-ui-react';
+import {Button, CheckBox, Form, Input, Segment, Header, Select, Container} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import SubmitCancelButtons from '../SubmitCancelButtons.jsx';
@@ -43,7 +43,7 @@ class NewTrip extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         {this.state.formComplete && 
           <Redirect to={`/trips/${this.props.currentUser.username}`} />
         }
@@ -67,7 +67,7 @@ class NewTrip extends React.Component {
           }
         }
       )()}
-      </div>
+      </Container>
     );
   }
 }

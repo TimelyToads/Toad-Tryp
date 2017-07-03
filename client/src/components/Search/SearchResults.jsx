@@ -33,11 +33,13 @@ class SearchResults extends React.Component {
     const { currentUser, location, match } = this.props;
     const { redirectTo } = this.state;
     const tableHeaders = ['Price', 'Departure', 'Arrival', 'Vehicle', 'Remaining Seats', ''];
-
+    const fromHeader = (location.state.depart) ? `from ${location.state.depart}` : '';
+    const toHeader = (location.state.arrive) ? `to ${location.state.arrive}` : '';
+    
     return (
     <Container>
       <Header as='h1' id='main-header'>Search Results</Header>
-      <Header as='h2' id='main-header2'>Showing trips from <span className="green-text">{location.state.depart}</span> to <span className="green-text">{location.state.arrive}</span></Header>
+      <Header as='h2' id='main-header2'>Showing trips <span className="green-text">{fromHeader}</span> <span className="green-text">{toHeader}</span> </Header>
       <Search />
       <Container className="search-results">
         { (() => {
