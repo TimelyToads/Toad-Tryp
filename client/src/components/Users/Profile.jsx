@@ -4,6 +4,8 @@ import UserInfo from './UserInfo.jsx';
 import DriverInfo from './DriverInfo.jsx';
 import BecomeADriver from './BecomeADriver.jsx';
 import axios from 'axios';
+import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+import UserMessage from './UserMessage.jsx';
 
 class Profile extends React.Component {
   constructor(props) { 
@@ -67,56 +69,65 @@ class Profile extends React.Component {
   }
   
   render() {
-    const { name, email, submittedName, submittedEmail, preventEdits, user, editing } = this.state;
+    const { preventEdits, user } = this.state;
 
-    return (
-      <div>
-        <Form >
-          <Segment.Group>
-            <Segment padded="very">
-              <Button floated="right" toggle active={preventEdits} onClick={this.handleEditClick.bind(this)}> Edit </Button>
-              <Header id="userInfoHeader" as='h2' inverted color='green'>User Info</Header>
-            </Segment>
+    if ( this.props.isAuthenticated() ) {
+      return (
+        <div>
+          <Form >
             <Segment.Group>
-              <Segment>
-                <UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits} user={user} />
+              <Segment padded="very">
+                <Button floated="right" toggle active={preventEdits} onClick={this.handleEditClick.bind(this)}> Edit </Button>
+                <Header id="userInfoHeader" as='h2' inverted color='green'>User Info</Header>
               </Segment>
-            </Segment.Group>
+              <Segment.Group>
+                <Segment>
+                  <UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits} user={user} />
+                </Segment>
+              </Segment.Group>
 
-            {
-              (() => {
-                if (this.state.showDriverInfo) {
-                  return (
+              {
+                (() => {
+                  if (this.state.showDriverInfo) {
+                    return (
+                        <Segment>
+                          <BecomeADriver disableToggle={this.state.disableDriverToggle} handleDriverToggle={this.handleDriverToggle} />
+                          <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} />
+                        </Segment>
+                    );    
+                  } else {
+                    return (
                       <Segment>
-                        <BecomeADriver disableToggle={this.state.disableDriverToggle} handleDriverToggle={this.handleDriverToggle} />
-                        <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} />
+                        <BecomeADriver handleDriverToggle={this.handleDriverToggle} />
                       </Segment>
-                  );    
-                } else {
+                    );
+                  }
+                }
+              )()}
+              {(() => {
+
+                if (!preventEdits) {
                   return (
-                    <Segment>
-                      <BecomeADriver handleDriverToggle={this.handleDriverToggle} />
+                    <Segment textAlign="right">
+                      <Button color="grey" onClick={this.handleCancelClick.bind(this)}> Cancel </Button>
+                      <Button color="green" onClick={this.handleSubmit.bind(this)}> Submit </Button>
                     </Segment>
                   );
                 }
-              }
-            )()}
-            {(() => {
 
-              if (!preventEdits) {
-                return (
-                  <Segment textAlign="right">
-                    <Button color="grey" onClick={this.handleCancelClick.bind(this)}> Cancel </Button>
-                    <Button color="green" onClick={this.handleSubmit.bind(this)}> Submit </Button>
-                  </Segment>
-                );
-              }
-
-            })()}
-          </Segment.Group>
-        </Form>
-      </div>
-    );
+              })()}
+            </Segment.Group>
+          </Form>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <UserMessage message={ {header: 'You must register before you can do that!', content: 'Visit our registration page, then try again.', type: 'warning' } } />
+        </div>
+      );
+    }
   }
 }
+
 export default Profile;
