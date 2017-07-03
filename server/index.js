@@ -59,6 +59,24 @@ app.get('/api/users/googleid' ,(req, res) => {
     });
 });
 
+app.get('/api/users/id' ,(req, res) => {
+const id = req.query.id;
+
+models.User.forge({ id: id })
+  .fetch().then( user => {
+    if (user) {
+      console.log('\tSUCCESS getting user by id\n');
+      res.status(200).send(user.toJSON());
+    } else {
+      throw user;
+    }
+  })
+  .catch( err => {
+    const message = `\tUnable to find user by id  ` + err;
+    console.error(message);
+    res.status(404).send({ message });
+  });
+});
 
 app.get('/api/users/:username' ,(req, res) => {
   const username = req.params.username;
