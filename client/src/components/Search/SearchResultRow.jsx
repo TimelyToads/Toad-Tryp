@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Header, Image, Label, Popup, Button, Message } from 'semantic-ui-react';
-import formatTime from './utils/formatTime.js';
+import formatTime from '../utils/formatTime.js';
 
 const SearchResultRow = (props) => (
   <Table.Row>

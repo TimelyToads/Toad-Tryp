@@ -1,10 +1,10 @@
 import React from 'react';
 import { Segment, Container, Header, Button, Checkbox, Form, Input, Select, Image, Card, Icon } from 'semantic-ui-react';
 import axios from 'axios';
-import Search from './Search.jsx';
-import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+import Search from '../Search/Search.jsx';
+import AuthenticationHelper from '../../../../lib/AuhenticationHelper.js';
 import {Redirect} from 'react-router-dom';
-import formatTime from './utils/formatTime.js';
+import formatTime from '../utils/formatTime.js';
 
 class Trip extends React.Component {
   constructor(props) {
