@@ -1,15 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router';
 import { Popup, Button, Image, Modal } from 'semantic-ui-react'
+import DocMeta from 'react-doc-meta';
+import API_Keys from '../../../../lib/api_keys.js';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
   }
 
+
   render() {
-    console.log('Rendering NavBar');
+    console.log('Rendering NavBar', this.props.isAuthenticated());
 
     let profileLink = '';
     if (!this.props.isAuthenticated()) {
@@ -22,11 +25,12 @@ class NavBar extends React.Component {
      <div>
       <nav>
         <ul>
+         <li>{this.props.isAuthenticated() && <Link to="/logout">Logout</Link>}</li>
           <li>{this.props.isAuthenticated() && <Link to={'/trips/'+this.props.username}>Trips</Link>}</li>
           <li>{!this.props.isAuthenticated() && <Link to="/login">Login</Link>}</li>
           <li>{!this.props.isAuthenticated() && <Link to="/signup">Sign Up</Link>}</li>
           <li><Link to="/">Search</Link></li>
-          <li><Link to={'/newtrip'}>New Trip</Link></li>
+          <li>{this.props.isAuthenticated() && <Link to={'/newtrip'}>New Trip</Link>}</li>
           <li>{this.props.isAuthenticated() && <Link to={'/profile/'+this.props.username}>Profile</Link>}</li>
           <Popup
           trigger={<Image src='./toad_icon.jpeg' size='tiny' shape='circular' />}
@@ -35,6 +39,7 @@ class NavBar extends React.Component {
           position='top right'
           /> 
         </ul>
+
       </nav>
     </div>
     )
@@ -42,11 +47,3 @@ class NavBar extends React.Component {
 }
 
 export default withRouter(NavBar);
-
-
-{/* <Popup
-trigger={<Button color='red' icon='flask' content='Activate doomsday device' />}
-content={<Button color='green' content='Confirm the launch' />}
-on='click'
-position='top right'
-/> */}
