@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Header, Rating, Form, Segment, Message } from 'semantic-ui-react'
+import { Table, Header, Rating, Form, Segment, Message, Container } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom' 
 import UserInfo from '../Users/UserInfo.jsx'
 import DriverInfo from '../Users/DriverInfo.jsx'
@@ -51,7 +51,7 @@ class Dashboard extends React.Component{
             <Form>
               { (()=> {
                 if (trips.trips && trips.trips.length > 0) {
-                  return (<div><h1>Trips as Passenger</h1>
+                  return (<div><Header as='h2' id='main-header'>Trips as Passenger</Header>
                     <Table>
                       <DashboardTableHeader headers={tableHeaderNames}/>
                       <DashboardTableBody trips={trips.trips} driverDetails={trips} driver={false}/>
@@ -63,7 +63,7 @@ class Dashboard extends React.Component{
 
               { (()=> {
                 if (trips.hostedTrips && trips.hostedTrips.length > 0) {
-                  return (<div><h1>Trips as Driver</h1>
+                  return (<div><Header as='h2' id='main-header'>Trips as Driver</Header>
                     <Table>
                       <DashboardTableHeader headers={tableHeaderNames}/>
                       <DashboardTableBody trips={trips.hostedTrips} driverDetails={trips} driver={true}/>
@@ -90,11 +90,11 @@ class Dashboard extends React.Component{
       )
     } else {
       return (
-        <div>
+        <Container>
           <Segment>
           <UserMessage message={ {header: 'You must register before you can do that!', content: 'Visit our registration page, then try again.', type: 'warning' } } />
           </Segment>
-        </div>
+        </Container>
       )
     }
   } //end render

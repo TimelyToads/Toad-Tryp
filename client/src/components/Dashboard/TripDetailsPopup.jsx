@@ -25,7 +25,7 @@ const TripDetailsPopup = (props) => (
       <Message.Header>Vehicle Info </Message.Header>
       <p>
       {props.driverDetails.year} {props.driverDetails.make} {props.driverDetails.model}<br />
-        {props.driverDetails.vin} {props.driverDetails.license_plate}
+        {props.driverDetails.license_plate}
       </p>
     </Message>
   </div>
