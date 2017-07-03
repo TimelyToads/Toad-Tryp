@@ -49,7 +49,7 @@ class FeaturedDestinations extends React.Component {
         <Card.Group itemsPerRow={5} >
           <Card onClick={this.handleClick.bind(this, 'San Francisco')}>
             <Image src='https://lh3.googleusercontent.com/SVUYMduJTwXo-ekvtyO_akFNS3Ee083DzKjGtlsNqHo-vlpgmfJXj5EkCqBVVyoXMRTjb9VoTexQJNaX7s09M5pTo4SxKIQJKixDUORKGiqHpWnAUvY1aGl2pBZdJ2dVrhwH_MZhefxyRzeDtdWEl9CCQhLQdCIY4Ckm9HevuJoImESd2v_cPXw6Q8wClO4pC5SroMXvW0ZyJcHCzDiz95uisg1hPoUcXY8Eo450EIyLJL6EQiWG0J5k__c5hx5yeJ840VzALIpWikaruDU609pOaKMXyfEu4UkUcGoh0QUA-gl0U5LjuPHo6e2Io7Fel212TkBk_I7_eny_toDUlSm6-LQ186z4pOSnCLKPBSd6iXw6BpVsebzFWODexGnCKvdJsCU3xhflQ3hisYDt_6jy0IMa3c1U5YMBP5checjOB-OxvzBSYu6P97dmpuC2bArXcOyo7ywIzwcjvoUL9IaEd2y2BG1G_2vOSE1uQK8DYxJHmrcDpo-uFK09oB4j3DpF-Lc2E7WKH55QlXQRYt7NFbhyd-iYDFMvnKuinm4mZg4KGjn8Nt7ln3U3hbj0e9me0oy7hfq9r8PF2POA5KOLgFNDdaLQTsynhf4F5gnxWbNLC8st=w982-h1472-no' />
-            <Card.Content>
+            <Card.Content className='card-location'>
               <Icon name='map pin'/>San Francisco
             </Card.Content>
             
