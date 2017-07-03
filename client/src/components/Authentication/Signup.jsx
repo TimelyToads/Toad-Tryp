@@ -1,14 +1,14 @@
 import React from 'react';
 import { Form, Input, Segment, Header, Button, Radio, Divider, Checkbox, Label } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom'; 
-import UserInfo from './UserInfo.jsx';
-import DriverInfo from './DriverInfo.jsx';
+import UserInfo from '../Users/UserInfo.jsx';
+import DriverInfo from '../Users/DriverInfo.jsx';
 import axios from 'axios';
 import GoogleAuth from './GoogleAuth.jsx';
-import SubmitCancelButtons from './SubmitCancelButtons.jsx';
-import BecomeADriver from './BecomeADriver.jsx';
+import SubmitCancelButtons from '../SubmitCancelButtons.jsx';
+import BecomeADriver from '../Users/BecomeADriver.jsx';
 
-class Create extends React.Component {
+class Signup extends React.Component {
   constructor(props) {
    
     super(props);
@@ -18,7 +18,7 @@ class Create extends React.Component {
       signupCompleted: false,
       user: {} 
     };
-    this.handleDriverToggle = this.handleDriverToggle.bind(this);
+    this.handleDriverToggle = this.toggleDriverSignup.bind(this);
   }
 
 
@@ -45,7 +45,7 @@ class Create extends React.Component {
     this.setState({signupCompleted: true});
   }
 
-  handleDriverToggle() {
+  toggleDriverSignup() {
     this.setState({driverSignup: !this.state.driverSignup});
   }
 
@@ -97,4 +97,4 @@ class Create extends React.Component {
     );
   } //end render
 }
-export default Create;
+export default Signup;

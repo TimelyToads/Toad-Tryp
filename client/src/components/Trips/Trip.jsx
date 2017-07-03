@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Search from './Search.jsx';
-import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+import Search from '../Search/Search.jsx';
 import {Redirect} from 'react-router-dom'
 
 class Trip extends React.Component {

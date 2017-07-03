@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Header } from 'semantic-ui-react';
-import Search from './Search.jsx';
+import Search from './Search/Search.jsx';
 import { withRouter } from 'react-router';
 
 

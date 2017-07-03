@@ -5,7 +5,6 @@ import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
 import {Redirect} from 'react-router-dom';
 import query from 'query-string';
-import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 
 // Requirements AirBnB's React-Calendar 
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
