@@ -14,7 +14,11 @@ class DashboardDriverRow extends React.Component {
   }
 
   getDriverInfoById() {
-    axios.get(`/api/user/${this.props.trip.driver_id}`) 
+    axios.get(`/api/users/id`, {
+      params: {
+        id: this.props.trip.driver_id
+      }
+    }) 
       .then( driverObj => {
         this.setState({ driver: driverObj.data});
       })
