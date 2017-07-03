@@ -45,9 +45,7 @@ class Search extends React.Component {
         redirectTo: '/searchresults',
         trips: response.data
       });
-      console.log(this.state);
-      console.log('SEARCHSEARCHSEARCHSEARCH', this.props)
-
+      console.log('Successfully fetched trips in the Search Component');
     })
     .catch(function (error) {
       console.log(error);

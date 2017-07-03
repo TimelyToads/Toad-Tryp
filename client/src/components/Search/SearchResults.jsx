@@ -32,32 +32,32 @@ class SearchResults extends React.Component {
   render() {
     const { currentUser, location, match } = this.props;
     const { redirectTo } = this.state;
-    const tableHeaders = ['Price', 'Departure', 'Arrival', 'Vehicle', 'Driver', 'Details'];
+    const tableHeaders = ['Price', 'Departure', 'Arrival', 'Vehicle', 'Remaining Seats', 'Details'];
+    const driver = location.state.trips.driver;
+
     return (
     <Container>
       <Header as='h1'>Search Results</Header>
       <Header as='h2'>Showing results from <span className="green-text">{location.state.depart}</span> to <span className="green-text">{location.state.arrive}</span></Header>
       <Search />
       <Container className="search-results">
-        {
-          (() => {
-            console.log('this is the props in SearchResults.jsx', this.props);
+        { (() => {
             if (location.state.trips) {
-              
-
-                {
-                  if (Array.isArray(location.state.trips)) {
-                    return <Table>
+              {
+                if (Array.isArray(location.state.trips)) {
+                  return (
+                  <Table>
                     <SearchResultTableHeader headers={tableHeaders} />
-                    {location.state.trips.map(trip => <SearchResultRow trip={trip} driverDetails={trip} handleClick={this.handleClick}/> )}
-                    </Table>
-                  } else {
-                    return <Table>
+                    {location.state.trips.map(trip => <SearchResultRow trip={trip} driverDetails={driver} handleClick={this.handleClick}/> )}
+                  </Table>);
+                } else {
+                  return (
+                  <Table>
                     <SearchResultTableHeader headers={tableHeaders} />
-                    <SearchResultRow trip={location.state.trips} driverDetails={location.state.trips} handleClick={this.handleClick}/>
-                    </Table>
-                  }
+                    <SearchResultRow trip={location.state.trips} driverDetails={driver} handleClick={this.handleClick}/>
+                  </Table>);
                 }
+              }
             } else {
               return <div>No Results Found.</div>
             }
