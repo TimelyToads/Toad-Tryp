@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Segment, Header, Button, Radio } from 'semantic-ui-react';
+import { Form, Input, Segment, Header, Button } from 'semantic-ui-react';
 import UserInfo from './UserInfo.jsx';
 import DriverInfo from './DriverInfo.jsx';
 import BecomeADriver from './BecomeADriver.jsx';
@@ -12,6 +12,7 @@ class Profile extends React.Component {
     this.state = { 
       preventEdits: true,
       showDriverInfo: false,
+      disableDriverToggle: false,
       user: {
         username: props.match.params.username
       } 
@@ -26,26 +27,24 @@ class Profile extends React.Component {
   handleChange (e, { name, value }) {
     let newUserObj = this.state.user;
     newUserObj[[name]] = value;
-
     this.setState({user: newUserObj});
   }
   
   handleSubmit (e) {
     axios.post('/api/users', this.state.user)
-        .then( res => {
-          this.setState({preventEdits: true});
-          this.props.setUserObject(res.data);
-        })
-        .catch( err => {
-          console.log('Error creating a user ', err);
-        });
+    .then( res => {
+      this.setState({preventEdits: true});
+      this.props.setUserObject(res.data);
+    })
+    .catch( err => {
+      console.log('Error creating a user ', err);
+    });
   }
 
   handleEditClick(e) {
-    console.log('inside handleEditClick');
     this.setState(
-        {preventEdits: false}
-      );
+      {preventEdits: false}
+    );
   } 
 
   handleCancelClick() {
@@ -55,8 +54,11 @@ class Profile extends React.Component {
   componentDidMount() {
     axios.get(`/api/users/${this.state.user.username}`)
       .then( userData => {
+        let alreadyIsDriver = !!userData.data.license_plate;
         this.setState({
-          user: userData.data
+          user: userData.data,
+          showDriverInfo: alreadyIsDriver,
+          disableDriverToggle: alreadyIsDriver
         });
       })
       .catch( err => {
@@ -81,14 +83,15 @@ class Profile extends React.Component {
                 <UserInfo onChange={this.handleChange.bind(this)} disabled={preventEdits} user={user} />
               </Segment>
             </Segment.Group>
-            
+
             {
               (() => {
                 if (this.state.showDriverInfo) {
                   return (
-                    <Segment>
-                      <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} />
-                    </Segment>
+                      <Segment>
+                        <BecomeADriver disableToggle={this.state.disableDriverToggle} handleDriverToggle={this.handleDriverToggle} />
+                        <DriverInfo onChange={this.handleChange.bind(this)} user={user} disabled={preventEdits} />
+                      </Segment>
                   );    
                 } else {
                   return (
@@ -116,7 +119,5 @@ class Profile extends React.Component {
       </div>
     );
   }
-  
-
 }
 export default Profile;

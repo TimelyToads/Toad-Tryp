@@ -1,8 +1,8 @@
-import React from 'react'
-import { Form, Input, Segment, Header, Button, Radio, Divider, Checkbox, Label } from 'semantic-ui-react'
-import { Redirect } from 'react-router-dom' 
-import UserInfo from './UserInfo.jsx'
-import DriverInfo from './DriverInfo.jsx'
+import React from 'react';
+import { Form, Input, Segment, Header, Button, Radio, Divider, Checkbox, Label } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom'; 
+import UserInfo from './UserInfo.jsx';
+import DriverInfo from './DriverInfo.jsx';
 import axios from 'axios';
 import GoogleAuth from './GoogleAuth.jsx';
 import SubmitCancelButtons from './SubmitCancelButtons.jsx';
@@ -50,25 +50,20 @@ class Create extends React.Component {
   }
 
   
-  
-    render() {
-      const { driverSignup, preventEdits, user, signupCompleted } = this.state;
+  render() {
+    const { driverSignup, preventEdits, user, signupCompleted } = this.state;
 
-      
-      return (
-        
-        <div>
+    return ( 
+      <div>
         {signupCompleted && (
-          <Redirect from={'/'} push to={{
-            pathname: '/'
-          }}/>
+          <Redirect from={'/'} push to={{pathname: '/'}}/>
         )}
         <Form>
-        <Segment.Group>
-          <Segment padded >
-            <GoogleAuth isAuthenticated={this.props.isAuthenticated} authenticateUserFunc={this.props.authenticateUserFunc} />
-          </Segment>
-          <Divider horizontal>Or</Divider>
+          <Segment.Group>
+            <Segment padded >
+              <GoogleAuth isAuthenticated={this.props.isAuthenticated} authenticateUserFunc={this.props.authenticateUserFunc} />
+            </Segment>
+            <Divider horizontal>Or</Divider>
             <Segment.Group>
               <Segment padded>
                 <Header id="userInfoHeader" as='h2' inverted color='green'>User Info</Header>
@@ -96,12 +91,10 @@ class Create extends React.Component {
                 return <SubmitCancelButtons cancelClickHandler={this.handleCancelClick.bind(this)} submitClickHandler={this.handleSubmit.bind(this)} />;
               } 
             })()}
-        </Segment.Group>
+          </Segment.Group>
         </Form>
       </div>
     );
   } //end render
 }
 export default Create;
-
-
