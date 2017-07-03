@@ -33,7 +33,6 @@ class SearchResults extends React.Component {
     const { currentUser, location, match } = this.props;
     const { redirectTo } = this.state;
     const tableHeaders = ['Price', 'Departure', 'Arrival', 'Vehicle', 'Remaining Seats', ''];
-    const driver = location.state.trips.driver;
 
     return (
     <Container>
@@ -48,13 +47,13 @@ class SearchResults extends React.Component {
                   return (
                   <Table striped padded='very'>
                     <SearchResultTableHeader headers={tableHeaders} />
-                    {location.state.trips.map(trip => <SearchResultRow trip={trip} driverDetails={driver} handleClick={this.handleClick}/> )}
+                    {location.state.trips.map(trip => <SearchResultRow trip={trip} driverDetails={trip.driver} handleClick={this.handleClick}/> )}
                   </Table>);
                 } else {
                   return (
                   <Table>
                     <SearchResultTableHeader headers={tableHeaders} />
-                    <SearchResultRow trip={location.state.trips} driverDetails={driver} handleClick={this.handleClick}/>
+                    <SearchResultRow trip={location.state.trips} driverDetails={location.state.trips.driver} handleClick={this.handleClick}/>
                   </Table>);
                 }
               }
