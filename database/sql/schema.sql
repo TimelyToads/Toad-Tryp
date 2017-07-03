@@ -60,13 +60,13 @@ CREATE TABLE IF NOT EXISTS trips_toads (
 
 -- DUMMY DATA -- 
 
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('jun123', 'jun@abc.com', '123456', '../../client/src/img/jun.png', '719-420-7890', 'Jun', 'Babboon');
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('solomon123', '123@abc.com', '123456', '../../client/src/img/solomon.png', '123-456-7890', 'Solomon', 'Sucks');
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('kirk123', '456@abc.com', '456', '../../client/src/img/kirk.png', '123-123-7890', 'Kirk', 'Rawr');
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('dylan123', 'dylan@abc.com', '123456', '../../client/src/img/dylan.png', '777-456-7290', 'Dylan', 'Doofus');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('jun123', 'jun@abc.com', '123456', 'https://lh3.google.com/u/0/d/0B5jkFvXDZd_WZzNGY0xtalg4QWc=w2878-h1472-iv1', '719-420-7890', 'Jun', 'Park');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('solomon123', '123@abc.com', '123456', 'https://lh3.google.com/u/0/d/0B5jkFvXDZd_WT2tnY0xxdzRXM1U=w2878-h1472-iv1', '123-456-7890', 'Solomon', 'Tang');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('kirk123', 'kirk@abc.com', '456', 'https://lh3.google.com/u/0/d/0B5jkFvXDZd_WeVRtZTlKVEwxRGc=w2878-h1472-iv1', '123-123-7890', 'Kirk', 'Rohani');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('dylan123', 'dylan@abc.com', '123456', 'https://lh3.google.com/u/0/d/0B7wkVNnd3usbMmp5QVdlcThGLWM=w2878-h1472-iv3', '777-456-7290', 'Dylan', 'Gould');
 
 INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('james123', 'james@abc.com', '1234ng56', 'http://vignette2.wikia.nocookie.net/jamesbond/images/b/b2/James_Bond_%28Sean_Connery%29_-_Profile.jpg/revision/latest?cb=20130509150135', '415-420-7890', 'James', 'Bond', '1km2nj3nj3n', 'Aston Martin', 'F1', '2017', 'Sportscar', 'ABC123');
-INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('jun123', 'donald@abc.com', 'ivanka', 'http://www.slate.com/content/dam/slate/uploads/2015/9/3/trump_finger.jpg.CROP.thumbnail-small.jpg', '909-000-0001', 'Donald', 'Trump', '1mk2jnj3ni1', 'Ford', 'Explorer', '2015', 'SUV', '123XYZ');
+INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name, vin, make, model, year, type, license_plate) VALUES ('donald123', 'donald@abc.com', 'mickey', 'https://static.comicvine.com/uploads/original/0/77/4338755-donald-duck-30.jpg', '909-000-0001', 'Donald', 'Duck', '1mk2jnj3ni1', 'Ford', 'Explorer', '2015', 'SUV', '123XYZ');
 
 INSERT INTO trips (
   driver_id, 
@@ -84,7 +84,7 @@ INSERT INTO trips (
   arrival_zip,
   seats,
   price) VALUES (
-    (SELECT id FROM users WHERE first_name = 'James'),
+    (SELECT id FROM users WHERE first_name = 'Donald'),
     '2017-07-07',
     '04:25:36',
     '944 Market St',
@@ -117,18 +117,18 @@ INSERT INTO trips (
   seats,
   price) VALUES (
     (SELECT id FROM users WHERE first_name = 'James'),
-    '2017-08-12',
+    '2017-07-07',
     '07:25:36',
     '555 McKinney St',
-    'Dallas',
-    'TX',
-    75111,
-    '2017-08-13',
+    'San Francisco',
+    'CA',
+    94158,
+    '2017-07-07',
     '11:30:30',
     '1564 Mission St.',
-    'Albuquerque',
-    'NM',
-    41438,
+    'Los Angeles',
+    'CA',
+    90210,
     2,
     125
   );
@@ -150,18 +150,18 @@ INSERT INTO trips (
   seats,
   price) VALUES (
     (SELECT id FROM users WHERE first_name = 'Donald'),
-    '2017-09-10',
+    '2017-07-07',
     '08:25:36',
     '351 King St',
     'San Francisco',
     'CA',
     94102,
-    '2017-09-10',
+    '2017-07-07',
     '18:30:30',
     '15 NE 4th St',
-    'Gresham',
-    'OR',
-    97030,
+    'Los Angeles',
+    'CA',
+    90210,
     4,
     70
   );
@@ -182,13 +182,13 @@ INSERT INTO trips (
   seats,
   price) VALUES (
     (SELECT id FROM users WHERE first_name = 'Donald'),
-    '2017-7-7',
+    '2017-07-07',
     '07:25:36',
     '728 E 4th St',
     'Pueblo',
     'CO',
     81001,
-    '2017-7-7',
+    '2017-07-07',
     '09:35:15',
     '2203 S Josephine St',
     'Denver',

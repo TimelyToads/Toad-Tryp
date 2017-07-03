@@ -20,7 +20,7 @@ class Home extends React.Component {
         Go anywhere with a fellow Toad.
       </Header>
       <Search currentUser={this.props.currentUser} />
-      <FeaturedDestinations />
+      <FeaturedDestinations currentUser={this.props.currentUser}/>
     </Container>
     );
   }

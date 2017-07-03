@@ -183,3 +183,7 @@ form {
   width: 50%;
   margin: 0 auto;
 }
+
+.card-location {
+  text-decoration: none;
+}
