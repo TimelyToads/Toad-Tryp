@@ -1,5 +1,7 @@
 import React from 'react';
 import { Header, Image, Grid, Container, Card, Icon } from 'semantic-ui-react';
+import {Redirect} from 'react-router-dom';
+
 
 const FeaturedDestinations = (props) => (
   <Container>

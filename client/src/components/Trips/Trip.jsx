@@ -69,8 +69,8 @@ class Trip extends React.Component {
 
     return (
       <Container>
-        <Header as='h1' color='green'>Trip Details</Header>
-        <Header as='h2' color='grey'>Please review the details of your trip!</Header>
+        <Header as='h1' id='main-header'>Trip Details</Header>
+        <Header as='h2' id='main-header2'>Please review the details of your trip!</Header>
 
         <Card.Group>
           <Card>

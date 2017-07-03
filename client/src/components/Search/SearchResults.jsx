@@ -36,8 +36,8 @@ class SearchResults extends React.Component {
 
     return (
     <Container>
-      <Header as='h1' color='green'>Search Results</Header>
-      <Header as='h2' color='grey'>Showing trips from <span className="green-text">{location.state.depart}</span> to <span className="green-text">{location.state.arrive}</span></Header>
+      <Header as='h1' id='main-header'>Search Results</Header>
+      <Header as='h2' id='main-header2'>Showing trips from <span className="green-text">{location.state.depart}</span> to <span className="green-text">{location.state.arrive}</span></Header>
       <Search />
       <Container className="search-results">
         { (() => {

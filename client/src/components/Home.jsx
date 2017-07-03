@@ -13,10 +13,10 @@ class Home extends React.Component {
   render() {
     return (
     <Container>
-      <Header as='h1' color="green">
+      <Header as='h1' id='main-header'>
         ToadTryp
       </Header>
-      <Header as='h2' color="grey">
+      <Header as='h2' id='main-header2'>
         Go anywhere with a fellow Toad.
       </Header>
       <Search currentUser={this.props.currentUser} />
