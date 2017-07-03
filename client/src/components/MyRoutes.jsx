@@ -9,7 +9,7 @@ import Logout from './Logout.jsx';
 import NotFound from './NotFound.jsx';
 import SearchResults from './SearchResults.jsx';
 import Trip from './Trip.jsx';
-import Dashboard from './Dashboard.jsx';
+import Dashboard from './Dashboard/Dashboard.jsx';
 import Profile from './Profile.jsx';
 import Create from './Create.jsx';
 import NewTrip from './NewTrip.jsx';
