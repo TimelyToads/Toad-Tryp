@@ -28,10 +28,12 @@ class Login extends React.Component{
     console.log('inside login.jsx handleSubmit');
     axios.get(`/api/users/${this.state.user.username}`)
       .then( userData => {
-        
+        console.log('Successfully retrieved user from db: ', userData.data);
         if( userData.data.password === this.state.user.password) {
           this.props.authenticateUserFunc(userData.data);
           this.setState({signupCompleted: true});
+        } else {
+          throw userData.data;
         }
          
       })

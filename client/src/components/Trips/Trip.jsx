@@ -51,6 +51,7 @@ class Trip extends React.Component {
       this.setState({
         redirectTo: `/trips/${this.props.currentUser.username}`
       });
+      console.log('PROPSPROPSOSOPODFJIN', this.props)
     })
     .catch((error) => {
       console.log('POST unsuccessful in Trip Component', error.response)

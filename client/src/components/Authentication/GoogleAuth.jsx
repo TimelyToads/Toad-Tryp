@@ -51,7 +51,7 @@ class GoogleAuth extends React.Component {
 
           })
           .catch( err => {
-
+            
             //User does not exist in DB create a new user in DB and set the googleUserObj to state
             axios.post('/api/users', googleUserObject)
             .then( res => {
