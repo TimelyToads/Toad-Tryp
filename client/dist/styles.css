@@ -3,15 +3,20 @@
 }
 
 
-h1 {
+#main-header {
   color: #21BA45;
   font-size: 50px;
+  font-family: Futura;
   margin: 0;
+  padding: 0;
 }
 
-h2 {
+#main-header2 {
   margin: 0;
+  margin-bottom: 10px;
   color: gray;
+  font-family: Futura;
+  padding:0;
 }
 
 h3 {

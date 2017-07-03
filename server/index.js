@@ -79,24 +79,6 @@ app.get('/api/users/:username' ,(req, res) => {
     });
 });
 
-app.get('/api/user/:userid' ,(req, res) => {
-const id = req.params.userid;
-console.log(`GET /api/user/${id}`);
-models.User.forge({ id })
-  .fetch().then( user => {
-    if (user) {
-      console.log('\tSUCCESS inside by id\n');
-      res.status(200).send(user.toJSON());
-    } else {
-      throw user;
-    }
-  })
-  .catch( err => {
-    const message = `\tUnable to find user by id: ${req.params.username}`;
-    console.error(message);
-    res.status(404).send({ message });
-  });
-});
 
 
 app.get('/api/users/:username/trips', (req, res) => {
@@ -144,7 +126,7 @@ app.get('/api/trips', (req, res) => {
   if (req.query.arrive) search.arrival_city = req.query.arrive;
   if (req.query.departdate) search.departure_date = req.query.departdate
   models.Trip.where(search)
-  .fetchAll()
+  .fetchAll({withRelated: ['driver','riders']})
   .then((trips) => {
     console.log('\tSUCCESS\n');
     res.status(200).json(trips);

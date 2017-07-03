@@ -51,7 +51,7 @@ class NewTrip extends React.Component {
           if (this.props.isAuthenticated() && this.props.currentUser.vin) {
             return <Segment.Group>
               <Segment padded="very">
-                <Header as='h2' color='green'>New Trip</Header>
+                <Header as='h2' id='main-header2' color='green'>New Trip</Header>
                 <Segment.Group>
                   <Segment>
                     <TripField disable handleChange={this.handleChange}/>
