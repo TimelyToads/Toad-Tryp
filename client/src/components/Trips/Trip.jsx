@@ -10,7 +10,7 @@ class Trip extends React.Component {
   constructor(props) {
     super(props);
     this.match = props.match;
-    this.currentUser = props.location.state.location.state.currentUser
+    this.currentUser = props.currentUser;
     this.state = {
       redirectTo: null,
       trips: {
