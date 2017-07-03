@@ -27,7 +27,6 @@ class Trip extends React.Component {
 
   handleRequestTrip(e) {
     e.preventDefault();
-    console.log('this is getting to handleRequestTrip', this.currentUser)
     this.postTripRequest(this.state.trips.id, this.currentUser.id)
   }
 
@@ -49,7 +48,6 @@ class Trip extends React.Component {
     axios.post(`/api/trips/${tripId}/join/${userId}`, {tripId: tripId, userId: userId})
     .then((response) => {
       console.log('Successfully posting to the DB in the Trip Component', response);
-      console.log('PROPSPROPSPROPS', this.props);
       this.setState({
         redirectTo: `/trips/${this.props.currentUser.username}`
       });
