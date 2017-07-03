@@ -4,7 +4,6 @@ import UserInfo from './UserInfo.jsx';
 import DriverInfo from './DriverInfo.jsx';
 import BecomeADriver from './BecomeADriver.jsx';
 import axios from 'axios';
-import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 
 class Profile extends React.Component {
   constructor(props) { 

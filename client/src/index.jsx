@@ -5,8 +5,8 @@ import {
   browserHistory
 } from 'react-router-dom'
 
-import NavBar from './components/NavBar.jsx';
-import MyRoutes from './components/MyRoutes.jsx';
+import NavBar from './components/Navigation/NavBar.jsx';
+import MyRoutes from './components/Navigation/MyRoutes.jsx';
 import authHelper from '../../lib/AuhenticationHelper.js';
 
 class App extends React.Component {

@@ -1,8 +1,8 @@
 import React from 'react';
 import DocMeta from 'react-doc-meta';
-import API_Keys from '../../../lib/api_keys.js';
+import API_Keys from '../../../../lib/api_keys.js';
 import axios from 'axios';
-import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
+import AuthenticationHelper from '../../../../lib/AuhenticationHelper.js';
 import { Redirect } from 'react-router-dom' 
 import { withRouter } from 'react-router';
 

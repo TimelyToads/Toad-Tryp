@@ -2,9 +2,9 @@ import React from 'react';
 import {Button, CheckBox, Form, Input, Segment, Header, Select} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
-import SubmitCancelButtons from './SubmitCancelButtons.jsx';
+import SubmitCancelButtons from '../SubmitCancelButtons.jsx';
 import TripField from './TripField.jsx';
-import UserMessage from './UserMessage.jsx';
+import UserMessage from '../Users/UserMessage.jsx';
 
 class NewTrip extends React.Component {
   constructor(props) {
@@ -21,9 +21,7 @@ class NewTrip extends React.Component {
 
   handleChange(e, {name, value}) {
     this.state.trip[[name]] = value;
-    this.setState({trip: this.state.trip},() => {
-      console.log(this.state.trip);
-    });
+    this.setState({trip: this.state.trip});
   }
 
   handleCancelClick() {

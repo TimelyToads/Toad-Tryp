@@ -1,14 +1,14 @@
 import React from 'react'
 import { Table, Header, Rating, Form, Segment, Message } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom' 
-import UserInfo from '../UserInfo.jsx'
-import DriverInfo from '../DriverInfo.jsx'
+import UserInfo from '../Users/UserInfo.jsx'
+import DriverInfo from '../Users/DriverInfo.jsx'
 import axios from 'axios';
-import GoogleAuth from '../GoogleAuth.jsx';
+import GoogleAuth from '../Authentication/GoogleAuth.jsx';
 import DashboardTableBody from './DashboardTableBody.jsx';
 import DashboardTableHeader from './DashboardTableHeader.jsx';
 import DateTimeParser from '../../../../lib/DateTimeParser.js';
-import UserMessage from '../UserMessage.jsx'
+import UserMessage from '../Users/UserMessage.jsx'
 
 
 class Dashboard extends React.Component{

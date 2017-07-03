@@ -3,8 +3,6 @@ import { Container, Header, Button } from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom'
 import SearchResultItem from './SearchResultItem.jsx'
 import Search from './Search.jsx';
-// import SearchSwitch from './SearchSwitch.jsx';
-import AuthenticationHelper from '../../../lib/AuhenticationHelper.js';
 
 
 //Resulting trips array can be found at props.location.state.trips

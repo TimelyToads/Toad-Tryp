@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Input, Icon } from 'semantic-ui-react'
-import UsernamePassword from './UsernamePassword.jsx'
+import UsernamePassword from '../Authentication/UsernamePassword.jsx'
 
 const UserInfo = (props) => (
   <div>

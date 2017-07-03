@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 import GoogleAuth from './GoogleAuth.jsx';
 import UsernamePassword from './UsernamePassword.jsx'
-import SubmitCancelButtons from './SubmitCancelButtons.jsx';
+import SubmitCancelButtons from '../SubmitCancelButtons.jsx';
 import PasswordFailMessage from './PasswordFailMessage.jsx';
 
 class Login extends React.Component{
