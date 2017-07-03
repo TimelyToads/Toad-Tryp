@@ -6,7 +6,11 @@ const DashboardTableBody = (props) => (
   <Table.Body>
     {
       props.trips.map( (trip, index) => {
-        return <DashboardDriverRow key={index} trip={trip} driverDetails={props.driverDetails}/>
+        if (props.driver) {
+          return <DashboardDriverRow key={index} trip={trip} driverDetails={props.driverDetails} />
+        } else {
+          return <DashboardDriverRow key={index} trip={trip} driverDetails={props.driverDetails} />
+        }
       })
     }
   </Table.Body>
