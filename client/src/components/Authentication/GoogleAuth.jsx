@@ -30,10 +30,8 @@ class GoogleAuth extends React.Component {
 
     let googleUserObject = AuthenticationHelper.retrieveUserInfo(googleData);
 
-    window.authToken = googleData.getAuthResponse().id_token;
-
     //Check if auth token is valid via Google
-    AuthenticationHelper.isTokenValid()
+    AuthenticationHelper.isTokenValid(googleData.getAuthResponse().id_token)
       .then( res => {
         console.log('Successfully called AuthenticationHelper.isUserAuthenticated()', res);
         
