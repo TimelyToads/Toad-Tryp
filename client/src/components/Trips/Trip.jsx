@@ -5,6 +5,7 @@ import Search from '../Search/Search.jsx';
 import AuthenticationHelper from '../../../../lib/AuhenticationHelper.js';
 import {Redirect} from 'react-router-dom';
 import formatTime from '../utils/formatTime.js';
+import dateParser from '../utils/dateParser.js';
 
 class Trip extends React.Component {
   constructor(props) {
@@ -82,7 +83,8 @@ class Trip extends React.Component {
                 <Card.Header>Departure:</Card.Header>
                 <Card.Meta>Details</Card.Meta>
                 <Card.Description>              
-                  {(trips.departure_time) ? `Departing at ${formatTime(trips.departure_time)}` : ''} <br/>
+                  {(trips.departure_time) ? `Departing at ${formatTime(trips.departure_time)}` : ''}<br/>
+                  {(trips.departure_date) ? `On ${dateParser(trips.departure_date)}` : ''}<br/><br/>
                   Pickup Point: <br/>
                   {trips.departure_address_line1} <br/>
                   {trips.departure_city}, {trips.departure_state}, {trips.departure_zip}
@@ -94,6 +96,7 @@ class Trip extends React.Component {
                 <Card.Meta>Details</Card.Meta>
                 <Card.Description>              
                   {(trips.arrival_time) ? `Arriving at ${formatTime(trips.arrival_time)}` : ''}<br/>
+                  {(trips.arrival_date) ? `On ${dateParser(trips.arrival_date)}` : ''}<br/><br/>
                   Dropoff Point: <br/>
                   {trips.arrival_address_line1}<br/>
                   {trips.arrival_city}, {trips.arrival_state}, {trips.arrival_zip}
@@ -106,7 +109,7 @@ class Trip extends React.Component {
               <Card.Content>
                 <Header>Your Driver for this Tryp:</Header>
               </Card.Content>
-              <Image src={trips.driver.img_url} shape='circular' size='medium'/>
+              <Image src={trips.driver.img_url} size='medium'/>
               <Card.Content>
                 <Card.Header>
                   {trips.driver.first_name} {trips.driver.last_name}
