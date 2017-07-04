@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Segment, Header, Button, Radio, Divider, Checkbox, Label } from 'semantic-ui-react'
+import { Form, Input, Segment, Header, Button, Radio, Divider, Checkbox, Label, Container } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom' 
 import axios from 'axios';
 import GoogleAuth from './GoogleAuth.jsx';
@@ -19,7 +19,6 @@ class Login extends React.Component{
 
 
   handleChange (e, { name, value }) {
-
     this.state.user[[name]] = value;
     this.setState({user: this.state.user})
   }

@@ -12,11 +12,15 @@ const UserInfo = (props) => (
       control={Input} label='Last name' placeholder='Toad' width="6" value={props.user.last_name}/>
     </Form.Group>
     <Form.Group>
-        <Form.Field disabled={props.disabled} onChange={props.onChange} name="phone_number" id='form-input-phone' control={Input} 
-        label='Phone Number' placeholder='(xxx) xxx-xxxx' width="6" value={props.user.phone_number || ''} />
-        <Form.Field disabled={props.disabled} onChange={props.onChange} name="email" id='form-input-email' control={Input} 
-          label='Email' placeholder='@Email' width="6" value={props.user.email} />
-      </Form.Group>
+      <Form.Field disabled={props.disabled} onChange={props.onChange} name="phone_number" id='form-input-phone' control={Input} 
+      label='Phone Number' placeholder='(xxx) xxx-xxxx' width="6" value={props.user.phone_number || ''} />
+      <Form.Field disabled={props.disabled} onChange={props.onChange} name="email" id='form-input-email' control={Input} 
+        label='Email' placeholder='@Email' width="6" value={props.user.email} />
+    </Form.Group>
+    <Form.Group>
+      <Form.Field disabled={props.disabled} onChange={props.onChange} name="phone_number" id='form-input-img' control={Input} 
+      label='Image URL' placeholder='http://...' width="6" value={props.user.img_url || ''} />
+    </Form.Group>
   </div>
 )
 

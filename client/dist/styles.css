@@ -180,10 +180,15 @@ form {
 }
 
 #g-signin2{
-  width: 50%;
+  width: 40%;
   margin: 0 auto;
 }
 
 .card-location {
   text-decoration: none;
+}
+
+#login-center {
+  text-align:center;
+  margin: 0 auto;
 }
