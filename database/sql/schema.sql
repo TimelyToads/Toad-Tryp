@@ -58,6 +58,17 @@ CREATE TABLE IF NOT EXISTS trips_toads (
   REFERENCES `users` (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS messages (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id_from INT NOT NULL,
+  trip_id INT NOT NULL,
+  message VARCHAR(1024),
+  time_stamp DATETIME,
+  
+  FOREIGN KEY (`user_id_from`) REFERENCES `users` (`id`),
+  FOREIGN KEY (`trip_id`) REFERENCES `trips` (`id`)
+);
+
 -- DUMMY DATA -- 
 
 INSERT INTO users (username, email, password, img_url, phone_number, first_name, last_name) VALUES ('jun123', 'jun@abc.com', '123456', 'https://lh3.google.com/u/0/d/0B5jkFvXDZd_WZzNGY0xtalg4QWc=w2878-h1472-iv1', '719-420-7890', 'Jun', 'Park');
@@ -202,3 +213,7 @@ INSERT INTO trips (
   INSERT INTO trips_toads (trip_id, user_id) VALUES ((SELECT id FROM trips WHERE departure_address_line1 = '555 McKinney St'), (SELECT id FROM users WHERE first_name = 'Solomon'));
   INSERT INTO trips_toads (trip_id, user_id) VALUES ((SELECT id FROM trips WHERE departure_address_line1 = '351 King St'), (SELECT id FROM users WHERE first_name = 'Dylan'));
   INSERT INTO trips_toads (trip_id, user_id) VALUES ((SELECT id FROM trips WHERE departure_address_line1 = '728 E 4th St'), (SELECT id FROM users WHERE first_name = 'Kirk'));
+
+INSERT INTO messages (user_id_from, trip_id, message, time_stamp) VALUES (1, 3, 'this message should show', '2017-07-04 01:02:03');
+INSERT INTO messages (user_id_from, trip_id, message, time_stamp) VALUES (1, 3, 'YO, GIMMIE A RIDE', '2017-07-05 01:02:03');
+INSERT INTO messages (user_id_from, trip_id, message, time_stamp) VALUES (1, 3, '..uh are you still there?', '2016-07-25 01:02:03');

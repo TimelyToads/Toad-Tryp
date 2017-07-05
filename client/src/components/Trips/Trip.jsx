@@ -2,6 +2,7 @@ import React from 'react';
 import { Segment, Container, Header, Button, Checkbox, Form, Input, Select, Image, Card, Icon, Embed, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 import Search from '../Search/Search.jsx';
+import ChatBox from './ChatBox.jsx';
 import AuthenticationHelper from '../../../../lib/AuhenticationHelper.js';
 import {Redirect} from 'react-router-dom';
 import formatTime from '../utils/formatTime.js';
@@ -16,8 +17,11 @@ class Trip extends React.Component {
       redirectTo: null,
       trips: {
         driver: {},
-        rider: {}
-      }
+        rider: {},
+        messages: {}
+      },
+      chatBoxActive: false,
+      chatBoxField: ''
     }
     this.handleRequestTrip.bind(this);
   }
@@ -63,10 +67,45 @@ class Trip extends React.Component {
     })
   }
 
+  toggleChatBox() {
+    this.setState({
+      chatBoxActive: !this.state.chatBoxActive
+    });
+  }
+
+  updateChatBoxField(event) {
+    this.setState({
+      chatBoxField: event.target.value
+    });
+  }
+
+  handleSendMessage() {
+    var tripId = this.state.trips.id;
+    var userId = this.currentUser.id;
+    console.log('trip id', tripId);
+    console.log('user id', userId);
+
+    axios.post(`/api/trips/${tripId}/sendmessage`, { tripId: tripId, userId: userId, message: this.state.chatBoxField })
+    .then((response) => {
+      console.log('response in handleSendMessage', response);
+      // this.setState({
+      //   redirectTo: this.state.redirectTo,
+      //   trips: response.data
+      // });
+    })
+    .catch((error) => {
+      console.log('error in handleSendMessage', error);
+    });
+  }
+
   render() {
-    const { trips, redirectTo, currentUser } = this.state;
+    const { trips, redirectTo, currentUser, chatBoxActive, chatBoxField } = this.state;
     const { location, match } = this.props;
 
+    var chatBox; 
+    if (chatBoxActive) {
+      chatBox = <ChatBox chatBoxField={chatBoxField} updateChatBoxField={this.updateChatBoxField.bind(this)} handleSendMessage={this.handleSendMessage.bind(this)} messages={trips.messages}/>;
+    }
     return (
       <Container>
 
@@ -152,7 +191,9 @@ class Trip extends React.Component {
         </Grid>
         <Container textAlign='center'>
           <br/>
-          <Button color='green' onClick={this.handleRequestTrip.bind(this)} >Request to Book</Button><br/>
+          {chatBox}<br/>
+          <Button color='green' onClick={this.handleRequestTrip.bind(this)} >Request to Book</Button>
+          <Button color='green' onClick={this.toggleChatBox.bind(this)}>Message {trips.driver.first_name}</Button><br/>
           <span id='disclaimer'>You won't be charged until your Driver accepts your reservation.</span>
         </Container>
 

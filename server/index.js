@@ -4,6 +4,13 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const models = require('../database/models/models.js');
 
+const accountSid = 'ACae446a84cc9318e091cd8b4ac517b4f9'; // Your Account SID from www.twilio.com/console
+
+const authToken = '123'; 
+const twilio = require('twilio');
+const client = new twilio(accountSid, authToken);
+
+
 const app = express();
 const ADDRESS = '127.0.0.1';
 const PORT = process.env.PORT || 3000;
@@ -167,10 +174,11 @@ app.get('/api/trips/:tripId', (req,res) => {
   const id = req.params.tripId;
   console.log(`GET /api/trips/${id}`);
   models.Trip.forge({ id })
-  .fetch({withRelated: ['driver','riders']})
+  .fetch({withRelated: ['driver','riders','messages']})
   .then( (trip) => {
     if (trip) {
       console.log('\tSUCCESS\n');
+      console.log('trip!!', trip.toJSON())
       res.status(200).send(trip.toJSON());
     } else {
       throw trip;
@@ -221,7 +229,18 @@ app.post('/api/trips/:tripId/join/:userId', (req, res) => {
     console.log('\t' + message);
     res.status(500).send({message});
   })
-})
+});
+
+app.post('/api/trips/:tripId/sendmessage', (req, res) => {
+  console.log('got req!!!!', req.body)
+  client.messages.create({
+    body: req.body.message,
+    to: '7148640438',  // Text this number
+    from: '14243391196' // From a valid Twilio number
+  })
+  .then((message) => console.log(message.sid));
+});
+
 
 app.delete('/api/trips/:tripId/join/:userId', (req,res) => {
   const trip_id = req.params.tripId;
