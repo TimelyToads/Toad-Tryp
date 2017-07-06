@@ -77,11 +77,9 @@ class Trip extends React.Component {
   }
 
   updateChatBoxField(event) {
-    if (event.target.value) {
-      this.setState({
-        chatBoxField: event.target.value
-      });
-    }
+    this.setState({
+      chatBoxField: event.target.value
+    });
   }
 
   handleSendMessage() {

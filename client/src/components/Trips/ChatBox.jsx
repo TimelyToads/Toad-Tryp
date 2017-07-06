@@ -1,15 +1,8 @@
 import React from 'react';
-import {Form, Input, Segment, Select, Header, Button, Card, Container, Comment } from 'semantic-ui-react';
+import {Form, Input, Segment, Select, Header, Button, Card, Comment } from 'semantic-ui-react';
 import MessageEntry from './MessageEntry.jsx'
 
-// NEED TO SET A TEXT LIMIT ON SENDING MESSAGE
 
-// const ChatBox = (props) => (
-//   <Card>
-//     {props.messages}
-//     <Input type='text' onChange={props.updateChatBoxField} value={props.chatBoxField}></Input> <Button color="blue" onClick={props.handleSendMessage}>Send</Button>
-//   </Card>
-// );
 
 class ChatBox extends React.Component {
   constructor(props) {
@@ -24,29 +17,28 @@ class ChatBox extends React.Component {
     //   return b.time_stamp - a.time_stamp;
     // });
 
+    // NEED TO SET A TEXT LIMIT ON SENDING MESSAGE
+
     return (
-      // <Card className="ui left aligned segment">
-      // <Container textAlign='left' className="chat-box">
-        <Card fluid>
-          <Card.Content>
-            <Card.Header>
-              Trip Forum
-            </Card.Header>
-          </Card.Content>
-          <Card.Content>
-            <Comment.Group>
-              {
-                messages.map((messageData, index) => {
-                  return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={handleDeleteMessage}/>
-                })
-              }
-            </Comment.Group>
-          </Card.Content>
-          <Card.Content>
-            <Input type='text' onChange={updateChatBoxField} value={chatBoxField} fluid action><input /><Button type='Submit' onClick={handleSendMessage}>Send</Button></Input>
-          </Card.Content>
-        </Card> 
-      // </Container>
+      <Card fluid>
+        <Card.Content>
+          <Card.Header>
+            Trip Forum
+          </Card.Header>
+        </Card.Content>
+        <Card.Content>
+          <Comment.Group>
+            {
+              messages.map((messageData, index) => {
+                return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={handleDeleteMessage}/>
+              })
+            }
+          </Comment.Group>
+        </Card.Content>
+        <Card.Content>
+          <Input type='text' onChange={updateChatBoxField} value={chatBoxField} fluid action><input /><Button type='Submit' onClick={handleSendMessage}>Send</Button></Input>
+        </Card.Content>
+      </Card> 
     )
   }
 }
