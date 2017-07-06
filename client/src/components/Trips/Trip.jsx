@@ -7,7 +7,7 @@ import AuthenticationHelper from '../../../../lib/AuhenticationHelper.js';
 import {Redirect} from 'react-router-dom';
 import formatTime from '../utils/formatTime.js';
 import dateParser from '../utils/dateParser.js';
-
+import CCForm from '../../CCForm.jsx';
 class Trip extends React.Component {
   constructor(props) {
     super(props);
@@ -219,13 +219,12 @@ class Trip extends React.Component {
           </Grid.Row>
           <Grid.Row>
             <Container textAlign='center'>
+              <CCForm />
               <Button color='green' onClick={this.handleRequestTrip.bind(this)} >Request to Book</Button>
-              <Button color='green' onClick={this.toggleChatBox.bind(this)}>Message {trips.driver.first_name}</Button><br/>
               <span id='disclaimer'>You won't be charged until your Driver accepts your reservation.</span>
             </Container>
           </Grid.Row>
         </Grid>
-
         {redirectTo && <Redirect push to={{
           pathname: redirectTo,
           state: {location, match, currentUser}

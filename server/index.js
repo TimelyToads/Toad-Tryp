@@ -9,7 +9,7 @@ const accountSid = 'ACae446a84cc9318e091cd8b4ac517b4f9'; // Your Account SID fro
 const authToken = '123'; 
 const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
-
+const braintree = require('../lib/braintree.js');
 
 const app = express();
 const ADDRESS = '127.0.0.1';
@@ -267,6 +267,10 @@ app.post('/api/trips/:tripId/deletemessage', (req, res) => {
     });
 });
 
+app.get('/api/getPaymentToken', (req, res, next) => {
+  console.log('1231312312');
+  braintree.clientToken(res);
+});
 
 app.delete('/api/trips/:tripId/join/:userId', (req,res) => {
   const trip_id = req.params.tripId;
