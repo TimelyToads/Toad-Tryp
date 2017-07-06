@@ -26,8 +26,8 @@ class Dashboard extends React.Component{
     axios.get(`/api/users/${this.props.match.params.username}/trips`)
     .then( tripData => {
       console.log('TRIP: ', tripData);
-      DateTimeParser.parseDates(tripData.data.hostedTrips);
-      DateTimeParser.parseDates(tripData.data.trips);
+      // DateTimeParser.parseDates(tripData.data.hostedTrips);
+      // DateTimeParser.parseDates(tripData.data.trips);
 
       //Get the driver id and query the driver
       console.log()
