@@ -35,6 +35,8 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "bookshelf": "^0.10.3",
+    "braintree": "^2.1.1",
+    "braintree-web": "^3.19.1",
     "chai": "^4.0.2",
     "connect-redis": "^3.3.0",
     "express": "^4.15.3",
