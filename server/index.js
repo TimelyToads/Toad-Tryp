@@ -4,6 +4,13 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const models = require('../database/models/models.js');
 
+const accountSid = 'ACae446a84cc9318e091cd8b4ac517b4f9'; // Your Account SID from www.twilio.com/console
+// const authToken = '72861058f180289984e5115d5d1507dd';   // Your Auth Token from www.twilio.com/console
+const authToken = '123'; 
+const twilio = require('twilio');
+const client = new twilio(accountSid, authToken);
+
+
 const app = express();
 const ADDRESS = '127.0.0.1';
 const PORT = process.env.PORT || 3000;
@@ -60,22 +67,22 @@ app.get('/api/users/googleid' ,(req, res) => {
 });
 
 app.get('/api/users/id' ,(req, res) => {
-const id = req.query.id;
+  const id = req.query.id;
 
-models.User.forge({ id: id })
-  .fetch().then( user => {
-    if (user) {
-      console.log('\tSUCCESS getting user by id\n');
-      res.status(200).send(user.toJSON());
-    } else {
-      throw user;
-    }
-  })
-  .catch( err => {
-    const message = `\tUnable to find user by id  ` + err;
-    console.error(message);
-    res.status(404).send({ message });
-  });
+  models.User.forge({ id: id })
+    .fetch().then( user => {
+      if (user) {
+        console.log('\tSUCCESS getting user by id\n');
+        res.status(200).send(user.toJSON());
+      } else {
+        throw user;
+      }
+    })
+    .catch( err => {
+      const message = `\tUnable to find user by id  ` + err;
+      console.error(message);
+      res.status(404).send({ message });
+    });
 });
 
 app.get('/api/users/:username' ,(req, res) => {
@@ -119,6 +126,7 @@ app.get('/api/users/:username/trips', (req, res) => {
   });
 })
 
+
 app.post('/api/users', (req, res) => {
   let user = req.body;
   console.log('POST /api/users: ', user);
@@ -155,6 +163,7 @@ app.get('/api/trips', (req, res) => {
   });
 });
 
+
 app.delete('/api/trip/:id', (req, res) =>  {
   models.Trip.forge({id: req.params.id})
   .destroy().then(()=> {
@@ -162,12 +171,11 @@ app.delete('/api/trip/:id', (req, res) =>  {
   }); 
 });
 
-
 app.get('/api/trips/:tripId', (req,res) => {
   const id = req.params.tripId;
   console.log(`GET /api/trips/${id}`);
   models.Trip.forge({ id })
-  .fetch({withRelated: ['driver','riders']})
+  .fetch({withRelated: ['driver','riders','messages']})
   .then( (trip) => {
     if (trip) {
       console.log('\tSUCCESS\n');
@@ -221,7 +229,44 @@ app.post('/api/trips/:tripId/join/:userId', (req, res) => {
     console.log('\t' + message);
     res.status(500).send({message});
   })
-})
+});
+
+app.post('/api/trips/:tripId/sendmessage', (req, res) => {
+  const trip_id = req.body.tripId;
+  const user_id_from = req.body.userId || 1;
+  const username_from = req.body.username_from || 'david456';
+  const message = req.body.message;
+  const time_stamp = req.body.timestamp;
+
+  models.Message.forge({ user_id_from, username_from, trip_id, message, time_stamp }).save()
+  models.Message.query('where', 'trip_id', '=', trip_id).fetchAll()
+    .then(response => {
+      res.send(response.models.map(model => model.attributes));
+    });
+
+  // DO NOT DELETE, NEED TO REIMPLEMENT MESSAGING
+  // client.messages.create({
+  //   body: req.body.message,
+  //   to: '7148640438',  // Text this number
+  //   from: '14243391196' // From a valid Twilio number
+  // })
+  // .then((message) => console.log(message.sid));
+
+
+  
+});
+
+app.post('/api/trips/:tripId/deletemessage', (req, res) => {
+  const trip_id = req.params.tripId;
+
+  models.Message.forge({ id: req.body.messageKey }).destroy()
+    
+  models.Message.query('where', 'trip_id', '=', trip_id).fetchAll()
+    .then(response => {
+      res.send(response.models.map(model => model.attributes));
+    });
+});
+
 
 app.delete('/api/trips/:tripId/join/:userId', (req,res) => {
   const trip_id = req.params.tripId;
