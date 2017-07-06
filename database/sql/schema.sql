@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS trips (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   driver_id INT NOT NULL,
-  departure_date DATE,
-  departure_time TIME,
+  departure_date VARCHAR(10),
+  departure_time VARCHAR(10),
   departure_address_line1 VARCHAR(100),
   departure_address_line2 VARCHAR (100),
   departure_city VARCHAR(50),
