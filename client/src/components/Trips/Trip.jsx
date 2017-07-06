@@ -7,7 +7,7 @@ import AuthenticationHelper from '../../../../lib/AuhenticationHelper.js';
 import {Redirect} from 'react-router-dom';
 import formatTime from '../utils/formatTime.js';
 import dateParser from '../utils/dateParser.js';
-
+import CCForm from '../../CCForm.jsx';
 class Trip extends React.Component {
   constructor(props) {
     super(props);
@@ -225,6 +225,21 @@ class Trip extends React.Component {
             </Container>
           </Grid.Row>
         </Grid>
+<<<<<<< HEAD
+||||||| merged common ancestors
+        <Container textAlign='center'>
+          <br/>
+          <Button color='green' onClick={this.handleRequestTrip.bind(this)} >Request to Book</Button><br/>
+          <span id='disclaimer'>You won't be charged until your Driver accepts your reservation.</span>
+        </Container>
+=======
+        <Container textAlign='center'>
+          <CCForm />
+          <br/>
+          <Button color='green' onClick={this.handleRequestTrip.bind(this)} >Request to Book</Button><br/>
+          <span id='disclaimer'>You won't be charged until your Driver accepts your reservation.</span>
+        </Container>
+>>>>>>> Add braintree integration
 
         {redirectTo && <Redirect push to={{
           pathname: redirectTo,
