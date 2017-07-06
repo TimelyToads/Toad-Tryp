@@ -17,11 +17,11 @@ class Trip extends React.Component {
       redirectTo: null,
       trips: {
         driver: {},
-        rider: {},
-        messages: {}
+        rider: {}
       },
       chatBoxActive: false,
-      chatBoxField: ''
+      chatBoxField: '',
+      messages: []
     }
     this.handleRequestTrip.bind(this);
   }
@@ -39,9 +39,19 @@ class Trip extends React.Component {
     axios.get(`/api/trips/${tripId}`)
     .then((response) => {
       console.log('Successfully fetching from db in Trip Component', response);
+      response.data.messages.forEach(messageData => {
+        axios.get(`/api/users/id`, { 
+          params: {
+            id:messageData.user_id_from 
+          }})
+          .then(response => {
+            messageData.username_from = response.data.username;
+          })
+      });
       this.setState({
         redirectTo: this.state.redirectTo,
-        trips: response.data
+        trips: response.data,
+        messages: response.data.messages
       });
     })
     .catch((error) => {
@@ -68,43 +78,66 @@ class Trip extends React.Component {
   }
 
   toggleChatBox() {
-    this.setState({
-      chatBoxActive: !this.state.chatBoxActive
-    });
+    // if (this.currentUser.id) {
+      this.setState({
+        chatBoxActive: !this.state.chatBoxActive
+      });
+    // }
   }
 
   updateChatBoxField(event) {
-    this.setState({
-      chatBoxField: event.target.value
-    });
+    if (event.target.value) {
+      this.setState({
+        chatBoxField: event.target.value
+      });
+    }
   }
 
   handleSendMessage() {
     var tripId = this.state.trips.id;
-    var userId = this.currentUser.id;
+    var userId = this.currentUser.id || 1;
     console.log('trip id', tripId);
     console.log('user id', userId);
+    var date = new Date();
+    var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19)
+  
+    var messages;
+    
+    axios.post(`/api/trips/${tripId}/sendmessage`, { tripId: tripId, userId: userId, message: this.state.chatBoxField, timestamp: timestamp})
+      .then(response => {
+        this.setState({
+          messages: response.data
+        })
 
-    axios.post(`/api/trips/${tripId}/sendmessage`, { tripId: tripId, userId: userId, message: this.state.chatBoxField })
-    .then((response) => {
-      console.log('response in handleSendMessage', response);
-      // this.setState({
-      //   redirectTo: this.state.redirectTo,
-      //   trips: response.data
-      // });
-    })
-    .catch((error) => {
-      console.log('error in handleSendMessage', error);
-    });
+      })
+      .catch((error) => {
+        console.log('error in handleSendMessage', error);
+      });  
+  }
+
+  handleDeleteMessage(messageKey) {
+    var tripId = this.state.trips.id;
+    
+    
+    console.log('length of messages before', this.state.messages.length)
+    axios.post(`/api/trips/${tripId}/deletemessage`, { messageKey: messageKey })
+      .then(response => {
+        this.setState({
+          messages: response.data
+        });
+      })
+      .catch(error => {
+        console.log('error in handleDeleteMessage', error);
+      });
   }
 
   render() {
-    const { trips, redirectTo, currentUser, chatBoxActive, chatBoxField } = this.state;
+    const { trips, redirectTo, currentUser, chatBoxActive, chatBoxField, messages } = this.state;
     const { location, match } = this.props;
 
     var chatBox; 
     if (chatBoxActive) {
-      chatBox = <ChatBox chatBoxField={chatBoxField} updateChatBoxField={this.updateChatBoxField.bind(this)} handleSendMessage={this.handleSendMessage.bind(this)} messages={trips.messages}/>;
+      chatBox = <ChatBox chatBoxField={chatBoxField} updateChatBoxField={this.updateChatBoxField.bind(this)} handleSendMessage={this.handleSendMessage.bind(this)} handleDeleteMessage={this.handleDeleteMessage.bind(this)} messages={messages}/>;
     }
     return (
       <Container>

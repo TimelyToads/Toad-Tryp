@@ -17,7 +17,7 @@ class ChatBox extends React.Component {
   }
 
   render() {
-    const { messages, chatBoxField, updateChatBoxField, handleSendMessage} = this.props;
+    const { messages, chatBoxField, updateChatBoxField, handleSendMessage, handleDeleteMessage} = this.props;
     
     // CONSIDER FIGURING OUT HOW TO SORT '2017-07-04T08:02:03.000Z'
     // const sortedMessages = messages.sort(function(a, b) {
@@ -25,14 +25,14 @@ class ChatBox extends React.Component {
     // });
 
     return (
-        <Card>
-          {
-            messages.map((data, index) => {
-              return <MessageEntry message={data.message} key={index}/>
-            })
-          }
-          <Input type='text' onChange={updateChatBoxField} value={chatBoxField}></Input> <Button color="blue" onClick={handleSendMessage}>Send</Button>
-        </Card>
+      <Card className="ui left aligned segment">
+        {
+          messages.map((messageData, index) => {
+            return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={handleDeleteMessage}/>
+          })
+        }
+        <Input type='text' onChange={updateChatBoxField} value={chatBoxField}></Input> <Button color="blue" onClick={handleSendMessage}>Send</Button>
+      </Card>
     )
   }
 }
