@@ -107,9 +107,9 @@ class AutoCompleteForm extends React.Component {
     return (
       <form onSubmit={this.props.handleSubmit} className="ui form">
         <div id="locationField">
+          <label for="dep_autocomplete">Departing Address</label>
           <input id="dep_autocomplete" name='departure_address_line1' placeholder="Enter your address" type="text"></input>
         </div>
-
         <table id="address">
           <tr>
             <td className="label">City</td>
@@ -153,6 +153,7 @@ class AutoCompleteForm extends React.Component {
           </tr>
         </table>
         <div id="arrival_locationField">
+          <label for="arrival_autocomplete">Arrival Address</label>
           <input id="arrival_autocomplete" name='arrival_address_line1' placeholder="Arrival Address" type="text"></input>
         </div>
         <table id="arrival_address">

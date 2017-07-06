@@ -27,6 +27,14 @@ class DashboardDriverRow extends React.Component {
       })
   }
 
+  handleDeleteClick(id) {
+    axios.delete(`/api/trip/${id}`).then(() => {
+      this.setState({
+        test: 'test'
+      });
+    });
+  }
+
   render() {
 
     return (
@@ -44,7 +52,7 @@ class DashboardDriverRow extends React.Component {
       <Popup
         trigger={<Label ribbon>Details</Label>}
         content={
-           <TripsDetailsPopup trip={this.props.trip} driverDetails={this.state.driver} />
+           <TripsDetailsPopup trip={this.props.trip} id={this.props.trip.id} handleDeleteClick={this.handleDeleteClick.bind(this)} driverDetails={this.state.driver} />
           }
         on='click'
         onOpen={this.getDriverInfoById.bind(this)}
