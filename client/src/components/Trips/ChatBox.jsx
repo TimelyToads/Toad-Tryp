@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Input, Segment, Select, Header, Button, Card } from 'semantic-ui-react';
+import {Form, Input, Segment, Select, Header, Button, Card, Container, Comment } from 'semantic-ui-react';
 import MessageEntry from './MessageEntry.jsx'
 
 // NEED TO SET A TEXT LIMIT ON SENDING MESSAGE
@@ -25,16 +25,32 @@ class ChatBox extends React.Component {
     // });
 
     return (
-      <Card className="ui left aligned segment">
-        {
-          messages.map((messageData, index) => {
-            return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={handleDeleteMessage}/>
-          })
-        }
-        <Input type='text' onChange={updateChatBoxField} value={chatBoxField}></Input> <Button color="blue" onClick={handleSendMessage}>Send</Button>
-      </Card>
+      // <Card className="ui left aligned segment">
+      // <Container textAlign='left' className="chat-box">
+        <Card fluid>
+          <Card.Content>
+            <Card.Header>
+              Trip Forum
+            </Card.Header>
+          </Card.Content>
+          <Card.Content>
+            <Comment.Group>
+              {
+                messages.map((messageData, index) => {
+                  return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={handleDeleteMessage}/>
+                })
+              }
+            </Comment.Group>
+          </Card.Content>
+          <Card.Content>
+            <Input type='text' onChange={updateChatBoxField} value={chatBoxField} fluid action><input /><Button type='Submit' onClick={handleSendMessage}>Send</Button></Input>
+          </Card.Content>
+        </Card> 
+      // </Container>
     )
   }
 }
 
 export default ChatBox;
+
+ // <Button color="blue" onClick={handleSendMessage}>Send</Button>

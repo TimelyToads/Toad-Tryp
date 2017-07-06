@@ -234,19 +234,15 @@ app.post('/api/trips/:tripId/join/:userId', (req, res) => {
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {
   const trip_id = req.body.tripId;
   const user_id_from = req.body.userId || 1;
+  const username_from = req.body.username_from || 'david456';
   const message = req.body.message;
   const time_stamp = req.body.timestamp;
 
-  models.Message.forge({ user_id_from, trip_id, message, time_stamp }).save()
+  models.Message.forge({ user_id_from, username_from, trip_id, message, time_stamp }).save()
   models.Message.query('where', 'trip_id', '=', trip_id).fetchAll()
     .then(response => {
       res.send(response.models.map(model => model.attributes));
     });
-
-    // .then(unique => {
-    //   console.log('\tSUCCESS\n');
-    //   res.status(201).send(unique);
-    // });
 
   // DO NOT DELETE, NEED TO REIMPLEMENT MESSAGING
   // client.messages.create({
