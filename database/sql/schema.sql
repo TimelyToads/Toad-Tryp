@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS trips_toads (
   CONSTRAINT `fktrip_users`
   FOREIGN KEY `fktrip_users` (`user_id`)
   REFERENCES `users` (`id`)
+  ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS messages (
