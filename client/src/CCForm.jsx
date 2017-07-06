@@ -7,8 +7,9 @@ import $ from 'jquery';
 
 const CCForm = props => {
   console.log('//////////', props.currentUser);
+  console.log('//////////', props.trips);
+  console.log(props.currentUser.id);
   axios.get('/api/getPaymentToken').then(response => {
-    console.log(response.data);
     dropIn.create({
       authorization: response.data,
       container: '#dropin-container',
@@ -16,19 +17,21 @@ const CCForm = props => {
     }, (error, instance) => {
       if (error) console.log(error);
       else {
-        // $('#checkoutBtn').on('click', function (event) {
-        //   instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-        //     if (requestPaymentMethodErr) {
-        //       // No payment method is available.
-        //       // An appropriate error will be shown in the UI.
-        //       console.error(requestPaymentMethodErr);
-        //       return;
-        //     }
-        //     console.log(payload.nonce);
-        //   });
-        //   event.preventDefault();
-        //   // props.postTripRequest(props.trips.id, props.currentUser.id)
-        // });
+        $('#checkoutBtn').on('click', function (event) {
+          instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
+            if (requestPaymentMethodErr) {
+              // No payment method is available.
+              // An appropriate error will be shown in the UI.
+              console.error(requestPaymentMethodErr);
+              return;
+            }
+            console.log(payload.nonce);
+            //props.trips.driver.email;
+            //props.trips.price;
+            event.preventDefault();
+            props.postTripRequest(props.trips.id, props.currentUser.id)
+          });
+        });
       }
     });
   }).catch(error => {
