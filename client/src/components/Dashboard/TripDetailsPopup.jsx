@@ -76,8 +76,3 @@ class TripDetailsPopup extends React.Component {
 }
 
 export default TripDetailsPopup;
-
-/*
-
-            state: {location, match}
-*/
