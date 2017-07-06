@@ -9,9 +9,9 @@ const SearchResultRow = (props) => (
     <Header as='h3' textAlign='left' color='green'>${props.trip.price}</Header>
     </Table.Cell>
     <Table.Cell textAlign='left'> {props.trip.departure_city}, {props.trip.departure_state}</Table.Cell>
-    <Table.Cell singleLine>{formatTime(props.trip.departure_time)} <br/> {dateParser(props.trip.departure_date)}</Table.Cell>
+    <Table.Cell singleLine>{props.trip.departure_time} <br/> {props.trip.departure_date}</Table.Cell>
     <Table.Cell singleLine>{props.trip.arrival_city}, {props.trip.arrival_state}</Table.Cell>
-    <Table.Cell singleLine>{formatTime(props.trip.arrival_time)} <br/> {dateParser(props.trip.arrival_date)}</Table.Cell>  
+    <Table.Cell singleLine>{props.trip.arrival_time} <br/> {props.trip.arrival_date}</Table.Cell>  
     <Table.Cell singleLine>{props.driverDetails.year} {props.driverDetails.make || 'No Vehicle Information'} {props.driverDetails.model}</Table.Cell>
     <Table.Cell singleLine>{props.trip.seats}</Table.Cell>
     <Table.Cell singleLine textAlign='right'><Button color='green' value={props.trip.id} onClick={props.handleClick}>Select This Trip</Button> </Table.Cell>
