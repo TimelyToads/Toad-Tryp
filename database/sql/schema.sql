@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS trips (
   CONSTRAINT `fkusers_trips`
   FOREIGN KEY `fkusers_trips` (`driver_id`)
   REFERENCES `users` (`id`)
+  ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS trips_toads (
