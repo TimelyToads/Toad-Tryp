@@ -155,6 +155,13 @@ app.get('/api/trips', (req, res) => {
   });
 });
 
+app.delete('/api/trip/:id', (req, res) =>  {
+  models.Trip.forge({id: req.params.id})
+  .destroy().then(()=> {
+    res.status(200).end();
+  }); 
+});
+
 
 app.get('/api/trips/:tripId', (req,res) => {
   const id = req.params.tripId;

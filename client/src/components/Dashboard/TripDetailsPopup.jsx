@@ -1,5 +1,6 @@
 import React from 'react';
-import { Message } from 'semantic-ui-react';
+import axios from 'axios';
+import { Message, Popup } from 'semantic-ui-react';
 import formatTime from '../utils/formatTime.js';
 
 const TripDetailsPopup = (props) => (
@@ -24,6 +25,23 @@ const TripDetailsPopup = (props) => (
       <p>
       {props.driverDetails.year} {props.driverDetails.make} {props.driverDetails.model}<br />
         {props.driverDetails.license_plate}
+      </p>
+      <Message.Header>Delete Trip?</Message.Header>
+      <p>
+        <Popup
+          trigger={<button className="ui orange button">Delete</button>}
+          content={
+            <div>
+              <div>
+                Are you sure?
+              </div>
+              <button className="ui green button">Cancel</button>
+              <button className="ui red button" onClick={() => props.handleDeleteClick(props.id)}>Yes</button>
+            </div>
+            }
+          on='click'
+          position='bottom right'
+        /> 
       </p>
     </Message>
   </div>

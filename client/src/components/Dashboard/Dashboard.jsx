@@ -43,7 +43,7 @@ class Dashboard extends React.Component{
   
   render() {
     const { trips } = this.state;
-    const tableHeaderNames = ['ID', 'Departure', 'Departure City', 'Arrival', 'Arrival City', 'Price', 'Seats', 'Details'];
+    const tableHeaderNames = ['ID', 'Departure', 'Departure City', 'Arrival City', 'Price', 'Seats', 'Details'];
           
     if (this.props.isAuthenticated() && trips) {
       return (
