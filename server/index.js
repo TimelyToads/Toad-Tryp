@@ -5,8 +5,7 @@ const bodyParser = require('body-parser');
 const models = require('../database/models/models.js');
 
 const accountSid = 'ACae446a84cc9318e091cd8b4ac517b4f9'; // Your Account SID from www.twilio.com/console
-// const authToken = '72861058f180289984e5115d5d1507dd';   // Your Auth Token from www.twilio.com/console
-const authToken = '123'; 
+const authToken = '123'; // Your Auth Token from www.twilio.com/console
 const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
 const braintree = require('../lib/braintree.js');
