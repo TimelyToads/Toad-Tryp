@@ -219,28 +219,12 @@ class Trip extends React.Component {
           </Grid.Row>
           <Grid.Row>
             <Container textAlign='center'>
+              <CCForm />
               <Button color='green' onClick={this.handleRequestTrip.bind(this)} >Request to Book</Button>
-              <Button color='green' onClick={this.toggleChatBox.bind(this)}>Message {trips.driver.first_name}</Button><br/>
               <span id='disclaimer'>You won't be charged until your Driver accepts your reservation.</span>
             </Container>
           </Grid.Row>
         </Grid>
-<<<<<<< HEAD
-||||||| merged common ancestors
-        <Container textAlign='center'>
-          <br/>
-          <Button color='green' onClick={this.handleRequestTrip.bind(this)} >Request to Book</Button><br/>
-          <span id='disclaimer'>You won't be charged until your Driver accepts your reservation.</span>
-        </Container>
-=======
-        <Container textAlign='center'>
-          <CCForm />
-          <br/>
-          <Button color='green' onClick={this.handleRequestTrip.bind(this)} >Request to Book</Button><br/>
-          <span id='disclaimer'>You won't be charged until your Driver accepts your reservation.</span>
-        </Container>
->>>>>>> Add braintree integration
-
         {redirectTo && <Redirect push to={{
           pathname: redirectTo,
           state: {location, match, currentUser}
