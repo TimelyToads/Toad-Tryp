@@ -58,6 +58,10 @@ class NewTrip extends React.Component {
   }
 
   render() {
+    const bgStyle = {
+      backgroundImage : 'url(https://static.pexels.com/photos/297755/pexels-photo-297755.jpeg)',
+      backgroundSize: 'cover'
+    }
     return (
       <Container>
         {this.state.formComplete && 
@@ -66,7 +70,7 @@ class NewTrip extends React.Component {
         {( () => {
           if (this.props.isAuthenticated() && this.props.currentUser.vin) {
             return <Segment.Group>
-              <Segment padded="very">
+              <Segment padded="very" style={bgStyle}>
                 <Header as='h2' id='main-header2' color='green'>New Trip</Header>
                 <Segment.Group>
                   <Segment>
