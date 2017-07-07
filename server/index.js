@@ -232,7 +232,6 @@ app.post('/api/trips/:tripId/join/:userId', (req, res) => {
   })
 });
 
-
 app.get('/api/trips/:tripId/getmessages', (req, res) => {
   const trip_id = req.params.tripId;
 
@@ -250,6 +249,11 @@ app.get('/api/trips/:tripId/getmessages', (req, res) => {
       console.error(message);
       res.status(404).send({ message });
     })
+});
+
+
+app.post('/api/trips/payment', (req, res, next) => {
+  console.log(req.body);
 });
 
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {

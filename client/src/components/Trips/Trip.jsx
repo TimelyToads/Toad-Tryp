@@ -159,11 +159,16 @@ class Trip extends React.Component {
           </Grid.Row>
           <Grid.Row>
             <Container textAlign='center'>
-              <CCForm 
-                postTripRequest={this.postTripRequest}
-                trips={this.state.trips}
-                currentUser={this.currentUser}
-              />
+              {
+                this.state.trips.driver.first_name ? 
+                <CCForm 
+                  postTripRequest={this.postTripRequest}
+                  trips={this.state.trips}
+                  currentUser={this.currentUser}
+                /> :
+                <span></span>
+              }
+              
               <Button id='checkoutBtn' color='green'>Request to Book</Button>
               <span id='disclaimer'>You won't be charged until your Driver accepts your reservation.</span>
             </Container>
