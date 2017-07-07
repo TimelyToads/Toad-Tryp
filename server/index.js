@@ -18,6 +18,12 @@ const MAX_COOKIE_AGE = 3600000;
 const server = require('http').createServer(app);  
 const io = require('socket.io')(server);
 
+io.on('connection', socket => {
+  socket.on('isTyping', () => {
+    socket.broadcast.emit('otherIsTyping');
+  });
+});
+
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
@@ -361,6 +367,6 @@ app.get('/*', function(req, res){
 //   console.log(`Toad Tryp server listening with 'app.listen' on port ${PORT}`);
 // });
 
-server.listen(PORT, () => {
+server.listen(PORT, '10.6.67.205', () => {
   console.log(`Toad Tryp sever listening with 'server.listen' on port ${PORT}`);
 });
