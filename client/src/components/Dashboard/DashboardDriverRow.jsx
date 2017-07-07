@@ -30,8 +30,14 @@ class DashboardDriverRow extends React.Component {
   handleDeleteClick(id) {
     if (this.props.driver) {
       axios.delete(`/api/trip/${id}`)
+      .then(() => {
+        this.props.getTrips();
+      });
     } else {
       axios.delete(`/api/trips/${this.props.trip.id}/join/${this.props.driverDetails.id}`)
+      .then(() => {
+        this.props.getTrips();
+      });
     }
   }
   
