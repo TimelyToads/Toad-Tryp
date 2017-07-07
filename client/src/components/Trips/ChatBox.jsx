@@ -2,6 +2,7 @@ import React from 'react';
 import {Form, Input, Segment, Select, Header, Button, Card, Comment } from 'semantic-ui-react';
 import MessageEntry from './MessageEntry.jsx'
 import axios from 'axios';
+import io from 'socket.io-client';
 
 class ChatBox extends React.Component {
   constructor(props) {
@@ -15,6 +16,11 @@ class ChatBox extends React.Component {
 
   componentDidMount() {
     this.fetch()
+
+    var socket = io.connect('/');
+    socket.on('connect', function(data) {
+      socket.emit('join', 'Hello World from client');
+    });
   }
 
   fetch() {

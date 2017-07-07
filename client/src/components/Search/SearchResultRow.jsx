@@ -4,6 +4,7 @@ import formatTime from '../utils/formatTime.js';
 import dateParser from '../utils/dateParser.js';
 
 const SearchResultRow = (props) => (
+  
   <Table.Row>
     <Table.Cell>
     <Header as='h3' textAlign='left' color='green'>${props.trip.price}</Header>
@@ -17,6 +18,7 @@ const SearchResultRow = (props) => (
     <Table.Cell singleLine textAlign='right'><Button color='green' value={props.trip.id} onClick={props.handleClick}>Select This Trip</Button> </Table.Cell>
    
   </Table.Row>
+  
 )
 
 export default SearchResultRow;
