@@ -259,13 +259,6 @@ app.get('/api/trips/:tripId/getmessages', (req, res) => {
     });
 });
 
-
-app.post('/api/trips/payment', (req, res, next) => {
-  console.log(req.body);
-  res.statusCode = 201;
-  res.send('');
-});
-
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {
   const trip_id = req.params.tripId;
   const user_id_from = req.body.userId;
@@ -299,26 +292,15 @@ app.post('/api/getPaymentToken', (req, res, next) => {
 app.get('/api/findMerchant', function(req, res) {
   var merchant_id = req.query.merchant_id;
 
-  gateway.merchantAccount.find(merchant_id, function(err, result) {
-    res.render('findResult', {result: result, merchant_id: merchant_id});
-  });
+  // gateway.merchantAccount.find(merchant_id, function(err, result) {
+  //   res.render('findResult', {result: result, merchant_id: merchant_id});
+  // });
 
 });
 
-app.post('/api/processMerchantPayment', function(req, res) {
-  var nonce = req.body.payment_method_nonce;
-  var total = req.body.total;
-  var service = req.body.service;
-  var merchant_id = req.body.merchant_id;
+app.post('/api/payment', function(req, res) {
+  braintree.sale(req, res);
 
-  gateway.transaction.sale({
-    amount: total,
-    merchantAccountId: merchant_id,
-    paymentMethodNonce: nonce,
-    serviceFeeAmount: service
-  }, function (err, result) {
-    res.render('processResult', {result: result});
-  });
 });   
 
 app.delete('/api/trips/:tripId/join/:userId', (req,res) => {
