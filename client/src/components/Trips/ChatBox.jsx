@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form, Input, Segment, Select, Header, Button, Card, Comment } from 'semantic-ui-react';
-import MessageEntry from './MessageEntry.jsx'
+import MessageEntry from './MessageEntry.jsx';
+import TypingIndicator from './TypingIndicator.jsx';
 import axios from 'axios';
 import io from 'socket.io-client';
 
@@ -10,17 +11,23 @@ class ChatBox extends React.Component {
 
     this.state = {
       messages: [],
-      chatBoxField: ''
+      chatBoxField: '',
+      isTyping: false,
+      otherIsTyping: false,
     }
+    this.updateChatBoxField = this.updateChatBoxField.bind(this);
   }
 
   componentDidMount() {
     this.fetch()
     var that = this;
 
-    var socket = io.connect('/');
-    socket.on('updateMessagesAlert', function(data) {
-      that.fetch();
+    this.socket = io.connect('/');
+    this.socket.on('updateMessagesAlert', () => that.fetch());
+    this.socket.on('otherIsTyping', (data) => {
+      this.setState({
+        otherIsTyping: data.isTyping
+      });
     });
   }
 
@@ -35,8 +42,10 @@ class ChatBox extends React.Component {
 
   updateChatBoxField(event) {
     this.setState({
-      chatBoxField: event.target.value
+      chatBoxField: event.target.value,
     });
+
+    this.socket.emit('isTyping', { isTyping: !!event.target.value });
   }
 
   handleSendMessage() {
@@ -45,18 +54,18 @@ class ChatBox extends React.Component {
     var username = this.props.userData.username || 'annon user ' + Math.random().toFixed(2);
 
     var date = new Date();
-    var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);    
+    var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);
 
     axios.post(`/api/trips/${tripId}/sendmessage`, { userId: userId, username_from: username, message: this.state.chatBoxField, timestamp: timestamp})
   }
 
   handleDeleteMessage(messageKey) {
-    var tripId = this.props.tripId;    
+    var tripId = this.props.tripId;
     axios.post(`/api/trips/${tripId}/deletemessage`, { messageKey: messageKey })
   }
 
   render() {
-    const { messages, chatBoxField } = this.state;
+    const { messages } = this.state;
     
     // CONSIDER FIGURING OUT HOW TO SORT '2017-07-04T08:02:03.000Z'
     // const sortedMessages = messages.sort(function(a, b) {
@@ -64,6 +73,10 @@ class ChatBox extends React.Component {
     // });
 
     // NEED TO SET A TEXT LIMIT ON SENDING MESSAGE
+    let typingIndiciator;
+    if (this.state.otherIsTyping) {
+      typingIndiciator = <TypingIndicator/>
+    }
 
     return (
       <Card fluid>
@@ -79,10 +92,13 @@ class ChatBox extends React.Component {
                 return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={this.handleDeleteMessage.bind(this)}/>
               })
             }
+            {
+              typingIndiciator
+            }
           </Comment.Group>
         </Card.Content>
         <Card.Content>
-          <Input type='text' onChange={this.updateChatBoxField.bind(this)} fluid action><input /><Button type='Submit' onClick={this.handleSendMessage.bind(this)}>Send</Button></Input>
+          <Input type='text' onChange={this.updateChatBoxField} fluid action><input /><Button type='Submit' onClick={this.handleSendMessage.bind(this)}>Send</Button></Input>
         </Card.Content>
       </Card> 
     )
