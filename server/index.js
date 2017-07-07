@@ -265,6 +265,7 @@ app.post('/api/trips/payment', (req, res, next) => {
 });
 
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {
+  console.log('bout to post message to server');
   const trip_id = req.params.tripId;
   const user_id_from = req.body.userId;
   const username_from = req.body.username_from;
@@ -275,9 +276,8 @@ app.post('/api/trips/:tripId/sendmessage', (req, res) => {
     .then(response => {
       res.send();
     });
-  socket.broadcast.emit('updateMessagesAlert');
+  io.emit('updateMessagesAlert');
   
-  console.log('bout to sendmessage');
 
   // DO NOT DELETE, NEED TO REIMPLEMENT TWILIO
   // client.messages.create({
@@ -293,7 +293,7 @@ app.post('/api/trips/:tripId/deletemessage', (req, res) => {
     .then(response => {
       res.send();
     });
-  socket.broadcast.emit('updateMessagesAlert');
+  io.emit('updateMessagesAlert');
 });
 
 app.get('/api/getPaymentToken', (req, res, next) => {

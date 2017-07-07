@@ -18,7 +18,6 @@ class ChatBox extends React.Component {
     this.fetch()
     var that = this;
 
-    console.log('component did mount')
     var socket = io.connect('/');
     socket.on('updateMessagesAlert', function(data) {
       console.log('*********RECEIVED EMIT FROM SERVER*********');
@@ -45,7 +44,7 @@ class ChatBox extends React.Component {
     console.log('i just clicked my submit')
     var tripId = this.props.tripId;
     var userId = this.props.userData.id || 1;
-    var username = this.props.userData.username || 'davidnotloggedin';
+    var username = this.props.userData.username || 'annon user ' + Math.random().toFixed(2);
 
     var date = new Date();
     var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);
