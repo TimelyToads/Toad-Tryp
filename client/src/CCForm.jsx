@@ -6,9 +6,6 @@ import axios from 'axios';
 import $ from 'jquery';
 
 const CCForm = props => {
-  console.log('//////////', props.currentUser);
-  console.log('//////////', props.trips);
-  console.log(props.currentUser.id);
   axios.get('/api/getPaymentToken').then(response => {
     dropIn.create({
       authorization: response.data,

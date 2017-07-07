@@ -125,7 +125,6 @@ app.get('/api/users/:username/trips', (req, res) => {
   });
 })
 
-
 app.post('/api/users', (req, res) => {
   let user = req.body;
   console.log('POST /api/users: ', user);
@@ -161,7 +160,6 @@ app.get('/api/trips', (req, res) => {
     res.status(404).send(err);
   });
 });
-
 
 app.delete('/api/trip/:id', (req, res) =>  {
   models.Trip.forge({id: req.params.id})
@@ -230,44 +228,55 @@ app.post('/api/trips/:tripId/join/:userId', (req, res) => {
   })
 });
 
+
+app.get('/api/trips/:tripId/getmessages', (req, res) => {
+  const trip_id = req.params.tripId;
+
+  models.Message.query('where', 'trip_id', '=', trip_id).fetchAll()
+    .then(trip => {
+      if (trip) {
+        console.log('\tSUCCESS\n');
+        res.status(200).send(trip.toJSON());
+      } else {
+        throw trip;
+      }
+    })
+    .catch(err => {
+      const message = `\tUnable to find trip with id: ${id}`
+      console.error(message);
+      res.status(404).send({ message });
+    })
+});
+
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {
-  const trip_id = req.body.tripId;
-  const user_id_from = req.body.userId || 1;
-  const username_from = req.body.username_from || 'david456';
+  const trip_id = req.params.tripId;
+  const user_id_from = req.body.userId;
+  const username_from = req.body.username_from;
   const message = req.body.message;
   const time_stamp = req.body.timestamp;
-
+  
   models.Message.forge({ user_id_from, username_from, trip_id, message, time_stamp }).save()
-  models.Message.query('where', 'trip_id', '=', trip_id).fetchAll()
     .then(response => {
-      res.send(response.models.map(model => model.attributes));
+      res.send();
     });
 
-  // DO NOT DELETE, NEED TO REIMPLEMENT MESSAGING
+  // DO NOT DELETE, NEED TO REIMPLEMENT TWILIO
   // client.messages.create({
   //   body: req.body.message,
   //   to: '7148640438',  // Text this number
   //   from: '14243391196' // From a valid Twilio number
   // })
   // .then((message) => console.log(message.sid));
-
-
-  
 });
 
 app.post('/api/trips/:tripId/deletemessage', (req, res) => {
-  const trip_id = req.params.tripId;
-
   models.Message.forge({ id: req.body.messageKey }).destroy()
-    
-  models.Message.query('where', 'trip_id', '=', trip_id).fetchAll()
     .then(response => {
-      res.send(response.models.map(model => model.attributes));
+      res.send();
     });
 });
 
 app.get('/api/getPaymentToken', (req, res, next) => {
-  console.log('1231312312');
   braintree.clientToken(res);
 });
 
