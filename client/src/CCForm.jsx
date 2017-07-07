@@ -5,56 +5,7 @@ import promise from 'bluebird';
 import axios from 'axios';
 import $ from 'jquery';
 
-<<<<<<< HEAD
-const CCForm = props => {
-  axios.get('/api/getPaymentToken').then(response => {
-    dropIn.create({
-      authorization: response.data,
-      container: '#dropin-container',
-      locale: 'en_US'
-    }, (error, instance) => {
-      if (error) console.log(error);
-      else {
-        $('#checkoutBtn').on('click', function (event) {
-          instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-            if (requestPaymentMethodErr) {
-              // No payment method is available.
-              // An appropriate error will be shown in the UI.
-              console.error(requestPaymentMethodErr);
-              return;
-            }
-            console.log(payload.nonce);
-            //props.trips.driver.email;
-            //props.trips.price;
-            event.preventDefault();
-            props.postTripRequest(props.trips.id, props.currentUser.id)
-||||||| merged common ancestors
-const CCForm = props => {
-  console.log('//////////', props.currentUser);
-  console.log('//////////', props.trips);
-  console.log(props.currentUser.id);
-  axios.get('/api/getPaymentToken').then(response => {
-    dropIn.create({
-      authorization: response.data,
-      container: '#dropin-container',
-      locale: 'en_US'
-    }, (error, instance) => {
-      if (error) console.log(error);
-      else {
-        $('#checkoutBtn').on('click', function (event) {
-          instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-            if (requestPaymentMethodErr) {
-              // No payment method is available.
-              // An appropriate error will be shown in the UI.
-              console.error(requestPaymentMethodErr);
-              return;
-            }
-            console.log(payload.nonce);
-            //props.trips.driver.email;
-            //props.trips.price;
-            event.preventDefault();
-            props.postTripRequest(props.trips.id, props.currentUser.id)
-=======
+
 class CCForm extends React.Component {
   constructor(props) {
     super(props);
@@ -97,7 +48,6 @@ class CCForm extends React.Component {
             console.log('Payment Post Success');
           }).catch(error => {
             console.log(error);
->>>>>>> Fix async issues
           });
           console.log('5//////////////////', this.props.trips.id);
           this.props.postTripRequest(this.props.trips.id, userId);
