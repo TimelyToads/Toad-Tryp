@@ -2,9 +2,11 @@ import React from 'react';
 import {Button, CheckBox, Form, Input, Segment, Header, Select, Container} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 import axios from 'axios';
+import $ from 'jquery';
 import SubmitCancelButtons from '../SubmitCancelButtons.jsx';
 import TripField from './TripField.jsx';
 import UserMessage from '../Users/UserMessage.jsx';
+import AutoCompleteForm from './AutoCompleteForm.jsx';
 
 class NewTrip extends React.Component {
   constructor(props) {
@@ -16,24 +18,38 @@ class NewTrip extends React.Component {
     console.log(this);
     this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e, {name, value}) {
-    this.state.trip[[name]] = value;
-    this.setState({trip: this.state.trip});
-  }
+  // handleChange(e, {name, value}) {
+  //   this.state.trip[[name]] = value;
+  //   this.setState({trip: this.state.trip});
+  // }
 
   handleCancelClick() {
     console.log('handleclick');
     this.props.history.goBack();
   }
 
-  handleSubmit() {
-    console.log('handlesubmit');
-    axios.post('/api/trips', this.state.trip)
+  handleSubmit(e) {
+
+    var trip = {driver_id: this.props.currentUser.id || 1};
+    trip.departure_date = $('#departure_date').val();// departure_date
+    trip.departure_time = $('#departure_time').val();
+    trip.departure_address_line1 = $('#dep_autocomplete').val();
+    trip.departure_city = $('#locality').val();
+    trip.departure_state = $('#administrative_area_level_1').val()
+    trip.departure_zip = $('#postal_code').val();
+    trip.seats = $('#seats')[0].innerText;
+    trip.price = $('#price').val();
+
+    trip.arrival_address_line1 = $('#arrival_autocomplete').val();
+    trip.arrival_city = $('#arrival_locality').val();
+    trip.arrival_state = $('#arrival_administrative_area_level_1').val();
+    trip.arrival_zip = $('#arrival_postal_code').val();
+  
+    axios.post('/api/trips', trip)
       .then( res => {
-        // this.props.authenticateUserFunc(res.data);
         this.setState({formComplete: true});
       })
       .catch( err => {
@@ -42,6 +58,10 @@ class NewTrip extends React.Component {
   }
 
   render() {
+    const bgStyle = {
+      backgroundImage : 'url(https://static.pexels.com/photos/297755/pexels-photo-297755.jpeg)',
+      backgroundSize: 'cover'
+    }
     return (
       <Container>
         {this.state.formComplete && 
@@ -50,11 +70,11 @@ class NewTrip extends React.Component {
         {( () => {
           if (this.props.isAuthenticated() && this.props.currentUser.vin) {
             return <Segment.Group>
-              <Segment padded="very">
+              <Segment padded="very" style={bgStyle}>
                 <Header as='h2' id='main-header2' color='green'>New Trip</Header>
                 <Segment.Group>
                   <Segment>
-                    <TripField disable handleChange={this.handleChange}/>
+                    <AutoCompleteForm disable handleSubmit={this.handleSubmit}/>
                   </Segment>
                   <SubmitCancelButtons cancelClickHandler={this.handleCancelClick} submitClickHandler={this.handleSubmit}/>
                 </Segment.Group>

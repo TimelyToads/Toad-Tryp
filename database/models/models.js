@@ -15,14 +15,21 @@ const Trip = bookshelf.Model.extend({
   riders: function() {
     return this.belongsToMany(User,'trips_toads');
   },
-  driver:function () {
+  driver: function () {
     return this.belongsTo(User,'driver_id');
+  },
+  messages: function() {
+    return this.hasMany(Message,'trip_id');
   }
 });
 
 const TripToad = bookshelf.Model.extend({
   tableName: 'trips_toads'
 });
+
+const Message = bookshelf.Model.extend({
+  tableName: 'messages'
+})
 
 
 module.exports = {
@@ -31,5 +38,7 @@ module.exports = {
   Trip: Trip,
   Trips: Trip.collection(Trip),
   TripToad: TripToad,
-  TripToads: TripToad.collection(TripToad)
+  TripToads: TripToad.collection(TripToad),
+  Message: Message,
+  Messages: Message.collection(Message)
 };

@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS users(
 CREATE TABLE IF NOT EXISTS trips (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   driver_id INT NOT NULL,
-  departure_date DATE,
-  departure_time TIME,
+  departure_date VARCHAR(10),
+  departure_time VARCHAR(10),
   departure_address_line1 VARCHAR(100),
   departure_address_line2 VARCHAR (100),
   departure_city VARCHAR(50),
@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS trips (
   CONSTRAINT `fkusers_trips`
   FOREIGN KEY `fkusers_trips` (`driver_id`)
   REFERENCES `users` (`id`)
+  ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS trips_toads (
@@ -56,6 +57,19 @@ CREATE TABLE IF NOT EXISTS trips_toads (
   CONSTRAINT `fktrip_users`
   FOREIGN KEY `fktrip_users` (`user_id`)
   REFERENCES `users` (`id`)
+  ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS messages (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id_from INT NOT NULL,
+  username_from VARCHAR(100) NOT NULL,
+  trip_id INT NOT NULL,
+  message VARCHAR(1024),
+  time_stamp DATETIME,
+  
+  FOREIGN KEY (`user_id_from`) REFERENCES `users` (`id`),
+  FOREIGN KEY (`trip_id`) REFERENCES `trips` (`id`)
 );
 
 -- DUMMY DATA -- 
@@ -202,3 +216,7 @@ INSERT INTO trips (
   INSERT INTO trips_toads (trip_id, user_id) VALUES ((SELECT id FROM trips WHERE departure_address_line1 = '555 McKinney St'), (SELECT id FROM users WHERE first_name = 'Solomon'));
   INSERT INTO trips_toads (trip_id, user_id) VALUES ((SELECT id FROM trips WHERE departure_address_line1 = '351 King St'), (SELECT id FROM users WHERE first_name = 'Dylan'));
   INSERT INTO trips_toads (trip_id, user_id) VALUES ((SELECT id FROM trips WHERE departure_address_line1 = '728 E 4th St'), (SELECT id FROM users WHERE first_name = 'Kirk'));
+
+INSERT INTO messages (user_id_from, username_from, trip_id, message, time_stamp) VALUES (1, 'jun123', 3, 'this message should show', '2017-07-04 01:02:03');
+INSERT INTO messages (user_id_from, username_from, trip_id, message, time_stamp) VALUES (1, 'jun123', 3, 'YO, GIMMIE A RIDE', '2017-07-05 01:02:03');
+INSERT INTO messages (user_id_from, username_from, trip_id, message, time_stamp) VALUES (1, 'jun123', 1, '..uh are you still there?', '2016-07-25 01:02:03');
