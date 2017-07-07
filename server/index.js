@@ -259,7 +259,6 @@ app.post('/api/trips/payment', (req, res, next) => {
 });
 
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {
-  console.log('bout to post message to server');
   const trip_id = req.params.tripId;
   const user_id_from = req.body.userId;
   const username_from = req.body.username_from;
@@ -333,6 +332,6 @@ app.get('/*', function(req, res){
 //   console.log(`Toad Tryp server listening with 'app.listen' on port ${PORT}`);
 // });
 
-server.listen(PORT, '10.6.67.205', () => {
+server.listen(PORT, () => {
   console.log(`Toad Tryp sever listening with 'server.listen' on port ${PORT}`);
 });
