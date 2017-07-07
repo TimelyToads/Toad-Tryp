@@ -128,16 +128,16 @@ app.get('/api/users/:username/trips', (req, res) => {
 })
 
 app.post('/api/users', (req, res) => {
-  let user = req.body;
-  //console.log('POST /api/users: ', user);
+  let userDetails = req.body;
+  //console.log('POST /api/users:user= ', userDetails);
 
-  let userObj = userParser.getUser(user);
-  //console.log('modified user object=', userObj);
+  let user = userParser.getUser(userDetails);
+  //console.log('POST /api/users:userObj= ', user);
   
   models.User.forge(user).save()
   .then((user) => {
     console.log('\tSAVE SUCCESS\n user=', user);
-    braintree.createMerchantAccount(user, userObj, res);
+    braintree.createMerchantAccount(userDetails, user, res);
   })
   .catch( (err) => {
     const message = 'Unable to create user';
@@ -289,6 +289,31 @@ app.post('/api/getPaymentToken', (req, res, next) => {
   console.log(req.body);
   braintree.clientToken(req.body, res);
 });
+
+app.get('/api/findMerchant', function(req, res) {
+  var merchant_id = req.query.merchant_id;
+
+  gateway.merchantAccount.find(merchant_id, function(err, result) {
+    res.render('findResult', {result: result, merchant_id: merchant_id});
+  });
+
+});
+
+app.post('/api/processMerchantPayment', function(req, res) {
+  var nonce = req.body.payment_method_nonce;
+  var total = req.body.total;
+  var service = req.body.service;
+  var merchant_id = req.body.merchant_id;
+
+  gateway.transaction.sale({
+    amount: total,
+    merchantAccountId: merchant_id,
+    paymentMethodNonce: nonce,
+    serviceFeeAmount: service
+  }, function (err, result) {
+    res.render('processResult', {result: result});
+  });
+});   
 
 app.delete('/api/trips/:tripId/join/:userId', (req,res) => {
   const trip_id = req.params.tripId;
