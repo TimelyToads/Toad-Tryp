@@ -1,7 +1,12 @@
 import React from 'react';
+import { Comment, Loader } from 'semantic-ui-react';
 
 const TypingIndicator = (props) => (
-  <span>***aye someone is typing here...***</span>
+  <Comment>
+    <Comment.Author>{props.username}:</Comment.Author>
+    <Comment.Text>
+      is typing... <Loader size='tiny' active inline /></Comment.Text>
+  </Comment>
 )
 
 export default TypingIndicator;
