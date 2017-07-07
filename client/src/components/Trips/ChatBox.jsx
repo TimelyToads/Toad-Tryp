@@ -1,6 +1,7 @@
 import React from 'react';
 import {Form, Input, Segment, Select, Header, Button, Card, Comment } from 'semantic-ui-react';
-import MessageEntry from './MessageEntry.jsx'
+import MessageEntry from './MessageEntry.jsx';
+import TypingIndicator from './TypingIndicator.jsx';
 import axios from 'axios';
 import io from 'socket.io-client';
 
@@ -23,8 +24,10 @@ class ChatBox extends React.Component {
 
     this.socket = io.connect('/');
     this.socket.on('updateMessagesAlert', () => that.fetch());
-    this.socket.on('otherIsTyping', () => {
-      console.log('aye another client is typing')
+    this.socket.on('otherIsTyping', (data) => {
+      this.setState({
+        otherIsTyping: data.isTyping
+      });
     });
   }
 
@@ -70,6 +73,10 @@ class ChatBox extends React.Component {
     // });
 
     // NEED TO SET A TEXT LIMIT ON SENDING MESSAGE
+    let typingIndiciator;
+    if (this.state.otherIsTyping) {
+      typingIndiciator = <TypingIndicator/>
+    }
 
     return (
       <Card fluid>
@@ -84,6 +91,9 @@ class ChatBox extends React.Component {
               messages.map((messageData, index) => {
                 return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={this.handleDeleteMessage.bind(this)}/>
               })
+            }
+            {
+              typingIndiciator
             }
           </Comment.Group>
         </Card.Content>
