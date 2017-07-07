@@ -2,6 +2,7 @@ import React from 'react';
 import {Form, Input, Segment, Select, Header, Button, Card, Comment } from 'semantic-ui-react';
 import MessageEntry from './MessageEntry.jsx'
 import axios from 'axios';
+import io from 'socket.io-client';
 
 class ChatBox extends React.Component {
   constructor(props) {
@@ -15,6 +16,12 @@ class ChatBox extends React.Component {
 
   componentDidMount() {
     this.fetch()
+    var that = this;
+
+    var socket = io.connect('/');
+    socket.on('updateMessagesAlert', function(data) {
+      that.fetch();
+    });
   }
 
   fetch() {
@@ -35,30 +42,17 @@ class ChatBox extends React.Component {
   handleSendMessage() {
     var tripId = this.props.tripId;
     var userId = this.props.userData.id || 1;
-    var username = this.props.userData.username || 'davidnotloggedin';
+    var username = this.props.userData.username || 'annon user ' + Math.random().toFixed(2);
 
     var date = new Date();
-    var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);
-    
+    var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);    
+
     axios.post(`/api/trips/${tripId}/sendmessage`, { userId: userId, username_from: username, message: this.state.chatBoxField, timestamp: timestamp})
-      .then(response => {
-        this.fetch();
-      })
-      .catch((error) => {
-        console.log('error in handleSendMessage', error);
-      });  
   }
 
   handleDeleteMessage(messageKey) {
-    var tripId = this.props.tripId;
-    
+    var tripId = this.props.tripId;    
     axios.post(`/api/trips/${tripId}/deletemessage`, { messageKey: messageKey })
-      .then(response => {
-        this.fetch();
-      })
-      .catch(error => {
-        console.log('error in handleDeleteMessage', error);
-      });
   }
 
   render() {

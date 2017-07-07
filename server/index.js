@@ -15,6 +15,8 @@ const ADDRESS = '127.0.0.1';
 const PORT = process.env.PORT || 3000;
 const MAX_COOKIE_AGE = 3600000;
 
+const server = require('http').createServer(app);  
+const io = require('socket.io')(server);
 
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -248,7 +250,7 @@ app.get('/api/trips/:tripId/getmessages', (req, res) => {
       const message = `\tUnable to find trip with id: ${id}`
       console.error(message);
       res.status(404).send({ message });
-    })
+    });
 });
 
 
@@ -264,10 +266,8 @@ app.post('/api/trips/:tripId/sendmessage', (req, res) => {
   const time_stamp = req.body.timestamp;
   
   models.Message.forge({ user_id_from, username_from, trip_id, message, time_stamp }).save()
-    .then(response => {
-      res.send();
-    });
-
+  io.emit('updateMessagesAlert');
+  
   // DO NOT DELETE, NEED TO REIMPLEMENT TWILIO
   // client.messages.create({
   //   body: req.body.message,
@@ -279,9 +279,7 @@ app.post('/api/trips/:tripId/sendmessage', (req, res) => {
 
 app.post('/api/trips/:tripId/deletemessage', (req, res) => {
   models.Message.forge({ id: req.body.messageKey }).destroy()
-    .then(response => {
-      res.send();
-    });
+  io.emit('updateMessagesAlert');
 });
 
 app.get('/api/getPaymentToken', (req, res, next) => {
@@ -330,6 +328,10 @@ app.get('/*', function(req, res){
   // console.log('Session created: ', req.session);
 });
 
-app.listen(PORT, () => {
-  console.log(`Toad Tryp server listening on port ${PORT}`);
+// app.listen(PORT, () => {
+//   console.log(`Toad Tryp server listening with 'app.listen' on port ${PORT}`);
+// });
+
+server.listen(PORT, () => {
+  console.log(`Toad Tryp sever listening with 'server.listen' on port ${PORT}`);
 });
