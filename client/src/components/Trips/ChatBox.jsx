@@ -119,7 +119,7 @@ class ChatBox extends React.Component {
         </Card.Content>
         <Card.Content>
           <Form>
-            <Input type='text' onChange={this.updateChatBoxField} value={this.state.chatBoxField} fluid action><input /><Button type='Submit' onClick={this.handleSendMessage.bind(this)} color='green'>Send</Button></Input>
+            <Input type='text' onChange={this.updateChatBoxField} value={this.state.chatBoxField} placeholder='Message your fellow toads...' fluid action><input /><Button type='Submit' onClick={this.handleSendMessage.bind(this)} color='green'>Send</Button></Input>
           </Form>
         </Card.Content>
       </Card> 
