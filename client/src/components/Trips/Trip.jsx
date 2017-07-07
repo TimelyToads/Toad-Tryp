@@ -58,9 +58,11 @@ class Trip extends React.Component {
     })
     .catch((error) => {
       console.log('POST unsuccessful in Trip Component', error.response)
-      if (error.response.status === 409) { 
-        alert('You have already been signed up for this trip! Redirecting you back to the homepage...');
-        this.setState({ redirectTo: '/' });
+      if (error.response) {
+        if (error.response.status === 409) { 
+          alert('You have already been signed up for this trip! Redirecting you back to the homepage...');
+          this.setState({ redirectTo: '/' });
+        }
       }
     })
   }
@@ -162,7 +164,7 @@ class Trip extends React.Component {
               {
                 this.state.trips.driver.first_name ? 
                 <CCForm 
-                  postTripRequest={this.postTripRequest}
+                  postTripRequest={this.postTripRequest.bind(this)}
                   trips={this.state.trips}
                   currentUser={this.currentUser}
                 /> :
