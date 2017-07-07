@@ -219,4 +219,4 @@ INSERT INTO trips (
 
 INSERT INTO messages (user_id_from, username_from, trip_id, message, time_stamp) VALUES (1, 'jun123', 3, 'this message should show', '2017-07-04 01:02:03');
 INSERT INTO messages (user_id_from, username_from, trip_id, message, time_stamp) VALUES (1, 'jun123', 3, 'YO, GIMMIE A RIDE', '2017-07-05 01:02:03');
-INSERT INTO messages (user_id_from, username_from, trip_id, message, time_stamp) VALUES (1, 'jun123', 3, '..uh are you still there?', '2016-07-25 01:02:03');
+INSERT INTO messages (user_id_from, username_from, trip_id, message, time_stamp) VALUES (1, 'jun123', 1, '..uh are you still there?', '2016-07-25 01:02:03');

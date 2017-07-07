@@ -18,10 +18,7 @@ class Trip extends React.Component {
       trips: {
         driver: {},
         rider: {}
-      },
-      chatBoxActive: false,
-      chatBoxField: '',
-      messages: []
+      }
     }
     this.handleRequestTrip.bind(this);
   }
@@ -68,64 +65,9 @@ class Trip extends React.Component {
     })
   }
 
-  toggleChatBox() {
-    // if (this.currentUser.id) {
-      this.setState({
-        chatBoxActive: !this.state.chatBoxActive
-      });
-    // }
-  }
-
-  updateChatBoxField(event) {
-    this.setState({
-      chatBoxField: event.target.value
-    });
-  }
-
-  handleSendMessage() {
-    var tripId = this.state.trips.id;
-    var userId = this.currentUser.id || 1;
-    console.log('trip id', tripId);
-    console.log('user id', userId);
-    var date = new Date();
-    var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19)
-  
-    var messages;
-    
-    axios.post(`/api/trips/${tripId}/sendmessage`, { tripId: tripId, userId: userId, username_from: this.props.currentUser.username, message: this.state.chatBoxField, timestamp: timestamp})
-      .then(response => {
-        this.setState({
-          messages: response.data
-        })
-
-      })
-      .catch((error) => {
-        console.log('error in handleSendMessage', error);
-      });  
-  }
-
-  handleDeleteMessage(messageKey) {
-    var tripId = this.state.trips.id;
-    
-    axios.post(`/api/trips/${tripId}/deletemessage`, { messageKey: messageKey })
-      .then(response => {
-        this.setState({
-          messages: response.data
-        });
-      })
-      .catch(error => {
-        console.log('error in handleDeleteMessage', error);
-      });
-  }
-
   render() {
-    const { trips, redirectTo, currentUser, chatBoxActive, chatBoxField, messages } = this.state;
+    const { trips, redirectTo, currentUser } = this.state;
     const { location, match } = this.props;
-
-    var chatBox; 
-    if (chatBoxActive) {
-      chatBox = <ChatBox chatBoxField={chatBoxField} updateChatBoxField={this.updateChatBoxField.bind(this)} handleSendMessage={this.handleSendMessage.bind(this)} handleDeleteMessage={this.handleDeleteMessage.bind(this)} messages={messages}/>;
-    }
     return (
       <Container>
 
@@ -195,7 +137,7 @@ class Trip extends React.Component {
             </Grid.Column>
             <Grid.Column computer={8} mobile={16}>
               <Container textAlign='left'>
-                <ChatBox chatBoxField={chatBoxField} updateChatBoxField={this.updateChatBoxField.bind(this)} handleSendMessage={this.handleSendMessage.bind(this)} handleDeleteMessage={this.handleDeleteMessage.bind(this)} messages={messages}/>
+                <ChatBox tripId={this.match.params.tripId} userData={this.props.currentUser}/>
               </Container>
             </Grid.Column>
           </Grid.Row>
