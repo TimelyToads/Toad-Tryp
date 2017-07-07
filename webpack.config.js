@@ -9,6 +9,9 @@ module.exports = {
     filename: 'bundle.js',
     path: BUILD_DIR
   },
+  node: {
+    fs: "empty"
+  },
   module: {
     loaders: [
       {
