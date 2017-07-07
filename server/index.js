@@ -143,7 +143,7 @@ app.post('/api/users', (req, res) => {
   models.User.forge(user).save()
   .then((user) => {
     console.log('\tSAVE SUCCESS\n user=', user);
-    braintree.createMerchantAccount(userDetails, user, res);
+    braintree.createOrUpdateMerchantAccount(userDetails, user, res);
   })
   .catch( (err) => {
     const message = 'Unable to create user';
