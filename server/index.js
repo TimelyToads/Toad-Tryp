@@ -19,7 +19,6 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 
-
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.use(session({
@@ -32,14 +31,11 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-io.on('connection', function(client) {  
-  console.log('Client connected...');
-
-  client.on('join', function(data) {
-      console.log(data);
-  });
+var socket;
+io.on('connection', function(ioSocket) {  
+  console.log('socket.io client connected...');
+  socket = ioSocket;
 });
-
 
 
 /**************USERS*****************/
@@ -279,6 +275,9 @@ app.post('/api/trips/:tripId/sendmessage', (req, res) => {
     .then(response => {
       res.send();
     });
+  socket.broadcast.emit('updateMessagesAlert');
+  
+  console.log('bout to sendmessage');
 
   // DO NOT DELETE, NEED TO REIMPLEMENT TWILIO
   // client.messages.create({
@@ -294,6 +293,7 @@ app.post('/api/trips/:tripId/deletemessage', (req, res) => {
     .then(response => {
       res.send();
     });
+  socket.broadcast.emit('updateMessagesAlert');
 });
 
 app.get('/api/getPaymentToken', (req, res, next) => {
@@ -346,6 +346,6 @@ app.get('/*', function(req, res){
 //   console.log(`Toad Tryp server listening with 'app.listen' on port ${PORT}`);
 // });
 
-server.listen(PORT, () => {
+server.listen(PORT, '10.6.67.205', () => {
   console.log(`Toad Tryp sever listening with 'server.listen' on port ${PORT}`);
 });
