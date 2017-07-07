@@ -256,6 +256,8 @@ app.get('/api/trips/:tripId/getmessages', (req, res) => {
 
 app.post('/api/trips/payment', (req, res, next) => {
   console.log(req.body);
+  res.statusCode = 201;
+  res.send('');
 });
 
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {
@@ -282,8 +284,10 @@ app.post('/api/trips/:tripId/deletemessage', (req, res) => {
   io.emit('updateMessagesAlert');
 });
 
-app.get('/api/getPaymentToken', (req, res, next) => {
-  braintree.clientToken(res);
+app.post('/api/getPaymentToken', (req, res, next) => {
+  
+  console.log(req.body);
+  braintree.clientToken(req.body, res);
 });
 
 app.delete('/api/trips/:tripId/join/:userId', (req,res) => {
