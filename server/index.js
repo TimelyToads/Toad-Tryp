@@ -9,7 +9,7 @@ const authToken = '123'; // Your Auth Token from www.twilio.com/console
 const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
 const braintree = require('../lib/braintree.js');
-
+const userParser = require('../lib/UserParser.js');
 const app = express();
 const ADDRESS = '127.0.0.1';
 const PORT = process.env.PORT || 3000;
@@ -127,11 +127,15 @@ app.get('/api/users/:username/trips', (req, res) => {
 
 app.post('/api/users', (req, res) => {
   let user = req.body;
-  console.log('POST /api/users: ', user);
+  //console.log('POST /api/users: ', user);
+
+  let userObj = userParser.getUser(user);
+  //console.log('modified user object=', userObj);
+  
   models.User.forge(user).save()
-  .then( (user) => {
-    console.log('\tSUCCESS\n');
-    res.status(201).send(user);
+  .then((user) => {
+    console.log('\tSAVE SUCCESS\n user=', user);
+    braintree.createMerchantAccount(user, userObj, res);
   })
   .catch( (err) => {
     const message = 'Unable to create user';
