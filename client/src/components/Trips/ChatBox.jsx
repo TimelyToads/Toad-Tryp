@@ -27,7 +27,7 @@ class ChatBox extends React.Component {
 
     this.socket = io.connect('/');
     this.socket.on('updateMessagesAlert', () => that.fetch());
-    this.socket.on('otherIsTyping', (data) => {
+    this.socket.on(`otherIsTyping${this.props.tripId}`, (data) => {
       this.setState({
         otherIsTyping: data
       });
@@ -50,7 +50,8 @@ class ChatBox extends React.Component {
 
     this.socket.emit('isTyping', { 
       username: this.props.userData.username || 'annonymous',
-      isTyping: !!event.target.value 
+      isTyping: !!event.target.value,
+      trip: this.props.tripId
     });
   }
 
@@ -68,15 +69,15 @@ class ChatBox extends React.Component {
           console.log('Caught error sending message', error)
         })
     }
+    this.socket.emit('isTyping', { 
+      username: this.props.userData.username || 'annonymous',
+      isTyping: false
+    });
     
     this.setState({
       chatBoxField: '',
     });
 
-    this.socket.emit('isTyping', { 
-      username: this.props.userData.username || 'annonymous',
-      isTyping: false 
-    });
   }
 
   handleDeleteMessage(messageKey) {
