@@ -46,14 +46,6 @@ class AutoCompleteForm extends React.Component {
       }
     }
 
-    // trip.arrival_date
-    // trip.arrival_time
-    // arrival_address_line1
-    // arrival_city
-    // arrival_state
-    // arrival_zip
-
-
     function arrivalFillInAddress() {
       let place = arrivalAutocomplete.getPlace();
 
@@ -78,22 +70,6 @@ class AutoCompleteForm extends React.Component {
 
   }
 
-  // geolocate() {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(function(position) {
-  //       var geolocation = {
-  //         lat: position.coords.latitude,
-  //         lng: position.coords.longitude
-  //       };
-  //       var circle = new google.maps.Circle({
-  //         center: geolocation,
-  //         radius: position.coords.accuracy
-  //       });
-  //       autocomplete.setBounds(circle.getBounds());
-  //     });
-  //   }
-  // }
-
   render() {
 
     const options = [
@@ -106,86 +82,68 @@ class AutoCompleteForm extends React.Component {
 
     return (
       <form onSubmit={this.props.handleSubmit} className="ui form">
-        <div id="locationField">
-          <label for="dep_autocomplete">Departing Address</label>
+        <h2 className="ui green dividing header">Pick up</h2>
+        <div className="field">
+          <label for="dep_autocomplete">Address</label>
           <input id="dep_autocomplete" name='departure_address_line1' placeholder="Enter your address" type="text"></input>
         </div>
-        <table id="address">
-          <tr>
-            <td className="label">City</td>
-            <td className="wideField" colspan="3">
-              <input className="field" name='departure_city' id="locality"></input>
-            </td>
-          </tr>
-          <tr>
-            <td className="label">State</td>
-            <td className="slimField">
-              <input className="field" name="departure_state" id="administrative_area_level_1"></input>
-            </td>
-            <td className="label">Zip code</td>
-            <td className="wideField">
-              <input className="field" name="departure_zip" id="postal_code"></input>
-            </td>
-          </tr>
-          <tr>
-            <td className="label">Departure Date</td>
-            <Form.Field width={3}>
-             <SingleDatePicker date={this.state.departureDate} name="departure_date" id="departure_date" onDateChange={departureDate => this.setState({ departureDate })} focused={this.state.focused} onFocusChange={({ focused }) => this.setState({ focused })} />
-            </Form.Field>
-          </tr>
-          <tr>
-            <td className="label">Depart Time</td>
-            <td className="wideField" colspan="3">
-              <input className="field" name="departure_time" id="departure_time"></input>
-            </td>
-          </tr>
-          <tr>
-            <td className="label">Price</td>
-            <td className="wideField" colspan="3">
-              <input className="field" name="price" id="price"></input>
-            </td>
-          </tr>
-          <tr>
-            <td className="label">Seats</td>
-            <td className="wideField" colspan="3">
-              <Form.Field size='small' name='seats' control={Select} id="seats" options={options}/>
-            </td>
-          </tr>
-        </table>
-        <div id="arrival_locationField">
-          <label for="arrival_autocomplete">Arrival Address</label>
+        <div className="fields">
+          <div className="field">
+            <label>City</label>
+            <input name='departure_city' id="locality" placeholder="San Francisco"></input>
+          </div>
+          <div className="field">
+            <label>State</label>
+              <input name="departure_state" id="administrative_area_level_1" placeholder="CA"></input>
+          </div>
+          <div className="field">
+            <label>Zip</label>
+              <input name="departure_zip" id="postal_code" placeholder="94102"></input>
+          </div>
+        </div>
+        <div className="fields">
+          <Form.Field width={3}>
+            <label>Date</label>
+            <SingleDatePicker date={this.state.departureDate} name="departure_date" id="departure_date" onDateChange={departureDate => this.setState({ departureDate })} focused={this.state.focused} onFocusChange={({ focused }) => this.setState({ focused })} />
+          </Form.Field>
+        </div>
+        <div className="fields">
+          <div className="field">
+            <label>Depart Time</label>
+            <input name="departure_time" id="departure_time"></input>
+          </div>
+          <div className="field">
+            <label>Price</label>
+            <input name="price" id="price"></input>
+          </div>
+          <div className="field">
+            <label>Seats</label>
+            <Form.Field size='small' name='seats' control={Select} id="seats" options={options}/>
+          </div>
+        </div>
+
+        <h2 className="ui green dividing header">Drop off</h2>
+        <div id="field">
+          <label for="arrival_autocomplete">Address</label>
           <input id="arrival_autocomplete" name='arrival_address_line1' placeholder="Arrival Address" type="text"></input>
         </div>
-        <table id="arrival_address">
-          <tr>
-            <td className="label">Arrival City</td>
-            <td className="wideField" colspan="3">
-              <input className="field" name='arrival_city' id="arrival_locality"></input>
-            </td>
-          </tr>
-          <tr>
-            <td className="label">Arrival State</td>
-            <td className="slimField">
-              <input className="field" name="arrival_state" id="arrival_administrative_area_level_1"></input>
-            </td>
-          </tr>
-          <tr>
-            <td className="label">Arrival Zip code</td>
-            <td className="wideField">
-              <input className="field" name="arrival_zip" id="arrival_postal_code"></input>
-            </td>
-          </tr>
-        </table>
+        <div className="fields">
+          <div className="field">
+            <label>City</label>
+            <input name='arrival_city' id="arrival_locality" placeholder="San Francisco"></input>
+          </div>
+          <div className="field">
+            <label>State</label>
+              <input name="arrival_state" id="arrival_administrative_area_level_1" placeholder="CA"></input>
+          </div>
+          <div className="field">
+            <label>Zip</label>
+              <input name="arrival_zip" id="arrival_postal_code" placeholder="94102"></input>
+          </div>
+        </div>
       </form>
     )
   }
 }
 
 export default AutoCompleteForm;
-
-/*
-<td className="label">Depart Date</td>
-            <td className="wideField" colspan="3">
-              <input className="field" name="departure_date" id="departure_date"></input>
-            </td>
-*/
