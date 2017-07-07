@@ -367,6 +367,6 @@ app.get('/*', function(req, res){
 //   console.log(`Toad Tryp server listening with 'app.listen' on port ${PORT}`);
 // });
 
-server.listen(PORT, '10.6.67.205', () => {
+server.listen(PORT, () => {
   console.log(`Toad Tryp sever listening with 'server.listen' on port ${PORT}`);
 });
