@@ -20,7 +20,6 @@ class ChatBox extends React.Component {
 
     var socket = io.connect('/');
     socket.on('updateMessagesAlert', function(data) {
-      console.log('*********RECEIVED EMIT FROM SERVER*********');
       that.fetch();
     });
   }
@@ -41,34 +40,19 @@ class ChatBox extends React.Component {
   }
 
   handleSendMessage() {
-    console.log('i just clicked my submit')
     var tripId = this.props.tripId;
     var userId = this.props.userData.id || 1;
     var username = this.props.userData.username || 'annon user ' + Math.random().toFixed(2);
 
     var date = new Date();
-    var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);
-    
+    var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);    
 
     axios.post(`/api/trips/${tripId}/sendmessage`, { userId: userId, username_from: username, message: this.state.chatBoxField, timestamp: timestamp})
-      .then(response => {
-        this.fetch();
-      })
-      .catch((error) => {
-        console.log('error in handleSendMessage', error);
-      });
   }
 
   handleDeleteMessage(messageKey) {
-    var tripId = this.props.tripId;
-    
+    var tripId = this.props.tripId;    
     axios.post(`/api/trips/${tripId}/deletemessage`, { messageKey: messageKey })
-      .then(response => {
-        this.fetch();
-      })
-      .catch(error => {
-        console.log('error in handleDeleteMessage', error);
-      });
   }
 
   render() {

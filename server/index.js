@@ -31,12 +31,6 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var socket;
-io.on('connection', function(ioSocket) {  
-  console.log('socket.io client connected...');
-  socket = ioSocket;
-});
-
 
 /**************USERS*****************/
 app.get('/api/users', (req, res) => {
@@ -256,7 +250,7 @@ app.get('/api/trips/:tripId/getmessages', (req, res) => {
       const message = `\tUnable to find trip with id: ${id}`
       console.error(message);
       res.status(404).send({ message });
-    })
+    });
 });
 
 
@@ -273,12 +267,8 @@ app.post('/api/trips/:tripId/sendmessage', (req, res) => {
   const time_stamp = req.body.timestamp;
   
   models.Message.forge({ user_id_from, username_from, trip_id, message, time_stamp }).save()
-    .then(response => {
-      res.send();
-    });
   io.emit('updateMessagesAlert');
   
-
   // DO NOT DELETE, NEED TO REIMPLEMENT TWILIO
   // client.messages.create({
   //   body: req.body.message,
@@ -290,9 +280,6 @@ app.post('/api/trips/:tripId/sendmessage', (req, res) => {
 
 app.post('/api/trips/:tripId/deletemessage', (req, res) => {
   models.Message.forge({ id: req.body.messageKey }).destroy()
-    .then(response => {
-      res.send();
-    });
   io.emit('updateMessagesAlert');
 });
 
