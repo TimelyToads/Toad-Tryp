@@ -13,7 +13,10 @@ class ChatBox extends React.Component {
       messages: [],
       chatBoxField: '',
       isTyping: false,
-      otherIsTyping: false,
+      otherIsTyping: {
+        username: '',
+        isTyping: false
+      },
     }
     this.updateChatBoxField = this.updateChatBoxField.bind(this);
   }
@@ -26,7 +29,7 @@ class ChatBox extends React.Component {
     this.socket.on('updateMessagesAlert', () => that.fetch());
     this.socket.on('otherIsTyping', (data) => {
       this.setState({
-        otherIsTyping: data.isTyping
+        otherIsTyping: data
       });
     });
   }
@@ -45,18 +48,35 @@ class ChatBox extends React.Component {
       chatBoxField: event.target.value,
     });
 
-    this.socket.emit('isTyping', { isTyping: !!event.target.value });
+    this.socket.emit('isTyping', { 
+      username: this.props.userData.username || 'annonymous',
+      isTyping: !!event.target.value 
+    });
   }
 
   handleSendMessage() {
     var tripId = this.props.tripId;
     var userId = this.props.userData.id || 1;
-    var username = this.props.userData.username || 'annon user ' + Math.random().toFixed(2);
+    var username = this.props.userData.username || 'annonymous';
 
     var date = new Date();
     var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);
 
-    axios.post(`/api/trips/${tripId}/sendmessage`, { userId: userId, username_from: username, message: this.state.chatBoxField, timestamp: timestamp})
+    if (!!this.state.chatBoxField) {
+      axios.post(`/api/trips/${tripId}/sendmessage`, { userId: userId, username_from: username, message: this.state.chatBoxField, timestamp: timestamp})
+        .catch(error => {
+          console.log('Caught error sending message', error)
+        })
+    }
+    
+    this.setState({
+      chatBoxField: '',
+    });
+
+    this.socket.emit('isTyping', { 
+      username: this.props.userData.username || 'annonymous',
+      isTyping: false 
+    });
   }
 
   handleDeleteMessage(messageKey) {
@@ -74,8 +94,8 @@ class ChatBox extends React.Component {
 
     // NEED TO SET A TEXT LIMIT ON SENDING MESSAGE
     let typingIndiciator;
-    if (this.state.otherIsTyping) {
-      typingIndiciator = <TypingIndicator/>
+    if (this.state.otherIsTyping.isTyping) {
+      typingIndiciator = <TypingIndicator username={this.state.otherIsTyping.username}/>
     }
 
     return (
@@ -98,7 +118,9 @@ class ChatBox extends React.Component {
           </Comment.Group>
         </Card.Content>
         <Card.Content>
-          <Input type='text' onChange={this.updateChatBoxField} fluid action><input /><Button type='Submit' onClick={this.handleSendMessage.bind(this)}>Send</Button></Input>
+          <Form>
+            <Input type='text' onChange={this.updateChatBoxField} value={this.state.chatBoxField} fluid action><input /><Button type='Submit' onClick={this.handleSendMessage.bind(this)} color='green'>Send</Button></Input>
+          </Form>
         </Card.Content>
       </Card> 
     )

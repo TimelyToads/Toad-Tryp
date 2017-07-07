@@ -274,6 +274,18 @@ app.post('/api/trips/:tripId/sendmessage', (req, res) => {
   const time_stamp = req.body.timestamp;
   
   models.Message.forge({ user_id_from, username_from, trip_id, message, time_stamp }).save()
+    .then(response => {
+      if (response) {
+        console.log('\tSUCCESS\n');
+        res.status(200).send();
+      } else {
+        throw error;
+      }
+    })
+    .catch(error => {
+      throw error;
+    });
+
   io.emit('updateMessagesAlert');
   
   // DO NOT DELETE, NEED TO REIMPLEMENT TWILIO
@@ -287,6 +299,18 @@ app.post('/api/trips/:tripId/sendmessage', (req, res) => {
 
 app.post('/api/trips/:tripId/deletemessage', (req, res) => {
   models.Message.forge({ id: req.body.messageKey }).destroy()
+    .then(response => {
+      if (response) {
+        console.log('\tSUCCESS\n');
+        res.status(200).send();
+      } else {
+        throw error;
+      }
+      })
+    .catch(error => {
+      throw error;
+    });
+
   io.emit('updateMessagesAlert');
 });
 
