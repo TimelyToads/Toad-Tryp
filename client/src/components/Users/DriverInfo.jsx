@@ -31,7 +31,7 @@ const DriverInfo = (props) => (
           placeholder='city' width="3" value={props.user.city || ''} />
         <Form.Field disabled={props.disabled} onChange={props.onChange} name='state' id='form-input-control-state' control={Input} label='State' 
           placeholder='state' width="3" value={props.user.state || ''} />
-        <Form.Field disabled={props.disabled} onChange={props.onChange} name='zipcode' id='form-input-control-zipcode' control={Input} type='number' max={5} label='ZipCode' 
+        <Form.Field disabled={props.disabled} onChange={props.onChange} name='zipcode' id='form-input-control-zipcode' control={Input} type='number' label='ZipCode' 
           placeholder='zipcode' width="3" value={props.user.zipcode || ''} />
       </Form.Group>
       <Form.Group>
