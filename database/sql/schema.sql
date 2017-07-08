@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS messages (
   
   FOREIGN KEY (`user_id_from`) REFERENCES `users` (`id`),
   FOREIGN KEY (`trip_id`) REFERENCES `trips` (`id`)
+  ON DELETE CASCADE
 );
 
 -- DUMMY DATA -- 
