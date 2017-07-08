@@ -11,11 +11,11 @@ class AlertPing extends React.Component {
     return (
       <Modal size='small' open={true}>
         <Modal.Header>
-          You've been pinged by {this.props.pingedData.username_from}!
+          You've been pinged to join {this.props.pingedData.username_from}!
         </Modal.Header>
         <Modal.Actions>
           <Button color='grey' onClick={this.props.dismissPing} content='Ignore'/>
-          <Button color='green' icon='chevron right' labelPosition='right' onClick={() => this.props.redirectFromPing(this.props.pingedData.trip_id)} content={`Take me to where ${this.props.pingedData.username_from} is`} />
+          <Button color='green' icon='chevron right' labelPosition='right' onClick={() => this.props.redirectFromPing(this.props.pingedData.trip_id)} content={`Join`} />
         </Modal.Actions>
 
       </Modal>

@@ -265,7 +265,7 @@ app.post('/api/trips/payment', (req, res, next) => {
   res.send('');
 });
 
->>>>>>> enable correct pinging of exact user
+
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {
   const trip_id = req.params.tripId;
   const user_id_from = req.body.userId;
