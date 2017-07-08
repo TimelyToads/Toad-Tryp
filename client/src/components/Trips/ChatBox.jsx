@@ -66,21 +66,14 @@ class ChatBox extends React.Component {
     var date = new Date();
     var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);
 
+    this.updateChatBoxField({target: {value: ''}});
+
     if (!!this.state.chatBoxField) {
       axios.post(`/api/trips/${tripId}/sendmessage`, { userId: userId, username_from: username, message: this.state.chatBoxField, timestamp: timestamp})
         .catch(error => {
           console.log('Caught error sending message', error)
         })
     }
-    this.socket.emit('isTyping', { 
-      username: this.props.userData.username || 'annonymous',
-      isTyping: false
-    });
-    
-    this.setState({
-      chatBoxField: '',
-    });
-
   }
 
   handleDeleteMessage(messageKey) {

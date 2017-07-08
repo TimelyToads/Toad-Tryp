@@ -17,7 +17,7 @@ class App extends React.Component {
     this.state = {
       isAuthenticated: false,
       user: {},
-      pinged: true
+      pinged: false
     }
   }
 
@@ -81,7 +81,7 @@ class App extends React.Component {
     return (
       <Router history={browserHistory} >
         <div>
-          milk
+          cerealmilktobasco
           {alertPing}
           <NavBar isAuthenticated={this.isUserAuthenticated.bind(this)} username={this.state.user.username} authenticateUserFunc={this.authenticateUser.bind(this)} />
           <MyRoutes isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)} currentUser={currentUser} setUserObject={this.setUserObject.bind(this)} />
