@@ -86,11 +86,10 @@ class Trip extends React.Component {
                   <Card.Header>Departure:</Card.Header>
                   <Card.Meta>Details</Card.Meta>
                   <Card.Description>              
-                    {(trips.departure_time) ? `Departing at ${formatTime(trips.departure_time)}` : ''}<br/>
+                    {(trips.departure_time) ? `Departing at ${trips.departure_time}` : ''}<br/>
                     {(trips.departure_date) ? `On ${dateParser(trips.departure_date)}` : ''}<br/><br/>
                     Pickup Point: <br/>
-                    {trips.departure_address_line1} <br/>
-                    {trips.departure_city}, {trips.departure_state}, {trips.departure_zip}
+                    {trips.departure_address_line1}
                   </Card.Description>
                 </Card.Content>
                 
@@ -98,11 +97,8 @@ class Trip extends React.Component {
                   <Card.Header>Arrival:</Card.Header>
                   <Card.Meta>Details</Card.Meta>
                   <Card.Description>              
-                    {(trips.arrival_time) ? `Arriving at ${formatTime(trips.arrival_time)}` : ''}<br/>
-                    {(trips.arrival_date) ? `On ${dateParser(trips.arrival_date)}` : ''}<br/><br/>
                     Dropoff Point: <br/>
-                    {trips.arrival_address_line1}<br/>
-                    {trips.arrival_city}, {trips.arrival_state}, {trips.arrival_zip}
+                    {trips.arrival_address_line1}
                   </Card.Description>
                 </Card.Content>
               </Card>

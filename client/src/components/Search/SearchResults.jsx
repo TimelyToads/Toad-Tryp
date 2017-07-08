@@ -32,7 +32,7 @@ class SearchResults extends React.Component {
   render() {
     const { currentUser, location, match } = this.props;
     const { redirectTo } = this.state;
-    const tableHeaders = ['Price', 'Departure', 'Depart Date', 'Arrival', 'Arrive Date', 'Vehicle', 'Remaining Seats'];
+    const tableHeaders = ['Price', 'Departure', 'Depart Date', 'Arrival', 'Vehicle', 'Seats'];
     const fromHeader = (location.state.depart) ? `from ${location.state.depart}` : '';
     const toHeader = (location.state.arrive) ? `to ${location.state.arrive}` : '';
     

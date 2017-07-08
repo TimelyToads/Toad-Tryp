@@ -56,7 +56,7 @@ class DashboardDriverRow extends React.Component {
       <Table.Cell singleLine> 
   
       <Popup
-        trigger={<Label ribbon>Details</Label>}
+        trigger={<Label color='green' ribbon>Details</Label>}
         content={
            <TripsDetailsPopup trip={this.props.trip} id={this.props.trip.id} handleDeleteClick={this.handleDeleteClick.bind(this)} driverDetails={this.state.driver}/>
           }
