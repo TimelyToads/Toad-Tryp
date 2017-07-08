@@ -24,7 +24,7 @@ io.on('connection', socket => {
   });
 
   socket.on('pingUser', data => {
-    io.emit(`pinguser`, data);
+    io.emit(`pingUser`, data);
   });
 });
 
@@ -260,6 +260,12 @@ app.get('/api/trips/:tripId/getmessages', (req, res) => {
     });
 });
 
+app.post('/api/trips/payment', (req, res, next) => {
+  res.statusCode = 201;
+  res.send('');
+});
+
+>>>>>>> enable correct pinging of exact user
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {
   const trip_id = req.params.tripId;
   const user_id_from = req.body.userId;

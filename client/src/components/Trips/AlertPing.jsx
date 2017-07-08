@@ -4,26 +4,19 @@ import { Modal, Button } from 'semantic-ui-react';
 class AlertPing extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = { 
-    //   open: this.props.pinged 
-    // };
   }
-
-  // show = (size) => () => this.setState({ size, open: true })
-  // close = () => this.setState({ open: false })
-  // close = () => console.log('closing!')
 
   render() {
     return (
       <Modal size='small' open={true}>
         <Modal.Header>
-          Pinged by USERE!
+          You've been pinged by {this.props.pingedData.username_from}!
         </Modal.Header>
         <Modal.Actions>
-          <Button negative onClick={this.props.dismissPing}>
+          <Button color='gray' onClick={this.props.dismissPing}>
             Ignore
           </Button>
-          <Button positive icon='chevron right' labelPosition='right' content='Take me there' />
+          <Button positive icon='chevron right' labelPosition='right' content={`Take me to where ${this.props.pingedData.username_from} is`} />
         </Modal.Actions>
       </Modal>
     )

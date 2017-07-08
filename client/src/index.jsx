@@ -16,8 +16,15 @@ class App extends React.Component {
     super();
     this.state = {
       isAuthenticated: false,
-      user: {},
-      pinged: false
+      user: {
+        id: 5,
+        username: 'NOTLOGGEDIN',
+        first_name: 'John',
+        last_name: 'Doe',
+        password: '123'
+      },
+      pinged: false,
+      pingedData: undefined
     }
   }
 
@@ -52,13 +59,16 @@ class App extends React.Component {
   componentDidMount() {
     console.log('index.jsx token?', window.authToken);
 
-
+    console.log('listening for pinging at', this.state.user.id);
     this.socket = io.connect('/');
-    this.socket.on(`pinguser`, data => {
-      console.log('someone is pinging!')
-      this.setState({
-        pinged: true
-      });
+    this.socket.on(`pingUser`, data => {
+      if (data.user_id_to === this.state.user.id) {
+        console.log('someone is directly pinging you!', data)
+        this.setState({
+          pinged: true,
+          pingedData: data
+        });
+      }
     });
   }
 
@@ -75,13 +85,12 @@ class App extends React.Component {
 
     var alertPing;
     if (this.state.pinged) {
-      alertPing = <AlertPing dismissPing={this.dismissPing.bind(this)}/>
+      alertPing = <AlertPing pingedData={this.state.pingedData} dismissPing={this.dismissPing.bind(this)}/>
     }
 
     return (
       <Router history={browserHistory} >
         <div>
-          cerealmilktobasco
           {alertPing}
           <NavBar isAuthenticated={this.isUserAuthenticated.bind(this)} username={this.state.user.username} authenticateUserFunc={this.authenticateUser.bind(this)} />
           <MyRoutes isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)} currentUser={currentUser} setUserObject={this.setUserObject.bind(this)} />

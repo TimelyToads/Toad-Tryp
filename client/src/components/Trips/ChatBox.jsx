@@ -52,7 +52,7 @@ class ChatBox extends React.Component {
     });
 
     this.socket.emit('isTyping', { 
-      username: this.props.userData.username || 'annonymous',
+      username: this.props.userData.username,
       isTyping: !!event.target.value,
       trip: this.props.tripId
     });
@@ -60,8 +60,8 @@ class ChatBox extends React.Component {
 
   handleSendMessage() {
     var tripId = this.props.tripId;
-    var userId = this.props.userData.id || 1;
-    var username = this.props.userData.username || 'annonymous';
+    var userId = this.props.userData.id;
+    var username = this.props.userData.username;
 
     var date = new Date();
     var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);
@@ -82,8 +82,11 @@ class ChatBox extends React.Component {
   }
 
   handlePingUser(messageData) {
-    this.socket.emit('pingUser', { 
-      username: messageData.username_from,
+    console.log('pinging at', messageData.user_id_from);
+    this.socket.emit('pingUser', {
+      username_from: this.props.userData.username,
+      user_id_from: this.props.userData.id,
+      user_id_to: messageData.user_id_from,
       trip_id: messageData.trip_id
     });
   }
