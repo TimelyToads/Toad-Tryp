@@ -37,7 +37,7 @@ const CCForm = props => {
           return;
         }
         paymentInfo.nonce = payload.nonce;
-        axios.post('/api/trips/payment', paymentInfo).then(response => {
+        axios.post('/api/payment', paymentInfo).then(response => {
           console.log('Payment Post Success');
           props.postTripRequest(props.trips.id, userId);
         }).catch(error => {

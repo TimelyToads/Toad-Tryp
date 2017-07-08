@@ -8,6 +8,9 @@
     },
     "DATABASE_URL": {
       "required": true
+    },
+    "GOOGLEAUTHSECRET": {
+      "required": true
     }
   },
   "formation": {
