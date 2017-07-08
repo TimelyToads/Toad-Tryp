@@ -27,6 +27,20 @@ class DashboardDriverRow extends React.Component {
       })
   }
 
+  handleDeleteClick(id) {
+    if (this.props.driver) {
+      axios.delete(`/api/trip/${id}`)
+      .then(() => {
+        this.props.getTrips();
+      });
+    } else {
+      axios.delete(`/api/trips/${this.props.trip.id}/join/${this.props.driverDetails.id}`)
+      .then(() => {
+        this.props.getTrips();
+      });
+    }
+  }
+  
   render() {
 
     return (
@@ -34,18 +48,17 @@ class DashboardDriverRow extends React.Component {
       <Table.Cell>
         <Header as='h2' textAlign='center'>{this.props.trip.id}</Header>
       </Table.Cell>
-      <Table.Cell textAlign='left'>{this.props.trip.departure_date} < br /> {formatTime(this.props.trip.departure_time)} </Table.Cell>
+      <Table.Cell textAlign='left'>{this.props.trip.departure_date} < br /> {this.props.trip.departure_time} </Table.Cell>
       <Table.Cell>{this.props.trip.departure_city}, {this.props.trip.departure_state} </Table.Cell>
-      <Table.Cell>{this.props.trip.arrival_date} <br /> {formatTime(this.props.trip.arrival_time)} </Table.Cell>
       <Table.Cell singleLine>{this.props.trip.arrival_city}, {this.props.trip.arrival_state}  </Table.Cell>
       <Table.Cell singleLine>${this.props.trip.price}</Table.Cell>
       <Table.Cell singleLine>{this.props.trip.seats}</Table.Cell>
       <Table.Cell singleLine> 
   
       <Popup
-        trigger={<Label ribbon>Details</Label>}
+        trigger={<Label color='green' ribbon>Details</Label>}
         content={
-           <TripsDetailsPopup trip={this.props.trip} driverDetails={this.state.driver} />
+           <TripsDetailsPopup trip={this.props.trip} id={this.props.trip.id} handleDeleteClick={this.handleDeleteClick.bind(this)} driverDetails={this.state.driver}/>
           }
         on='click'
         onOpen={this.getDriverInfoById.bind(this)}

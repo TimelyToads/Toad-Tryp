@@ -6,12 +6,13 @@ import AuthenticationHelper from '../../../../lib/AuhenticationHelper.js';
 import { Redirect } from 'react-router-dom' 
 import { withRouter } from 'react-router';
 
-
 class GoogleAuth extends React.Component {
   constructor(props) {
     super(props);
   }
-
+  componentWillMount() {
+    console.log(API_Keys.client_id);
+  }
   componentDidMount() {
     gapi.signin2.render('g-signin2', {
 			'scope': 'profile email',

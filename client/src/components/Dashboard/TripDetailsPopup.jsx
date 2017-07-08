@@ -1,34 +1,78 @@
 import React from 'react';
-import { Message } from 'semantic-ui-react';
+import axios from 'axios';
+import { Message, Popup } from 'semantic-ui-react';
 import formatTime from '../utils/formatTime.js';
+import {Redirect} from 'react-router-dom';
 
-const TripDetailsPopup = (props) => (
-  <div>
-    <Message positive>
-    <Message.Header>From </Message.Header>
-      <p>
-        {props.trip.departure_address_line1} {props.trip.departure_address_line2} <br />
-        {props.trip.departure_city}, {props.trip.departure_state } {props.trip.departure_zip } <br />
-        @  {formatTime(props.trip.departure_time)} on  {props.trip.departure_date}
-      </p>
-      <Message.Header>To </Message.Header>
-      <p>
-        {props.trip.arrival_address_line1} {props.trip.arrival_address_line2} <br />
-        {props.trip.arrival_city}, {props.trip.arrival_state } {props.trip.arrival_zip } <br />
-          @  {formatTime(props.trip.arrival_time)} on  {props.trip.arrival_date}
-      </p>
-      <Message.Header>Driver Info</Message.Header>
-      <p>
-        {props.driverDetails.first_name} {props.driverDetails.last_name} <br />
-        {props.driverDetails.phone_number} {props.driverDetails.email}
-      </p>
-      <Message.Header>Vehicle Info </Message.Header>
-      <p>
-      {props.driverDetails.year} {props.driverDetails.make} {props.driverDetails.model}<br />
-        {props.driverDetails.license_plate}
-      </p>
-    </Message>
-  </div>
-);
+class TripDetailsPopup extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirectTo: null
+    }
+  }
+
+  handleClick(id) {
+
+    this.setState({
+      redirectTo: `/trip/${id}`,
+    });
+    
+  }
+
+  render() {
+    const { redirectTo } = this.state;
+    return (
+      <div>
+        <Message positive>
+        <Message.Header>From </Message.Header>
+          <p>
+            {this.props.trip.departure_address_line1} {this.props.trip.departure_address_line2} <br />
+            {this.props.trip.departure_city}, {this.props.trip.departure_state } {this.props.trip.departure_zip } <br />
+            @  {this.props.trip.departure_time} on  {this.props.trip.departure_date}
+          </p>
+          <Message.Header>To </Message.Header>
+          <p>
+            {this.props.trip.arrival_address_line1}<br />
+          </p>
+          <Message.Header>Driver Info</Message.Header>
+          <p>
+            {this.props.driverDetails.first_name} {this.props.driverDetails.last_name} <br />
+            {this.props.driverDetails.phone_number} {this.props.driverDetails.email}
+          </p>
+          <Message.Header>Vehicle Info </Message.Header>
+          <p>
+          {this.props.driverDetails.year} {this.props.driverDetails.make} {this.props.driverDetails.model}<br />
+            {this.props.driverDetails.license_plate}
+          </p>
+          <Message.Header>Delete Trip?</Message.Header>
+          <p>
+            <Popup
+              trigger={<button className="ui orange button">Delete</button>}
+              content={
+                <div>
+                  <div>
+                    Are you sure?
+                  </div>
+                  <button className="ui green button">Cancel</button>
+                  <button className="ui red button" onClick={() => this.props.handleDeleteClick(this.props.id)}>Yes</button>
+                </div>
+                }
+              on='click'
+              position='bottom right'
+            /> 
+          </p>
+          <Message.Header>More Trip Details</Message.Header>
+          <button className="ui green button" onClick={() => this.handleClick(this.props.id)}>See Trip</button>
+        </Message>
+        {redirectTo &&
+          <Redirect push to={{
+            pathname: this.state.redirectTo
+        }} />}
+      </div>
+    );
+  }
+}
 
 export default TripDetailsPopup;

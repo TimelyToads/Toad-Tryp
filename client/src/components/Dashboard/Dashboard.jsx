@@ -23,27 +23,30 @@ class Dashboard extends React.Component{
 
   componentDidMount() {
     console.log('PROPS: ', this.props.isAuthenticated());
-    axios.get(`/api/users/${this.props.match.params.username}/trips`)
-    .then( tripData => {
-      console.log('TRIP: ', tripData);
-      DateTimeParser.parseDates(tripData.data.hostedTrips);
-      DateTimeParser.parseDates(tripData.data.trips);
-
-      //Get the driver id and query the driver
-      console.log()
-
-
-      this.setState( { trips: tripData.data} );
-    })
-    .catch( err => {
-      console.log('Error retrieving trips: ', err);
-    });
+    this.getTrips();
   }
-  
+
+  getTrips() {
+    axios.get(`/api/users/${this.props.match.params.username}/trips`)
+      .then( tripData => {
+        console.log('TRIP: ', tripData);
+        // DateTimeParser.parseDates(tripData.data.hostedTrips);
+        // DateTimeParser.parseDates(tripData.data.trips);
+
+        //Get the driver id and query the driver
+        console.log()
+
+
+        this.setState( { trips: tripData.data} );
+      })
+      .catch( err => {
+        console.log('Error retrieving trips: ', err);
+      });
+  }
   
   render() {
     const { trips } = this.state;
-    const tableHeaderNames = ['ID', 'Departure', 'Departure City', 'Arrival', 'Arrival City', 'Price', 'Seats', 'Details'];
+    const tableHeaderNames = ['ID', 'Departure', 'Departure City', 'Arrival City', 'Price', 'Seats', 'Details'];
           
     if (this.props.isAuthenticated() && trips) {
       return (
@@ -54,7 +57,7 @@ class Dashboard extends React.Component{
                   return (<div><Header as='h2' id='main-header'>Trips as Passenger</Header>
                     <Table>
                       <DashboardTableHeader headers={tableHeaderNames}/>
-                      <DashboardTableBody trips={trips.trips} driverDetails={trips} driver={false}/>
+                      <DashboardTableBody trips={trips.trips} driverDetails={trips} driver={false} getTrips={this.getTrips.bind(this)}/>
                     </Table>
                   </div>)
                 }
@@ -66,7 +69,7 @@ class Dashboard extends React.Component{
                   return (<div><Header as='h2' id='main-header'>Trips as Driver</Header>
                     <Table>
                       <DashboardTableHeader headers={tableHeaderNames}/>
-                      <DashboardTableBody trips={trips.hostedTrips} driverDetails={trips} driver={true}/>
+                      <DashboardTableBody trips={trips.hostedTrips} driverDetails={trips} driver={true} getTrips={this.getTrips.bind(this)}/>
                     </Table>
                   
                   </div>)
