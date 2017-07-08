@@ -22,6 +22,10 @@ io.on('connection', socket => {
   socket.on('isTyping', data => {
     socket.broadcast.emit(`otherIsTyping${data.trip}`, data);
   });
+
+  socket.on('pingUser', data => {
+    io.emit(`pinguser`, data);
+  });
 });
 
 

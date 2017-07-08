@@ -27,11 +27,14 @@ class ChatBox extends React.Component {
 
     this.socket = io.connect('/');
     this.socket.on('updateMessagesAlert', () => that.fetch());
-    this.socket.on(`otherIsTyping${this.props.tripId}`, (data) => {
+    this.socket.on(`otherIsTyping${this.props.tripId}`, data => {
       this.setState({
         otherIsTyping: data
       });
     });
+    // this.socket.on(`pinguser${this.props.userData.username}`, data => {
+    //   console.log('hey someone is trying to ping u!');
+    // });
   }
 
   fetch() {
@@ -85,6 +88,13 @@ class ChatBox extends React.Component {
     axios.post(`/api/trips/${tripId}/deletemessage`, { messageKey: messageKey })
   }
 
+  handlePingUser(messageData) {
+    this.socket.emit('pingUser', { 
+      username: messageData.username_from,
+      trip_id: messageData.trip_id
+    });
+  }
+
   render() {
     const { messages } = this.state;
     
@@ -110,7 +120,7 @@ class ChatBox extends React.Component {
           <Comment.Group>
             {
               messages.map((messageData, index) => {
-                return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={this.handleDeleteMessage.bind(this)}/>
+                return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={this.handleDeleteMessage.bind(this)} handlePingUser={this.handlePingUser.bind(this)}/>
               })
             }
             {
