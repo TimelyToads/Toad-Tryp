@@ -1,8 +1,13 @@
 DROP DATABASE IF EXISTS toads;
 CREATE DATABASE IF NOT EXISTS toads;
 USE toads;
--- USE heroku_e8a2cb7b5c6d858;
+-- USE heroku_b11736069f1cff0;
 
+-- !!!!! Use this command to seed db
+-- mysql --host="us-cdbr-iron-east-03.cleardb.net" --user="b9c40cda9773cc" -p heroku_b11736069f1cff0 < schema.sql 
+-- password = cc15a4f9
+
+ -- mysql --host="us-cdbr-iron-east-03.cleardb.net" --user="b9c40cda9773cc" -p heroku_b11736069f1cff0 < schema.sql
 
 CREATE TABLE IF NOT EXISTS users( 
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
