@@ -143,8 +143,11 @@ app.post('/api/users', (req, res) => {
   .then((user) => {
     console.log('\tSAVE SUCCESS\n user=', user.attributes);
     let userAccObj = userParser.getUser(user.attributes);
-    //console.log('userAccObj=', userAccObj);
-    braintree.createOrUpdateMerchantAccount(userAccObj, user, res);
+    if (user.attributes.dateOfBirth !== undefined) {
+      braintree.createOrUpdateMerchantAccount(user.attributes, user, res);
+    } else {
+      res.status(201).send(user);
+    }
   })
   .catch( (err) => {
     const message = 'Unable to create user';
