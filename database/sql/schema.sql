@@ -19,7 +19,14 @@ CREATE TABLE IF NOT EXISTS users(
     model VARCHAR(50), 
     year VARCHAR(4), 
     type VARCHAR(50), 
-    license_plate VARCHAR(20) 
+    license_plate VARCHAR(20),
+    date_of_birth VARCHAR(10),
+    street_address VARCHAR(50),
+    city VARCHAR(20),
+    state VARCHAR(10),
+    zipcode INTEGER,
+    accountno INTEGER,
+    routingno INTEGER
     );
 
 CREATE TABLE IF NOT EXISTS trips (
