@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 
+
 class AlertPing extends React.Component {
   constructor(props) {
     super(props);
@@ -13,11 +14,10 @@ class AlertPing extends React.Component {
           You've been pinged by {this.props.pingedData.username_from}!
         </Modal.Header>
         <Modal.Actions>
-          <Button color='gray' onClick={this.props.dismissPing}>
-            Ignore
-          </Button>
-          <Button positive icon='chevron right' labelPosition='right' content={`Take me to where ${this.props.pingedData.username_from} is`} />
+          <Button color='grey' onClick={this.props.dismissPing} content='Ignore'/>
+          <Button color='green' icon='chevron right' labelPosition='right' onClick={() => this.props.redirectFromPing(this.props.pingedData.trip_id)} content={`Take me to where ${this.props.pingedData.username_from} is`} />
         </Modal.Actions>
+
       </Modal>
     )
   }

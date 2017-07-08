@@ -9,7 +9,10 @@ import NavBar from './components/Navigation/NavBar.jsx';
 import MyRoutes from './components/Navigation/MyRoutes.jsx';
 import authHelper from '../../lib/AuhenticationHelper.js';
 import io from 'socket.io-client';
+
 import AlertPing from './Components/Trips/AlertPing.jsx';
+import axios from 'axios';
+import {Redirect} from 'react-router-dom';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,12 +22,13 @@ class App extends React.Component {
       user: {
         id: 5,
         username: 'NOTLOGGEDIN',
-        first_name: 'John',
-        last_name: 'Doe',
+        first_name: 'John-NOTLOGGEDIN',
+        last_name: 'Doe-NOTLOGGEDIN',
         password: '123'
       },
       pinged: false,
-      pingedData: undefined
+      pingedData: null,
+      redirectTo: null
     }
   }
 
@@ -59,7 +63,6 @@ class App extends React.Component {
   componentDidMount() {
     console.log('index.jsx token?', window.authToken);
 
-    console.log('listening for pinging at', this.state.user.id);
     this.socket = io.connect('/');
     this.socket.on(`pingUser`, data => {
       if (data.user_id_to === this.state.user.id) {
@@ -73,10 +76,25 @@ class App extends React.Component {
   }
 
   dismissPing() {
-    console.log('dismissing ping')
     this.setState({
       pinged: false
-    })
+    });
+  }
+
+  redirectFromPing(trip_id) {
+    this.dismissPing();
+    console.log('right path to redirect');
+    axios.get(`/api/trips/${trip_id}`)
+      .then((response) => {
+        console.log('Successfully fetching from db in Trip Component', response);
+        this.setState({
+          redirectTo: `/trip/${trip_id}`,
+          trips: response.data
+        });
+      })
+      .catch((error) => {
+        console.log('GET unsuccessful from the DB in Trip Component', error);
+      });
   }
 
   render() {
@@ -85,7 +103,7 @@ class App extends React.Component {
 
     var alertPing;
     if (this.state.pinged) {
-      alertPing = <AlertPing pingedData={this.state.pingedData} dismissPing={this.dismissPing.bind(this)}/>
+      alertPing = <AlertPing pingedData={this.state.pingedData} dismissPing={this.dismissPing.bind(this)} redirectFromPing={this.redirectFromPing.bind(this)}/>
     }
 
     return (
@@ -94,6 +112,10 @@ class App extends React.Component {
           {alertPing}
           <NavBar isAuthenticated={this.isUserAuthenticated.bind(this)} username={this.state.user.username} authenticateUserFunc={this.authenticateUser.bind(this)} />
           <MyRoutes isAuthenticated={this.isUserAuthenticated.bind(this)} authenticateUserFunc={this.authenticateUser.bind(this)} currentUser={currentUser} setUserObject={this.setUserObject.bind(this)} />
+
+          {this.state.redirectTo && <Redirect push to={{
+            pathname: this.state.redirectTo
+          }} />}
         </div>
       </Router>
     )

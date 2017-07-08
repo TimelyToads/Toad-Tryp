@@ -32,9 +32,6 @@ class ChatBox extends React.Component {
         otherIsTyping: data
       });
     });
-    // this.socket.on(`pinguser${this.props.userData.username}`, data => {
-    //   console.log('hey someone is trying to ping u!');
-    // });
   }
 
   fetch() {
@@ -82,7 +79,6 @@ class ChatBox extends React.Component {
   }
 
   handlePingUser(messageData) {
-    console.log('pinging at', messageData.user_id_from);
     this.socket.emit('pingUser', {
       username_from: this.props.userData.username,
       user_id_from: this.props.userData.id,
