@@ -25,22 +25,16 @@ const DriverInfo = (props) => (
           placeholder='yyyy-mm-dd' width="3" value={props.user.date_of_birth || ''} />
       </Form.Group>
       <Form.Group>
-        {/*<Form.Field disabled={props.disabled} onChange={props.onChange} name='ssn' id='form-input-control-ssn' control={Input} label='SSN' 
-          placeholder='xxx-xx-xxxx' width="3" value={props.user.ssn || ''} />*/}
-      </Form.Group>
-      <Form.Group>
         <Form.Field disabled={props.disabled} onChange={props.onChange} name='street_address' id='form-input-control-address' control={Input} label='Street Address' 
           placeholder='address' width="3" value={props.user.street_address || ''} />
         <Form.Field disabled={props.disabled} onChange={props.onChange} name='city' id='form-input-control-city' control={Input} label='City' 
           placeholder='city' width="3" value={props.user.city || ''} />
         <Form.Field disabled={props.disabled} onChange={props.onChange} name='state' id='form-input-control-state' control={Input} label='State' 
           placeholder='state' width="3" value={props.user.state || ''} />
-        <Form.Field disabled={props.disabled} onChange={props.onChange} name='zipcode' id='form-input-control-zipcode' control={Input} label='ZipCode' 
+        <Form.Field disabled={props.disabled} onChange={props.onChange} name='zipcode' id='form-input-control-zipcode' control={Input} type='number' max={5} label='ZipCode' 
           placeholder='zipcode' width="3" value={props.user.zipcode || ''} />
       </Form.Group>
       <Form.Group>
-        {/*<Form.Field disabled={props.disabled} onChange={props.onChange} name='bank' id='form-input-control-bank' control={Input} label='Bank' 
-          placeholder='bank' width="3" value={props.user.bank || ''} />*/}
         <Form.Field disabled={props.disabled} onChange={props.onChange} name='accountno' id='form-input-control-accno' control={Input} label='Account No' 
           placeholder='accno' width="3" value={props.user.accountno || ''} />
         <Form.Field disabled={props.disabled} onChange={props.onChange} name='routingno' id='form-input-control-routingno' control={Input} label='Routing No' 
