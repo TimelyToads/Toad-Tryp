@@ -134,16 +134,13 @@ app.get('/api/users/:username/trips', (req, res) => {
 })
 
 app.post('/api/users', (req, res) => {
-  let userDetails = req.body;
-  //console.log('POST /api/users:user= ', userDetails);
-
-  let user = userParser.getUser(userDetails);
-  //console.log('POST /api/users:userObj= ', user);
-  
+  let user = req.body;
   models.User.forge(user).save()
   .then((user) => {
-    console.log('\tSAVE SUCCESS\n user=', user);
-    braintree.createOrUpdateMerchantAccount(userDetails, user, res);
+    console.log('\tSAVE SUCCESS\n user=', user.attributes);
+    let userAccObj = userParser.getUser(user.attributes);
+    //console.log('userAccObj=', userAccObj);
+    braintree.createOrUpdateMerchantAccount(userAccObj, user, res);
   })
   .catch( (err) => {
     const message = 'Unable to create user';
