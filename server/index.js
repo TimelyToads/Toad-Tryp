@@ -20,7 +20,11 @@ const io = require('socket.io')(server);
 
 io.on('connection', socket => {
   socket.on('isTyping', data => {
-    socket.broadcast.emit('otherIsTyping', data);
+    socket.broadcast.emit(`otherIsTyping${data.trip}`, data);
+  });
+
+  socket.on('pingUser', data => {
+    io.emit(`pingUser`, data);
   });
 });
 
@@ -255,6 +259,12 @@ app.get('/api/trips/:tripId/getmessages', (req, res) => {
       res.status(404).send({ message });
     });
 });
+
+app.post('/api/trips/payment', (req, res, next) => {
+  res.statusCode = 201;
+  res.send('');
+});
+
 
 app.post('/api/trips/:tripId/sendmessage', (req, res) => {
   const trip_id = req.params.tripId;

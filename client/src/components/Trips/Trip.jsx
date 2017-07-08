@@ -38,8 +38,7 @@ class Trip extends React.Component {
       console.log('Successfully fetching from db in Trip Component', response);
       this.setState({
         redirectTo: this.state.redirectTo,
-        trips: response.data,
-        messages: response.data.messages
+        trips: response.data
       });
     })
     .catch((error) => {

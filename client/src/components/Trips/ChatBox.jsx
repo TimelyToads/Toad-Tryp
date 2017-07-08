@@ -27,7 +27,7 @@ class ChatBox extends React.Component {
 
     this.socket = io.connect('/');
     this.socket.on('updateMessagesAlert', () => that.fetch());
-    this.socket.on('otherIsTyping', (data) => {
+    this.socket.on(`otherIsTyping${this.props.tripId}`, data => {
       this.setState({
         otherIsTyping: data
       });
@@ -49,18 +49,21 @@ class ChatBox extends React.Component {
     });
 
     this.socket.emit('isTyping', { 
-      username: this.props.userData.username || 'annonymous',
-      isTyping: !!event.target.value 
+      username: this.props.userData.username,
+      isTyping: !!event.target.value,
+      trip: this.props.tripId
     });
   }
 
   handleSendMessage() {
     var tripId = this.props.tripId;
-    var userId = this.props.userData.id || 1;
-    var username = this.props.userData.username || 'annonymous';
+    var userId = this.props.userData.id;
+    var username = this.props.userData.username;
 
     var date = new Date();
     var timestamp = date.toISOString().slice(0,10) + ' ' + date.toISOString().slice(11,19);
+
+    this.updateChatBoxField({target: {value: ''}});
 
     if (!!this.state.chatBoxField) {
       axios.post(`/api/trips/${tripId}/sendmessage`, { userId: userId, username_from: username, message: this.state.chatBoxField, timestamp: timestamp})
@@ -68,20 +71,20 @@ class ChatBox extends React.Component {
           console.log('Caught error sending message', error)
         })
     }
-    
-    this.setState({
-      chatBoxField: '',
-    });
-
-    this.socket.emit('isTyping', { 
-      username: this.props.userData.username || 'annonymous',
-      isTyping: false 
-    });
   }
 
   handleDeleteMessage(messageKey) {
     var tripId = this.props.tripId;
     axios.post(`/api/trips/${tripId}/deletemessage`, { messageKey: messageKey })
+  }
+
+  handlePingUser(messageData) {
+    this.socket.emit('pingUser', {
+      username_from: this.props.userData.username,
+      user_id_from: this.props.userData.id,
+      user_id_to: messageData.user_id_from,
+      trip_id: messageData.trip_id
+    });
   }
 
   render() {
@@ -109,7 +112,7 @@ class ChatBox extends React.Component {
           <Comment.Group>
             {
               messages.map((messageData, index) => {
-                return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={this.handleDeleteMessage.bind(this)}/>
+                return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={this.handleDeleteMessage.bind(this)} handlePingUser={this.handlePingUser.bind(this)}/>
               })
             }
             {
@@ -119,7 +122,7 @@ class ChatBox extends React.Component {
         </Card.Content>
         <Card.Content>
           <Form>
-            <Input type='text' onChange={this.updateChatBoxField} value={this.state.chatBoxField} fluid action><input /><Button type='Submit' onClick={this.handleSendMessage.bind(this)} color='green'>Send</Button></Input>
+            <Input type='text' onChange={this.updateChatBoxField} value={this.state.chatBoxField} placeholder='Message your fellow toads...' fluid action><input /><Button type='Submit' onClick={this.handleSendMessage.bind(this)} color='green'>Send</Button></Input>
           </Form>
         </Card.Content>
       </Card> 
