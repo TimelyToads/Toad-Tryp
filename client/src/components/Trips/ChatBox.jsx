@@ -112,7 +112,7 @@ class ChatBox extends React.Component {
           <Comment.Group>
             {
               messages.map((messageData, index) => {
-                return <MessageEntry key={index} messageData={messageData} handleDeleteMessage={this.handleDeleteMessage.bind(this)} handlePingUser={this.handlePingUser.bind(this)}/>
+                return <MessageEntry key={index} user={this.props.userData} messageData={messageData} handleDeleteMessage={this.handleDeleteMessage.bind(this)} handlePingUser={this.handlePingUser.bind(this)}/>
               })
             }
             {
